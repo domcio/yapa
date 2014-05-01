@@ -19,7 +19,7 @@ public class AggregatedMonitoringJob {
     }
 
     public AggregatedMonitoringJob(Collection<MonitoringJob> jobs) {
-        this.jobs = jobs;
+        this.jobs = new ArrayList<MonitoringJob>(jobs);
     }
 
     public void addJob(MonitoringJob job) {

@@ -10,18 +10,22 @@ import java.util.Map;
  * User: Dominik
  * Date: 01.05.14
  * Time: 11:46
+ * TODO better way of mapping...
+ * MongoDB server running on localhost is assumed
  */
 public class DBUtils {
+    public static final String HOSTNAME = "127.0.0.1";
+    public static final int PORT = 27017;
+    public static final String DATABASE_NAME = "yapa";
     public static final String TYPES_TABLE = "AdTypes";
     public static final String TEMPLATES_TABLE = "AdTemplates";
     public static final String JOBS_TABLE = "AdJobs";
     public static final String WEBSITES_TABLE = "AdWebsites";
-    public static final String DATABASE_NAME = "yapa";
     private static DB connection = null;
 
     public static DB getConnection() throws UnknownHostException {
         if (connection == null) {
-            MongoClient client = new MongoClient("localhost", 27017);
+            MongoClient client = new MongoClient(HOSTNAME, PORT);
             connection = client.getDB(DATABASE_NAME);
         }
         return connection;
@@ -31,9 +35,10 @@ public class DBUtils {
         return typeName + "s";
     }
 
+    //TODO inserts return null as the inserted object's ID
     public static void insertAd(Ad ad, AdType type) throws UnknownHostException {
         DB connection = getConnection();
-        String tableName = DBUtils.typeNameToTableName(typeNameToTableName(type.getName()));
+        String tableName = DBUtils.typeNameToTableName(type.getName());
         if (!connection.collectionExists(tableName)) {
             connection.createCollection(tableName, null);
         }
@@ -43,6 +48,8 @@ public class DBUtils {
         for (Map.Entry<String, String> entry : ad.getFieldValues().entrySet()) {
             newAd.append(entry.getKey(), entry.getValue());
         }
+        // do we need reference to adType in this document?
+        coll.insert(newAd);
     }
 
     public static Object insertType(AdType type) throws UnknownHostException {

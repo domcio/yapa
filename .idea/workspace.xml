@@ -2,23 +2,32 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="77fda6c2-3435-449c-9f6e-9d6430ac946c" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/yapa-prototype.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/pl/edu/agh/yapa/monitoring/Ad.java" afterPath="$PROJECT_DIR$/src/main/java/pl/edu/agh/yapa/monitoring/Ad.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/pl/edu/agh/yapa/monitoring/AdType.java" afterPath="$PROJECT_DIR$/src/main/java/pl/edu/agh/yapa/monitoring/AdType.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/pl/edu/agh/yapa/monitoring/AggregatedMonitoringJob.java" afterPath="$PROJECT_DIR$/src/main/java/pl/edu/agh/yapa/monitoring/AggregatedMonitoringJob.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/pl/edu/agh/yapa/monitoring/DBUtils.java" afterPath="$PROJECT_DIR$/src/main/java/pl/edu/agh/yapa/monitoring/DBUtils.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/pl/edu/agh/yapa/monitoring/ExtractionEngine.java" afterPath="$PROJECT_DIR$/src/main/java/pl/edu/agh/yapa/monitoring/ExtractionEngine.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/pl/edu/agh/yapa/monitoring/MonitoringJob.java" afterPath="$PROJECT_DIR$/src/main/java/pl/edu/agh/yapa/monitoring/MonitoringJob.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="inz-spike.iws" />
     <ignored path=".idea/workspace.xml" />
     <file path="/Main.java" changelist="77fda6c2-3435-449c-9f6e-9d6430ac946c" time="1398946698005" ignored="false" />
     <file path="/pom.xml" changelist="77fda6c2-3435-449c-9f6e-9d6430ac946c" time="1398935407809" ignored="false" />
     <file path="/AdTemplate.java" changelist="77fda6c2-3435-449c-9f6e-9d6430ac946c" time="1398933497497" ignored="false" />
-    <file path="/AdType.java" changelist="77fda6c2-3435-449c-9f6e-9d6430ac946c" time="1398942428389" ignored="false" />
+    <file path="/AdType.java" changelist="77fda6c2-3435-449c-9f6e-9d6430ac946c" time="1398957308223" ignored="false" />
     <file path="/Website.java" changelist="77fda6c2-3435-449c-9f6e-9d6430ac946c" time="1398933901969" ignored="false" />
-    <file path="/MonitoringJob.java" changelist="77fda6c2-3435-449c-9f6e-9d6430ac946c" time="1398946181419" ignored="false" />
-    <file path="/ExtractionEngine.java" changelist="77fda6c2-3435-449c-9f6e-9d6430ac946c" time="1398937722654" ignored="false" />
-    <file path="/fragment.java" changelist="77fda6c2-3435-449c-9f6e-9d6430ac946c" time="1398932211111" ignored="false" />
-    <file path="/Ad.java" changelist="77fda6c2-3435-449c-9f6e-9d6430ac946c" time="1398934098163" ignored="false" />
-    <file path="/AggregatedMonitoringJob.java" changelist="77fda6c2-3435-449c-9f6e-9d6430ac946c" time="1398936811306" ignored="false" />
-    <file path="/DBUtils.java" changelist="77fda6c2-3435-449c-9f6e-9d6430ac946c" time="1398947355169" ignored="false" />
+    <file path="/MonitoringJob.java" changelist="77fda6c2-3435-449c-9f6e-9d6430ac946c" time="1398958016058" ignored="false" />
+    <file path="/ExtractionEngine.java" changelist="77fda6c2-3435-449c-9f6e-9d6430ac946c" time="1398957186983" ignored="false" />
+    <file path="/fragment.java" changelist="77fda6c2-3435-449c-9f6e-9d6430ac946c" time="1398958274702" ignored="false" />
+    <file path="/Ad.java" changelist="77fda6c2-3435-449c-9f6e-9d6430ac946c" time="1398957349455" ignored="false" />
+    <file path="/AggregatedMonitoringJob.java" changelist="77fda6c2-3435-449c-9f6e-9d6430ac946c" time="1398957956940" ignored="false" />
+    <file path="/DBUtils.java" changelist="77fda6c2-3435-449c-9f6e-9d6430ac946c" time="1398958224345" ignored="false" />
     <file path="/a.dummy" changelist="77fda6c2-3435-449c-9f6e-9d6430ac946c" time="1398945570322" ignored="false" />
     <file path="/Dummy.txt" changelist="77fda6c2-3435-449c-9f6e-9d6430ac946c" time="1398956530439" ignored="false" />
+    <file path="/README.md" changelist="77fda6c2-3435-449c-9f6e-9d6430ac946c" time="1398958518433" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,7 +96,18 @@
       <file leaf-file-name="DBUtils.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/yapa/monitoring/DBUtils.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+            <state line="67" column="58" selection-start="2472" selection-end="2472" vertical-scroll-proportion="0.936803">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ExtractionEngine.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/yapa/monitoring/ExtractionEngine.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="27" column="25" selection-start="700" selection-end="700" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -98,8 +118,19 @@
       <file leaf-file-name="AdTemplate.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/yapa/monitoring/AdTemplate.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="24" selection-start="416" selection-end="416" vertical-scroll-proportion="0.0">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Website.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/yapa/monitoring/Website.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="30" column="36" selection-start="720" selection-end="720" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -107,7 +138,25 @@
       <file leaf-file-name="AdType.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/yapa/monitoring/AdType.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="1" column="0" selection-start="36" selection-end="36" vertical-scroll-proportion="0.0">
+            <state line="11" column="87" selection-start="265" selection-end="265" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Ad.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/yapa/monitoring/Ad.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="3" column="0" selection-start="63" selection-end="63" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="pom.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pom.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="11" column="32" selection-start="460" selection-end="460" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -116,7 +165,7 @@
       <file leaf-file-name="MonitoringJob.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/yapa/monitoring/MonitoringJob.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="35" column="8" selection-start="1114" selection-end="1317" vertical-scroll-proportion="0.0">
+            <state line="30" column="0" selection-start="837" selection-end="837" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -125,8 +174,19 @@
       <file leaf-file-name="Main.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/yapa/monitoring/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="6" column="16" selection-start="114" selection-end="114" vertical-scroll-proportion="0.0">
+            <state line="23" column="29" selection-start="953" selection-end="953" vertical-scroll-proportion="0.0">
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AggregatedMonitoringJob.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/yapa/monitoring/AggregatedMonitoringJob.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="34" column="54" selection-start="753" selection-end="753" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -149,14 +209,7 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/AdTemplate.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Website.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ExtractionEngine.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Ad.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Main.java" />
-        <option value="$PROJECT_DIR$/src/main/java/AggregatedMonitoringJob.java" />
         <option value="$PROJECT_DIR$/src/main/java/MonitoringJob.java" />
-        <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/pl/edu/agh/yapa/Ad.java" />
         <option value="$PROJECT_DIR$/src/main/java/pl/edu/agh/yapa/AggregatedMonitoringJob.java" />
         <option value="$PROJECT_DIR$/src/main/java/pl/edu/agh/yapa/ExtractionEngine.java" />
@@ -164,8 +217,22 @@
         <option value="$PROJECT_DIR$/src/main/java/pl/edu/agh/yapa/Main.java" />
         <option value="$PROJECT_DIR$/src/main/java/pl/edu/agh/yapa/MonitoringJob.java" />
         <option value="$PROJECT_DIR$/src/main/java/pl/edu/agh/yapa/DBUtils.java" />
+        <option value="$PROJECT_DIR$/src/main/java/pl/edu/agh/yapa/monitoring/ExtractionEngine.java" />
+        <option value="$PROJECT_DIR$/src/main/java/pl/edu/agh/yapa/monitoring/AdType.java" />
+        <option value="$PROJECT_DIR$/src/main/java/pl/edu/agh/yapa/monitoring/Ad.java" />
+        <option value="$PROJECT_DIR$/src/main/java/pl/edu/agh/yapa/monitoring/AggregatedMonitoringJob.java" />
+        <option value="$PROJECT_DIR$/src/main/java/pl/edu/agh/yapa/monitoring/MonitoringJob.java" />
         <option value="$PROJECT_DIR$/src/main/java/pl/edu/agh/yapa/monitoring/DBUtils.java" />
+        <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/pom.xml" />
       </list>
+    </option>
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="importAutomatically" value="true" />
+      </MavenImportingSettings>
     </option>
   </component>
   <component name="ProjectFrameBounds">
@@ -322,6 +389,7 @@
     <property name="MemberChooser.sorted" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
+    <property name="dynamic.classpath" value="false" />
     <property name="MemberChooser.copyJavadoc" value="false" />
   </component>
   <component name="RecentsManager">
@@ -460,13 +528,35 @@
     </task>
     <servers />
   </component>
+  <component name="TodoView" selected-index="0">
+    <todo-panel id="selected-file">
+      <are-packages-shown value="false" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="default-changelist">
+      <are-packages-shown value="false" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="false" />
+    </todo-panel>
+  </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
+      <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" x="92" y="92" width="1182" height="544" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32991454" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32954547" sideWeight="0.82393163" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -475,20 +565,18 @@
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32991454" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="CDI" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.13504274" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25" sideWeight="0.7606838" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23770492" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" x="92" y="92" width="1182" height="544" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25" sideWeight="0.52991456" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.47008547" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32991454" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32991454" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -594,80 +682,85 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1" column="31" selection-start="9" selection-end="9" vertical-scroll-proportion="0.031598512">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="76" selection-start="152" selection-end="152" vertical-scroll-proportion="0.081145585">
+        <state line="11" column="32" selection-start="460" selection-end="460" vertical-scroll-proportion="0.0">
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/yapa/monitoring/AggregatedMonitoringJob.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="33" column="55" selection-start="711" selection-end="711" vertical-scroll-proportion="0.7159904">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/yapa/monitoring/ExtractionEngine.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="36" selection-start="310" selection-end="310" vertical-scroll-proportion="0.040572792">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/yapa/monitoring/Website.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="44" selection-start="483" selection-end="483" vertical-scroll-proportion="0.44630072">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/yapa/monitoring/AdType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="0" selection-start="36" selection-end="36" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/yapa/monitoring/AdTemplate.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="24" selection-start="416" selection-end="416" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/yapa/monitoring/Ad.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="35" selection-start="242" selection-end="242" vertical-scroll-proportion="0.24343675">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/yapa/monitoring/MonitoringJob.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="8" selection-start="1114" selection-end="1317" vertical-scroll-proportion="0.0">
+        <state line="30" column="0" selection-start="837" selection-end="837" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/yapa/monitoring/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="16" selection-start="114" selection-end="114" vertical-scroll-proportion="0.0">
+        <state line="23" column="29" selection-start="953" selection-end="953" vertical-scroll-proportion="0.0">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/yapa/monitoring/AggregatedMonitoringJob.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="34" column="54" selection-start="753" selection-end="753" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/yapa/monitoring/Ad.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3" column="0" selection-start="63" selection-end="63" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/yapa/monitoring/AdType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="87" selection-start="265" selection-end="265" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/yapa/monitoring/Website.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="30" column="36" selection-start="720" selection-end="720" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/yapa/monitoring/AdTemplate.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/yapa/monitoring/ExtractionEngine.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="27" column="25" selection-start="700" selection-end="700" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/yapa/monitoring/DBUtils.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+        <state line="67" column="58" selection-start="2472" selection-end="2472" vertical-scroll-proportion="0.936803">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

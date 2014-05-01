@@ -7,6 +7,7 @@ import java.util.Collection;
  * User: Dominik
  * Date: 01.05.14
  * Time: 09:36
+ * A type of an ad i.e. a collection of fields, abstracted from the way we obtain them.
  */
 public class AdType {
     private Collection<String> fields;

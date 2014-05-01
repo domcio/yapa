@@ -8,6 +8,7 @@ import java.util.Map;
  * User: Dominik
  * Date: 01.05.14
  * Time: 10:16
+ * An instance of ad data obtained using a template.
  */
 public class Ad {
     private AdType type;

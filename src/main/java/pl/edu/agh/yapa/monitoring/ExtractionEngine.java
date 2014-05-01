@@ -16,7 +16,7 @@ import java.util.Map;
  * User: Dominik
  * Date: 01.05.14
  * Time: 10:14
- * In the future Engine should be an interface (???)
+ * In the final release - interface (?)
  */
 public class ExtractionEngine {
     private HtmlCleaner cleaner;
