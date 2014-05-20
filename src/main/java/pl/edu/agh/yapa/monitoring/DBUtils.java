@@ -35,6 +35,10 @@ public class DBUtils {
         return typeName + "s";
     }
 
+    public static void initDB() {
+
+    }
+
     //TODO inserts return null as the inserted object's ID
     public static void insertAd(Ad ad, AdType type) throws UnknownHostException {
         DB connection = getConnection();
@@ -109,5 +113,22 @@ public class DBUtils {
         jobObj.append("engine", "htmlCleaner"); //??
         jobObj.append("interval", job.getInterval());
         coll.insert(jobObj);
+    }
+
+    public static void listTable(String tableName) throws UnknownHostException {
+        DB connection = getConnection();
+        DBCollection coll = connection.getCollection(tableName);
+        for (DBObject obj : coll.find()){
+            System.out.println(obj.toString());
+        }
+    }
+
+    public static void listAds() throws UnknownHostException {
+        DB connection = getConnection();
+        DBCollection coll = connection.getCollection(TYPES_TABLE);
+        for (DBObject obj : coll.find()){
+            String adTableName = (String) obj.get("name");
+            listTable(adTableName + "s");
+        }
     }
 }
