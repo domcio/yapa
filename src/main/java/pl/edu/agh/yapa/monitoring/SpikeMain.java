@@ -14,7 +14,7 @@ public class SpikeMain {
                 new java.io.InputStreamReader(System.in));
         try {
             do {
-                System.out.println("(ne) new template (nt) new type (nj) new job");
+                System.out.println("(c) clear database (ex) execute Gumtree job");
                 System.out
                         .print("(a) show ads (e) show templates (t) show types (j) show jobs (x) exit\n==> ");
                 System.out.flush();
@@ -27,12 +27,10 @@ public class SpikeMain {
                     DBUtils.listTable(DBUtils.TEMPLATES_TABLE);
                 } else if (line.equals("a")) {
                     DBUtils.listAds();
-                } else if (line.equals("ne")) {
-                    DBUtils.listAds();
-                } else if (line.equals("nt")) {
-                    DBUtils.listAds();
-                } else if (line.equals("nj")) {
-                    DBUtils.listAds();
+                } else if (line.equals("ex")) {
+                    GumtreeUtils.constructAndExecuteSampleJob();
+                } else if (line.equals("c")) {
+                    DBUtils.clearDB();
                 }
             }
             while (!line.equals("x"));

@@ -8,8 +8,8 @@ import java.util.Arrays;
  * Date: 30.04.14
  * Time: 15:54
  */
-public class Main {
-    public static void main(String[] args) throws Exception {
+public class GumtreeUtils {
+    public static void constructAndExecuteSampleJob() throws Exception {
         AdType agdAdType = new AdType(Arrays.asList("title", "description", "locality"), "gumtreeAGDAd");
         Object typeID = DBUtils.insertType(agdAdType);
         ExtractionEngine engine = new ExtractionEngine();

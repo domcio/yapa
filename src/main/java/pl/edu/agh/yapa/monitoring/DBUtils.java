@@ -131,4 +131,9 @@ public class DBUtils {
             listTable(adTableName + "s");
         }
     }
+
+    public static void clearDB() throws UnknownHostException {
+        DB connection = getConnection();
+        connection.dropDatabase();
+    }
 }
