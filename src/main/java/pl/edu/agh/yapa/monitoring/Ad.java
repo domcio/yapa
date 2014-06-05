@@ -11,12 +11,10 @@ import java.util.Map;
  * An instance of ad data obtained using a template.
  */
 public class Ad {
-    private AdType type;
     private Map<String, String> fieldValues;
 
-    public Ad(AdType type) {
-        this.type = type;
-        this.fieldValues = new HashMap<String, String>();
+    public Ad() {
+        this.fieldValues = new HashMap<>();
     }
 
     public void setValue(String field, String value) {

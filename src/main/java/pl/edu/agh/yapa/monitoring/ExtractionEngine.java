@@ -35,7 +35,7 @@ public class ExtractionEngine {
     public Collection<Ad> extractAds(Website website, AdTemplate template) throws Exception {
         TagNode topLevelNode = cleaner.clean(new URL(website.getTopURL()));
         Collection<String> subURLXPaths = website.getSubURLXPaths();
-        Collection<Ad> ads = new ArrayList<Ad>();
+        Collection<Ad> ads = new ArrayList<>();
         for (String subURLXPath : subURLXPaths) {
             Object[] subURLs = topLevelNode.evaluateXPath(subURLXPath);
             for (Object subURL : subURLs) {
@@ -48,15 +48,18 @@ public class ExtractionEngine {
 
     //extract from this website
     private Ad extractAd(URL subURL, AdTemplate template) throws IOException, XPatherException {
-        AdType type = template.getType();
-        Ad ad = new Ad(type);
-        Collection<String> fields = type.getFields();
+        Ad ad = new Ad();
+        Collection<String> fields = template.getType().getFields();
         Map<String, String> fieldXPaths = template.getPaths();
         TagNode rootNode = cleaner.clean(subURL);
         for (String field : fields) {
-            Object[] result = rootNode.evaluateXPath(fieldXPaths.get(field));
-            if (result.length != 1) throw new IllegalStateException();
-            ad.setValue(field, (String) result[0]);
+            if (!fieldXPaths.containsKey(field)) {
+                ad.setValue(field, null);
+            } else {
+                Object[] result = rootNode.evaluateXPath(fieldXPaths.get(field));
+                if (result.length != 1) throw new IllegalStateException();
+                ad.setValue(field, (String) result[0]);
+            }
         }
         return ad;
     }
