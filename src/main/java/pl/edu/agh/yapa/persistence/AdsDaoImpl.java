@@ -24,7 +24,7 @@ public class AdsDaoImpl implements AdsDao {
 
     @Override
     public List<Ad> getAllAds(String adTypeName) throws InvalidDatabaseStateException {
-        if ( !database.collectionExists(adTypeName) ){
+        if (!database.collectionExists(adTypeName)) {
             throw new IllegalArgumentException(adTypeName);
         }
 
@@ -37,7 +37,7 @@ public class AdsDaoImpl implements AdsDao {
             Ad ad = new Ad();
             for (String field : fields) {
                 //TODO: for now casting to String cause everything is to be a string
-                ad.setValue( field, (String) adObject.get(field) );
+                ad.setValue(field, (String) adObject.get(field));
             }
             resultList.add(ad);
         }
@@ -46,15 +46,17 @@ public class AdsDaoImpl implements AdsDao {
     }
 
     private String[] getFields(String adTypeName) throws InvalidDatabaseStateException {
-        if ( !database.collectionExists(TYPES_COLLECTION) ){
+        if (!database.collectionExists(TYPES_COLLECTION)) {
             throw new InvalidDatabaseStateException("No " + TYPES_COLLECTION + " collection existing");
         }
 
         DBCollection collection = database.getCollection(TYPES_COLLECTION);
-        BasicDBList fieldsListObject = (BasicDBList) collection.findOne( new BasicDBObject("name", adTypeName) );
+        DBObject adTypeObject = collection.findOne(new BasicDBObject("name", adTypeName));
 
         //TODO: kind of WTF-casting
-        return (String[]) fieldsListObject.toArray();
+        BasicDBList fieldList = (BasicDBList) adTypeObject.get("fields");
+        Object[] array = new String[10];
+        return fieldList.toArray(new String[0]);
     }
 
 }

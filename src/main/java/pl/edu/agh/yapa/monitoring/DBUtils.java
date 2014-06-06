@@ -32,7 +32,7 @@ public class DBUtils {
     }
 
     public static String typeNameToTableName(String typeName) {
-        return typeName + "s";
+        return typeName;
     }
 
     public static void initDB() {

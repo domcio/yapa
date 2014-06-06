@@ -1,8 +1,17 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="pl-pl">
+<head>
+    <meta charset="utf-8"/>
+    <title>YAPA</title>
+</head>
 <body>
+    <h1>Gumtree AGD Ads</h1>
 
-
+    <table>
+        <tr th:each="ad : ${ads}">
+            <td th:text="${ad.toString()}">coś</td>
+        </tr>
+    </table>
 
 </body>
 </html>
