@@ -1,5 +1,9 @@
 package pl.edu.agh.yapa.model;
 
+import com.mongodb.BasicDBList;
+import com.mongodb.DBObject;
+
+import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -16,6 +20,15 @@ public class AdType {
     public AdType(Collection<String> fields, String name) {
         this.fields = fields;
         this.name = name;
+    }
+
+    public AdType(DBObject object) {
+        this.name = (String) object.get("name");
+        this.fields = new ArrayList<>();
+        BasicDBList fieldList = (BasicDBList) object.get("fields");
+        for (Object obj : fieldList) {
+            fields.add((String) obj);
+        }
     }
 
     public Collection<String> getFields() {

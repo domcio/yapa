@@ -2,6 +2,7 @@ package pl.edu.agh.yapa.persistence;
 
 import com.mongodb.*;
 import pl.edu.agh.yapa.model.Ad;
+import pl.edu.agh.yapa.model.AdType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +39,20 @@ public class AdsDaoImpl implements AdsDao {
             resultList.add(ad);
         }
         return resultList;
+    }
+
+    @Override
+    public List<AdType> getTypes() throws InvalidDatabaseStateException {
+        if (!database.collectionExists(TYPES_COLLECTION)) {
+            throw new InvalidDatabaseStateException(TYPES_COLLECTION + " collection does not exist");
+        }
+        List<AdType> typesList = new ArrayList<>();
+
+        DBCollection typesCollection = database.getCollection(TYPES_COLLECTION);
+        for (DBObject typeObj : typesCollection.find()) {
+            typesList.add(new AdType(typeObj));
+        }
+        return typesList;
     }
 
     private String[] getFields(String adTypeName) throws InvalidDatabaseStateException {

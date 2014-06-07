@@ -1,6 +1,7 @@
 package pl.edu.agh.yapa.crawler;
 
 import com.mongodb.*;
+import org.bson.types.ObjectId;
 import pl.edu.agh.yapa.model.*;
 
 import java.net.UnknownHostException;
@@ -53,7 +54,7 @@ public class DBUtils {
         coll.insert(newAd);
     }
 
-    public static Object insertType(AdType type) throws UnknownHostException {
+    public static ObjectId insertType(AdType type) throws UnknownHostException {
         DB connection = getConnection();
         if (!connection.collectionExists(TYPES_TABLE)) {
             connection.createCollection(TYPES_TABLE, null);
@@ -65,10 +66,11 @@ public class DBUtils {
         BasicDBList list = new BasicDBList();
         for (String field : type.getFields()) list.add(field);
         adType.append("fields", list);
-        return coll.insert(adType).getUpsertedId();
+        coll.insert(adType);
+        return (ObjectId) adType.get("_id");
     }
 
-    public static Object insertTemplate(AdTemplate template, Object typeID) throws UnknownHostException {
+    public static ObjectId insertTemplate(AdTemplate template, ObjectId typeID) throws UnknownHostException {
         DB connection = getConnection();
         if (!connection.collectionExists(TEMPLATES_TABLE)) {
             connection.createCollection(TEMPLATES_TABLE, null);
@@ -80,10 +82,11 @@ public class DBUtils {
             templateObj.append(entry.getKey(), entry.getValue());
         }
         templateObj.append("type", typeID);
-        return coll.insert(templateObj).getUpsertedId();
+        coll.insert(templateObj);
+        return (ObjectId) templateObj.get("_id");
     }
 
-    public static Object insertWebsite(Website website) throws UnknownHostException {
+    public static ObjectId insertWebsite(Website website) throws UnknownHostException {
         DB connection = getConnection();
         if (!connection.collectionExists(WEBSITES_TABLE)) {
             connection.createCollection(WEBSITES_TABLE, null);
@@ -95,10 +98,11 @@ public class DBUtils {
         for (String subURL : website.getSubURLXPaths())
         subURLsList.add(subURL);
         sampleWebsite.append("subURLXPaths", subURLsList);
-        return coll.insert(sampleWebsite).getUpsertedId();
+        coll.insert(sampleWebsite);
+        return (ObjectId) sampleWebsite.get("_id");
     }
 
-    public static void insertJob(MonitoringJob job, Object templateID, Object websiteID) throws UnknownHostException {
+    public static ObjectId insertJob(MonitoringJob job, Object templateID, Object websiteID) throws UnknownHostException {
         DB connection = getConnection();
         if (!connection.collectionExists(JOBS_TABLE)) {
             connection.createCollection(JOBS_TABLE, null);
@@ -110,6 +114,7 @@ public class DBUtils {
         jobObj.append("engine", "htmlCleaner"); //??
         jobObj.append("interval", job.getInterval());
         coll.insert(jobObj);
+        return (ObjectId) jobObj.get("_id");
     }
 
     public static void listTable(String tableName) throws UnknownHostException {
@@ -125,7 +130,7 @@ public class DBUtils {
         DBCollection coll = connection.getCollection(TYPES_TABLE);
         for (DBObject obj : coll.find()){
             String adTableName = (String) obj.get("name");
-            listTable(adTableName + "s");
+            listTable(typeNameToTableName(adTableName));
         }
     }
 
