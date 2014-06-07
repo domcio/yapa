@@ -1,7 +1,9 @@
-package pl.edu.agh.yapa.monitoring;
+package pl.edu.agh.yapa.model;
 
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
+import pl.edu.agh.yapa.crawler.DBUtils;
+import pl.edu.agh.yapa.extraction.ExtractionEngine;
 
 import java.util.Collection;
 

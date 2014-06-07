@@ -1,7 +1,7 @@
 package pl.edu.agh.yapa.persistence;
 
 import com.mongodb.*;
-import pl.edu.agh.yapa.monitoring.Ad;
+import pl.edu.agh.yapa.model.Ad;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,10 +10,6 @@ import java.util.List;
  * @author pawel
  */
 public class AdsDaoImpl implements AdsDao {
-
-    public static final String HOSTNAME = "127.0.0.1";
-    public static final int PORT = 27017;
-    public static final String DATABASE_NAME = "yapa";
 
     public static final String TYPES_COLLECTION = "AdTypes";
     private final DB database;
@@ -41,7 +37,6 @@ public class AdsDaoImpl implements AdsDao {
             }
             resultList.add(ad);
         }
-
         return resultList;
     }
 
@@ -55,7 +50,6 @@ public class AdsDaoImpl implements AdsDao {
 
         //TODO: kind of WTF-casting
         BasicDBList fieldList = (BasicDBList) adTypeObject.get("fields");
-        Object[] array = new String[10];
         return fieldList.toArray(new String[0]);
     }
 

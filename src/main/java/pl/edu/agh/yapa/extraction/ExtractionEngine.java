@@ -1,9 +1,12 @@
-package pl.edu.agh.yapa.monitoring;
+package pl.edu.agh.yapa.extraction;
 
 import org.htmlcleaner.CleanerProperties;
 import org.htmlcleaner.HtmlCleaner;
 import org.htmlcleaner.TagNode;
 import org.htmlcleaner.XPatherException;
+import pl.edu.agh.yapa.model.Ad;
+import pl.edu.agh.yapa.model.AdTemplate;
+import pl.edu.agh.yapa.model.Website;
 
 import java.io.IOException;
 import java.net.URL;

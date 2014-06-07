@@ -1,4 +1,10 @@
-package pl.edu.agh.yapa.monitoring;
+package pl.edu.agh.yapa.crawler;
+
+import pl.edu.agh.yapa.extraction.ExtractionEngine;
+import pl.edu.agh.yapa.model.AdTemplate;
+import pl.edu.agh.yapa.model.AdType;
+import pl.edu.agh.yapa.model.MonitoringJob;
+import pl.edu.agh.yapa.model.Website;
 
 import java.util.Arrays;
 

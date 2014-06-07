@@ -1,6 +1,6 @@
 package pl.edu.agh.yapa.persistence;
 
-import pl.edu.agh.yapa.monitoring.Ad;
+import pl.edu.agh.yapa.model.Ad;
 
 import java.util.List;
 

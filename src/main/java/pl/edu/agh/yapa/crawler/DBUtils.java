@@ -1,6 +1,7 @@
-package pl.edu.agh.yapa.monitoring;
+package pl.edu.agh.yapa.crawler;
 
 import com.mongodb.*;
+import pl.edu.agh.yapa.model.*;
 
 import java.net.UnknownHostException;
 import java.util.Map;
@@ -33,10 +34,6 @@ public class DBUtils {
 
     public static String typeNameToTableName(String typeName) {
         return typeName;
-    }
-
-    public static void initDB() {
-
     }
 
     //TODO inserts return null as the inserted object's ID

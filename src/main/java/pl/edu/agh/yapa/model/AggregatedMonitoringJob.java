@@ -1,4 +1,4 @@
-package pl.edu.agh.yapa.monitoring;
+package pl.edu.agh.yapa.model;
 
 import com.mongodb.DB;
 
