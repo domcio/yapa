@@ -25,4 +25,5 @@ public class AdService {
         return adsDao.getAllAds(adTypeName);
     }
     public List<AdType> getAdTypes() throws InvalidDatabaseStateException { return adsDao.getTypes(); }
+    public void insertAdType(AdType adType) throws InvalidDatabaseStateException { adsDao.insertType(adType); }
 }

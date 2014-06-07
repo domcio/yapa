@@ -44,7 +44,7 @@ public class AdsDaoImpl implements AdsDao {
     @Override
     public List<AdType> getTypes() throws InvalidDatabaseStateException {
         if (!database.collectionExists(TYPES_COLLECTION)) {
-            throw new InvalidDatabaseStateException(TYPES_COLLECTION + " collection does not exist");
+            throw new InvalidDatabaseStateException("Collection " + TYPES_COLLECTION + " does not exist");
         }
         List<AdType> typesList = new ArrayList<>();
 
@@ -55,9 +55,25 @@ public class AdsDaoImpl implements AdsDao {
         return typesList;
     }
 
+    @Override
+    public void insertType(AdType adType) throws InvalidDatabaseStateException {
+        if (!database.collectionExists(TYPES_COLLECTION)) {
+            throw new InvalidDatabaseStateException("Collection " + TYPES_COLLECTION + " does not exist");
+        }
+        DBCollection typesCollection = database.getCollection(TYPES_COLLECTION);
+        DBObject newType = new BasicDBObject();
+        newType.put("name", adType.getName());
+        BasicDBList fieldsList = new BasicDBList();
+        for (String field : adType.getFields()) {
+            fieldsList.add(field);
+        }
+        newType.put("fields", fieldsList);
+        typesCollection.insert(newType);
+    }
+
     private String[] getFields(String adTypeName) throws InvalidDatabaseStateException {
         if (!database.collectionExists(TYPES_COLLECTION)) {
-            throw new InvalidDatabaseStateException("No " + TYPES_COLLECTION + " collection existing");
+            throw new InvalidDatabaseStateException("Collection " + TYPES_COLLECTION + " does not exist");
         }
 
         DBCollection collection = database.getCollection(TYPES_COLLECTION);

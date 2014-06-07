@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8"/>
+    <title></title>
+</head>
+<body>
+<form action="#" th:action="@{/addType}" th:object="${adType}" method="post">
+    Nazwa szablonu:
+    <input type="text"  th:field="*{name}"/>
+    Pola szablonu:
+    <table>
+        <thead>
+        <th>
+            <button type="submit" name="addField">Add field</button>
+        </th>
+        </thead>
+        <tr th:each="row,rowStat : ${adType.fields}">
+            <td th:text="${rowStat.count}">1</td>
+            <td>
+                <input type="text" th:field="*{fields[__${rowStat.index}__]}"/>
+            </td>
+            <td>
+                <button type="submit" name="removeField"
+                        th:value="${rowStat.index}">Remove field
+                </button>
+            </td>
+        </tr>
+    </table>
+    <button type="submit" name="submitType">Submit</button>
+</form>
+</body>
+</html>

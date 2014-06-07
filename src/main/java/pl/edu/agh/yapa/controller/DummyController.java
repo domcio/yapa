@@ -15,7 +15,7 @@ public class DummyController{
 
     @RequestMapping("/")
     public ModelAndView hello(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
-        ModelAndView modelAndView = new ModelAndView("DummyPage");
+        ModelAndView modelAndView = new ModelAndView("index");
         modelAndView.addObject("message", "hiho");
 
         return modelAndView;

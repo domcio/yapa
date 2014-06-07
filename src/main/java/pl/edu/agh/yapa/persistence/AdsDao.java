@@ -12,5 +12,5 @@ public interface AdsDao {
 
     List<Ad> getAllAds(String adTypeName) throws InvalidDatabaseStateException;
     List<AdType> getTypes() throws InvalidDatabaseStateException;
-
+    void insertType(AdType adType) throws InvalidDatabaseStateException;
 }
