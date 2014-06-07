@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="pl-pl">
+<head>
+    <meta charset="UTF-8"/>
+    <title>YAPA</title>
+</head>
+<body>
+<h1>Ad Types</h1>
+
+<table border="1" style="width:300px">
+    <tr th:each="type : ${types}">
+        <td th:text="${type.name}"/>
+        <td th:each="field : ${type.fields}">
+            <div th:text="${field}"></div>
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>

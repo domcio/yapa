@@ -25,6 +25,8 @@ public class Ad {
         return fieldValues;
     }
 
+
+
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();

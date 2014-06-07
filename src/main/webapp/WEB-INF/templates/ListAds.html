@@ -5,13 +5,19 @@
     <title>YAPA</title>
 </head>
 <body>
-    <h1>Gumtree AGD Ads</h1>
+<h1>Gumtree AGD Ads</h1>
 
-    <table>
-        <tr th:each="ad : ${ads}">
-            <td th:text="${ad.toString()}">coś</td>
-        </tr>
-    </table>
+<table>
+    <ul>
+        <li th:each="ad : ${ads}">
+            <ul>
+                <li th:each="field : ${ad.fieldValues}">
+                    <div th:text="${field.key} + ': ' +  ${field.value}"/>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</table>
 
 </body>
 </html>
