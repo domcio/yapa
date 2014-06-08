@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html>
-<head lang="en">
+<html lang="pl-pl">
+<head>
     <meta charset="UTF-8"/>
-    <title></title>
+    <title>Nowy Typ - YAPA</title>
 </head>
 <body>
 <form action="#" th:action="@{/addType}" th:object="${adType}" method="post">
-    Nazwa szablonu:
-    <input type="text"  th:field="*{name}"/>
-    Pola szablonu:
+    Nazwa typu:
+    <input type="text" th:field="*{name}"/>
+    Pola typu:
     <table>
         <thead>
         <th>
-            <button type="submit" name="addField">Add field</button>
+            <button type="submit" name="addField">Dodaj pole</button>
         </th>
         </thead>
         <tr th:each="row,rowStat : ${adType.fields}">
@@ -22,12 +22,12 @@
             </td>
             <td>
                 <button type="submit" name="removeField"
-                        th:value="${rowStat.index}">Remove field
+                        th:value="${rowStat.index}">Usuń pole
                 </button>
             </td>
         </tr>
     </table>
-    <button type="submit" name="submitType">Submit</button>
+    <button type="submit" name="submitType">Dodaj</button>
 </form>
 </body>
 </html>
