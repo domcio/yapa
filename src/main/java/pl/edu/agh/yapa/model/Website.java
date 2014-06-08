@@ -10,11 +10,13 @@ import java.util.Collection;
  * Time: 10:08
  * Top level website along with how we access the subsites
  * (e.g. a URL of a list of auctions and XPath(s) to get the
- * URLs of a single auction)
+ * URLs of a single auction), and also mechanism to access subsequent pages
  */
 public class Website {
     private String topURL;
     private Collection<String> subURLXPaths;
+    private String nextPageXPath;
+    private boolean multiPage;
 
     public Website(String topURL) {
         this.topURL = topURL;
@@ -25,11 +27,27 @@ public class Website {
         this.subURLXPaths.add(subURLXPath);
     }
 
+    public void setNextPageXPath(String nextPageXPath) {
+        this.nextPageXPath = nextPageXPath;
+    }
+
     public String getTopURL() {
         return topURL;
     }
 
     public Collection<String> getSubURLXPaths() {
         return subURLXPaths;
+    }
+
+    public String getNextPageXPath() {
+        return nextPageXPath;
+    }
+
+    public boolean isMultiPage() {
+        return multiPage;
+    }
+
+    public void setMultiPage(boolean multiPage) {
+        this.multiPage = multiPage;
     }
 }

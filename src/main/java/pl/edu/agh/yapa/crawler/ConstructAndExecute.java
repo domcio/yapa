@@ -17,23 +17,25 @@ import java.util.Arrays;
  */
 public class ConstructAndExecute {
     public static void sampleGumtreeJob() throws Exception {
-        AdType agdAdType = new AdType(Arrays.asList("title", "description", "locality"), "gumtreeAGDAd");
-        ObjectId typeID = DBUtils.insertType(agdAdType);
+        AdType type = new AdType(Arrays.asList("title", "description", "locality"), "gumtreeAGDAd");
+        ObjectId typeID = DBUtils.insertType(type);
         ExtractionEngine engine = new ExtractionEngine();
 
-        Website gumtreeWebsite = new Website("http://www.gumtree.pl/fp-agd/c9366");
-        gumtreeWebsite.addSubURLXPath("//a[@class=\'adLinkSB\']/@href");
-        Object websiteID = DBUtils.insertWebsite(gumtreeWebsite);
+        Website website = new Website("http://www.gumtree.pl/fp-agd/c9366");
+        website.addSubURLXPath("//a[@class=\'adLinkSB\']/@href");
+        website.setMultiPage(true);
+        website.setNextPageXPath("//a[@class=\'prevNextLink\'][contains(., 'Nast')]/@href");
+        Object websiteID = DBUtils.insertWebsite(website);
         System.out.println("inserted website id: " + websiteID);
 
-        AdTemplate gumtreeTemplate = new AdTemplate(agdAdType);
-        gumtreeTemplate.setPath("title", "//meta[@property=\'og:title\']/@content");
-        gumtreeTemplate.setPath("description", "//meta[@property=\'og:description\']/@content");
-        gumtreeTemplate.setPath("locality", "//meta[@property=\'og:locality\']/@content");
-        Object templateID = DBUtils.insertTemplate(gumtreeTemplate, typeID);
+        AdTemplate template = new AdTemplate(type);
+        template.setPath("title", "//meta[@property=\'og:title\']/@content");
+        template.setPath("description", "//meta[@property=\'og:description\']/@content");
+        template.setPath("locality", "//meta[@property=\'og:locality\']/@content");
+        Object templateID = DBUtils.insertTemplate(template, typeID);
         System.out.println("inserted template id: " + templateID);
 
-        MonitoringJob job = new MonitoringJob(gumtreeWebsite, gumtreeTemplate, engine, 100);
+        MonitoringJob job = new MonitoringJob(website, template, engine, 100);
         job.update(DBUtils.getConnection());
         DBUtils.insertJob(job, templateID, websiteID);
     }
@@ -46,6 +48,8 @@ public class ConstructAndExecute {
         Website website = new Website("http://olx.pl/nieruchomosci/mieszkania/");
         website.addSubURLXPath("//a[@class=\'thumb vtop inlblk rel tdnone linkWithHash scale4 detailsLink\']/@href");
         website.addSubURLXPath("//a[@class=\'thumb vtop inlblk rel tdnone linkWithHash scale4 detailsLinkPromoted\']/@href");
+        website.setMultiPage(true);
+        website.setNextPageXPath("//span[@class=\'fbold next abs large\']/a/@href");
         Object websiteID = DBUtils.insertWebsite(website);
         System.out.println("inserted website id: " + websiteID);
 
