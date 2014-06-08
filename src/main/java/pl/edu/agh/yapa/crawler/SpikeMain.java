@@ -14,7 +14,7 @@ public class SpikeMain {
                 new java.io.InputStreamReader(System.in));
         try {
             do {
-                System.out.println("(c) clear database (ex) execute Gumtree job");
+                System.out.println("(c) clear database (ex-g) execute Gumtree job (ex-o) execute OLX job");
                 System.out
                         .print("(a) show ads (e) show templates (t) show types (j) show jobs (x) exit\n==> ");
                 System.out.flush();
@@ -27,8 +27,10 @@ public class SpikeMain {
                     DBUtils.listTable(DBUtils.TEMPLATES_TABLE);
                 } else if (line.equals("a")) {
                     DBUtils.listAds();
-                } else if (line.equals("ex")) {
-                    GumtreeUtils.constructAndExecuteSampleJob();
+                } else if (line.equals("ex-g")) {
+                    ConstructAndExecute.sampleGumtreeJob();
+                } else if (line.equals("ex-o")) {
+                    ConstructAndExecute.sampleOlxJob();
                 } else if (line.equals("c")) {
                     DBUtils.clearDB();
                 }

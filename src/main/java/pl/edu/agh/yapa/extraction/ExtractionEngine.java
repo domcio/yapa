@@ -51,6 +51,7 @@ public class ExtractionEngine {
 
     //extract from this website
     private Ad extractAd(URL subURL, AdTemplate template) throws IOException, XPatherException {
+        System.out.println("Extracting from URL: " + subURL);
         Ad ad = new Ad();
         Collection<String> fields = template.getType().getFields();
         Map<String, String> fieldXPaths = template.getPaths();
@@ -60,8 +61,12 @@ public class ExtractionEngine {
                 ad.setValue(field, null);
             } else {
                 Object[] result = rootNode.evaluateXPath(fieldXPaths.get(field));
-                if (result.length != 1) throw new IllegalStateException();
-                ad.setValue(field, (String) result[0]);
+                //TODO better solution as to what we do if there are more than 1 or there are none
+                if (result.length == 0) {
+                    ad.setValue(field, null);
+                } else {
+                    ad.setValue(field, result[0].toString());
+                }
             }
         }
         return ad;
