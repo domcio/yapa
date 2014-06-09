@@ -37,7 +37,6 @@ public class DBUtils {
         return typeName;
     }
 
-    //TODO inserts return null as the inserted object's ID
     public static void insertAd(Ad ad, AdType type) throws UnknownHostException {
         DB connection = getConnection();
         String tableName = DBUtils.typeNameToTableName(type.getName());

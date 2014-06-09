@@ -10,7 +10,7 @@ import java.util.Map;
  * User: Dominik
  * Date: 30.04.14
  * Time: 18:00
- * A template for obtaining the ad data from a concrete website.
+ * A template for obtaining the ad data from a concrete URL.
  */
 public class AdTemplate {
     private Map<String, String> paths;  //XPaths for accessing fields
@@ -18,7 +18,7 @@ public class AdTemplate {
 
     public AdTemplate(AdType type) {
         this.type = type;
-        this.paths = new HashMap<String, String>();
+        this.paths = new HashMap<>();
     }
 
     public AdTemplate(AdType type, Collection<String> paths) {

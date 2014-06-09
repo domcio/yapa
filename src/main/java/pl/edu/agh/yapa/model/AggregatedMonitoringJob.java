@@ -1,7 +1,5 @@
 package pl.edu.agh.yapa.model;
 
-import com.mongodb.DB;
-
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -26,9 +24,9 @@ public class AggregatedMonitoringJob {
         this.jobs.add(job);
     }
 
-    public void update(DB connection) throws Exception {
+    public void update() throws Exception {
         for (MonitoringJob job : jobs) {
-            job.update(connection);
+            job.update();
         }
     }
 }

@@ -1,7 +1,5 @@
 package pl.edu.agh.yapa.model;
 
-import com.mongodb.DB;
-import com.mongodb.DBCollection;
 import pl.edu.agh.yapa.crawler.DBUtils;
 import pl.edu.agh.yapa.extraction.ExtractionEngine;
 
@@ -29,26 +27,11 @@ public class MonitoringJob {
     }
 
     //prototype method
-    public void update(DB connection) throws Exception {
+    public void update() throws Exception {
         Collection<Ad> ads = engine.extractAds(website, template);
-        String tableName = DBUtils.typeNameToTableName(template.getType().getName());
-        DBCollection coll = null;
-        if (!connection.collectionExists(tableName)) {
-            coll = connection.createCollection(tableName, null);
-        } else {
-            coll = connection.getCollection(tableName);
-        }
         for (Ad ad : ads) {
             DBUtils.insertAd(ad, template.getType());
         }
-    }
-
-    public void startMonitoring() {
-
-    }
-
-    public void stopMonitoring() {
-
     }
 
     public long getInterval() {

@@ -3,6 +3,7 @@ package pl.edu.agh.yapa.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.edu.agh.yapa.model.Ad;
+import pl.edu.agh.yapa.model.AdTemplate;
 import pl.edu.agh.yapa.model.AdType;
 import pl.edu.agh.yapa.persistence.AdsDao;
 import pl.edu.agh.yapa.persistence.InvalidDatabaseStateException;
@@ -25,5 +26,6 @@ public class AdService {
         return adsDao.getAllAds(adTypeName);
     }
     public List<AdType> getAdTypes() throws InvalidDatabaseStateException { return adsDao.getTypes(); }
+    public List<AdTemplate> getTemplates() throws  InvalidDatabaseStateException { return adsDao.getTemplates(); }
     public void insertAdType(AdType adType) throws InvalidDatabaseStateException { adsDao.insertType(adType); }
 }

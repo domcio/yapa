@@ -8,21 +8,21 @@ import pl.edu.agh.yapa.persistence.InvalidDatabaseStateException;
 import pl.edu.agh.yapa.service.AdService;
 
 /**
- * @author pawel
+ * Created by Dominik on 09.06.2014.
  */
 @Controller
-public class AdsController {
+public class AdTemplatesController {
     private final AdService adService;
 
     @Autowired
-    public AdsController(AdService adService) {
+    public AdTemplatesController(AdService adService) {
         this.adService = adService;
     }
 
-    @RequestMapping("/ads")
+    @RequestMapping("/templates")
     public ModelAndView list() throws InvalidDatabaseStateException {
-        ModelAndView modelAndView = new ModelAndView("ListAds");
-        modelAndView.addObject("ads", adService.getAllAds("gumtreeAGDAd"));
+        ModelAndView modelAndView = new ModelAndView("ListTemplates");
+        modelAndView.addObject("templates", adService.getTemplates());
 
         return modelAndView;
     }

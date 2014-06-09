@@ -9,7 +9,7 @@ package pl.edu.agh.yapa.crawler;
 public class SpikeMain {
     public static void main(String[] args) {
 
-        String line = null;
+        String line;
         java.io.BufferedReader in = new java.io.BufferedReader(
                 new java.io.InputStreamReader(System.in));
         try {

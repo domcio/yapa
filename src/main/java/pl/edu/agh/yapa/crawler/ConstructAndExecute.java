@@ -23,7 +23,6 @@ public class ConstructAndExecute {
 
         Website website = new Website("http://www.gumtree.pl/fp-agd/c9366");
         website.addSubURLXPath("//a[@class=\'adLinkSB\']/@href");
-        website.setMultiPage(true);
         website.setNextPageXPath("//a[@class=\'prevNextLink\'][contains(., 'Nast')]/@href");
         Object websiteID = DBUtils.insertWebsite(website);
         System.out.println("inserted website id: " + websiteID);
@@ -36,7 +35,7 @@ public class ConstructAndExecute {
         System.out.println("inserted template id: " + templateID);
 
         MonitoringJob job = new MonitoringJob(website, template, engine, 100);
-        job.update(DBUtils.getConnection());
+        job.update();
         DBUtils.insertJob(job, templateID, websiteID);
     }
 
@@ -48,7 +47,6 @@ public class ConstructAndExecute {
         Website website = new Website("http://olx.pl/nieruchomosci/mieszkania/");
         website.addSubURLXPath("//a[@class=\'thumb vtop inlblk rel tdnone linkWithHash scale4 detailsLink\']/@href");
         website.addSubURLXPath("//a[@class=\'thumb vtop inlblk rel tdnone linkWithHash scale4 detailsLinkPromoted\']/@href");
-        website.setMultiPage(true);
         website.setNextPageXPath("//span[@class=\'fbold next abs large\']/a/@href");
         Object websiteID = DBUtils.insertWebsite(website);
         System.out.println("inserted website id: " + websiteID);
@@ -60,7 +58,7 @@ public class ConstructAndExecute {
         System.out.println("inserted template id: " + templateID);
 
         MonitoringJob job = new MonitoringJob(website, template, engine, 100);
-        job.update(DBUtils.getConnection());
+        job.update();
         DBUtils.insertJob(job, templateID, websiteID);
     }
 }

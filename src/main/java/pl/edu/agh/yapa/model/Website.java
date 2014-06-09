@@ -8,9 +8,10 @@ import java.util.Collection;
  * User: Dominik
  * Date: 01.05.14
  * Time: 10:08
- * Top level website along with how we access the subsites
- * (e.g. a URL of a list of auctions and XPath(s) to get the
- * URLs of a single auction), and also mechanism to access subsequent pages
+ * An abstraction of a website accessed for extraction. Contains:
+ * - top level website, containing list of ads
+ * - way of accessing a single ad page, for now by XPath evaluation
+ * - optional way of accessing subsequent pages of the list
  */
 public class Website {
     private String topURL;
@@ -20,7 +21,7 @@ public class Website {
 
     public Website(String topURL) {
         this.topURL = topURL;
-        this.subURLXPaths = new ArrayList<String>();
+        this.subURLXPaths = new ArrayList<>();
     }
 
     public void addSubURLXPath(String subURLXPath) {
@@ -29,6 +30,7 @@ public class Website {
 
     public void setNextPageXPath(String nextPageXPath) {
         this.nextPageXPath = nextPageXPath;
+        this.multiPage = true;
     }
 
     public String getTopURL() {
@@ -45,9 +47,5 @@ public class Website {
 
     public boolean isMultiPage() {
         return multiPage;
-    }
-
-    public void setMultiPage(boolean multiPage) {
-        this.multiPage = multiPage;
     }
 }
