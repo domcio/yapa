@@ -1,21 +1,26 @@
 <!DOCTYPE html>
-<html lang="pl-pl">
+<html layout:decorator="layout">
 <head>
-    <meta charset="UTF-8"/>
-    <title>Typy Ogłoszeń - YAPA</title>
+    <title>Typy ogłoszeń</title>
 </head>
 <body>
-<h1>Typy ogłoszeń</h1>
 
-<table border="1" style="width:300px">
-    <tr th:each="type : ${types}">
-        <td th:text="${type.name}"/>
-        <td th:each="field : ${type.fields}">
-            <div th:text="${field}"></div>
-        </td>
-    </tr>
-</table>
-<input type="button" onclick="location.href='/addType'" value="Dodaj nowy typ"/>
+<div layout:fragment="content">
+
+    <h1>Typy ogłoszeń</h1>
+
+    <table border="1" style="width:300px">
+        <tr th:each="type : ${types}">
+            <td th:text="${type.name}"/>
+            <td th:each="field : ${type.fields}">
+                <div th:text="${field}"></div>
+            </td>
+        </tr>
+    </table>
+
+    <input type="button" onclick="location.href='/addType'" value="Dodaj nowy typ"/>
+
+</div>
 
 </body>
 </html>

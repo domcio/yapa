@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <title layout:title-pattern="$DECORATOR_TITLE :: $CONTENT_TITLE">YAPA</title>
+
+    <link href="../../resources/css/yapa.css" th:href="@{/resources/css/yapa.css}"
+          rel="stylesheet"/>
+    <link href="../../resources/lib/bootstrap/css/bootstrap.css" th:href="@{/resources/lib/bootstrap/css/bootstrap.css}"
+          rel="stylesheet"/>
+</head>
+<body>
+
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="index.html" th:href="@{/}">YAPA</a>
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <!--TODO: Highlight active page-->
+                <li><a href="ListAds.html" th:href="@{/ads}">Ogłoszenia</a></li>
+                <li><a href="ListAdTypes.html" th:href="@{/types}">Typy ogłoszeń</a></li>
+                <li><a href="AddAdType.html" th:href="@{/addType}">Dodaj typ ogłoszeń</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="container" layout:fragment="content">
+    <h1>Witaj w YAPA</h1>
+
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        Praesent scelerisque neque neque, ac elementum quam dignissim interdum.
+        Phasellus et placerat elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        Praesent scelerisque neque neque, ac elementum quam dignissim interdum.
+        Phasellus et placerat elit.
+    </p>
+</div>
+
+<script src="../lib/jquery/jquery-1.11.1.js"></script>
+<script src="../lib/bootstrap/js/bootstrap.js"></script>
+</body>
+</html>
