@@ -1,33 +1,40 @@
 <!DOCTYPE html>
-<html lang="pl-pl">
+<html layout:decorator="layout">
 <head>
-    <meta charset="UTF-8"/>
-    <title>Nowy Typ - YAPA</title>
+    <title>Dodaj typ ogłoszeń</title>
 </head>
 <body>
-<form action="#" th:action="@{/addType}" th:object="${adType}" method="post">
-    Nazwa typu:
-    <input type="text" th:field="*{name}"/>
-    Pola typu:
-    <table>
-        <thead>
-        <th>
-            <button type="submit" name="addField">Dodaj pole</button>
-        </th>
-        </thead>
-        <tr th:each="row,rowStat : ${adType.fields}">
-            <td th:text="${rowStat.count}">1</td>
-            <td>
-                <input type="text" th:field="*{fields[__${rowStat.index}__]}"/>
-            </td>
-            <td>
-                <button type="submit" name="removeField"
-                        th:value="${rowStat.index}">Usuń pole
-                </button>
-            </td>
-        </tr>
-    </table>
-    <button type="submit" name="submitType">Dodaj</button>
-</form>
+
+<div layout:fragment="content">
+
+    <h1>Dodaj typ ogłoszeń</h1>
+
+    <form action="#" th:action="@{/addType}" th:object="${adType}" method="post">
+        Nazwa typu:
+        <input type="text" th:field="*{name}"/>
+        Pola typu:
+        <table>
+            <thead>
+            <th>
+                <button type="submit" name="addField">Dodaj pole</button>
+            </th>
+            </thead>
+            <tr th:each="row,rowStat : ${adType.fields}">
+                <td th:text="${rowStat.count}">1</td>
+                <td>
+                    <input type="text" th:field="*{fields[__${rowStat.index}__]}"/>
+                </td>
+                <td>
+                    <button type="submit" name="removeField"
+                            th:value="${rowStat.index}">Usuń pole
+                    </button>
+                </td>
+            </tr>
+        </table>
+        <button type="submit" name="submitType">Dodaj</button>
+    </form>
+
+</div>
+
 </body>
 </html>
