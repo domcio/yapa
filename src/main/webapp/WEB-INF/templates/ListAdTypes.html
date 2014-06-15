@@ -9,16 +9,14 @@
 
     <h1>Typy ogłoszeń</h1>
 
+    <input type="button" onclick="location.href='/addType'" value="Dodaj nowy typ"/>
+
     <table border="1" style="width:300px">
         <tr th:each="type : ${types}">
             <td th:text="${type.name}"/>
-            <td th:each="field : ${type.fields}">
-                <div th:text="${field}"></div>
-            </td>
+            <td th:each="field : ${type.fields}" th:text="${field}"/>
         </tr>
     </table>
-
-    <input type="button" onclick="location.href='/addType'" value="Dodaj nowy typ"/>
 
 </div>
 
