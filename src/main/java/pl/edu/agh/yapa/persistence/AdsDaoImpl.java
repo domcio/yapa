@@ -109,6 +109,7 @@ public class AdsDaoImpl implements AdsDao {
     }
 
     private AdType getTypeByID(ObjectId id) throws InvalidDatabaseStateException {
+        System.out.println("get type by id " + id);
         return typeFromJson(getByID(id, TYPES_COLLECTION));
     }
 
@@ -125,8 +126,10 @@ public class AdsDaoImpl implements AdsDao {
             throw new InvalidDatabaseStateException("Collection " + collection + " does not exist");
         }
         DBCollection types = database.getCollection(collection);
-        DBObject finder = new BasicDBObject("__id", id);
-        return types.findOne(finder);
+        DBObject finder = new BasicDBObject("_id", id);
+        DBObject found = types.findOne(finder);
+        System.out.println("found by id " + found);
+        return found;
     }
 
     //TODO delete?
@@ -162,6 +165,7 @@ public class AdsDaoImpl implements AdsDao {
     }
 
     private AdTemplate templateFromJson(DBObject json) throws InvalidDatabaseStateException {
+        System.out.println("template from json " + json);
         AdType type = getTypeByID((ObjectId) json.get("type"));
         AdTemplate template = new AdTemplate(type);
         Map map = json.toMap();

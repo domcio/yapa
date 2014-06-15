@@ -7,7 +7,20 @@
 
 <div layout:fragment="content">
 
+    <h1>Szablony ogłoszeń</h1>
 
+    <table>
+        <ul>
+            <li th:each="template : ${templates}">
+            <ul>
+                <li th:text="${template.type.name}"/>
+                <li th:each="field : ${template.paths}">
+                        <div th:text="${field.key} + ': ' +  ${field.value}"/>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </table>
 
 </div>
 
