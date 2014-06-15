@@ -16,6 +16,10 @@ public class AdTemplate {
     private Map<String, String> paths;  //XPaths for accessing fields
     private AdType type;
 
+    public AdTemplate() {
+        this.paths = new HashMap<>();
+    }
+
     public AdTemplate(AdType type) {
         this.type = type;
         this.paths = new HashMap<>();
@@ -44,5 +48,9 @@ public class AdTemplate {
 
     public AdType getType() {
         return type;
+    }
+
+    public void setType(AdType type) {
+        this.type = type;
     }
 }

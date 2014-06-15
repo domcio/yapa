@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html layout:decorator="layout">
+<head>
+    <title>Dodaj szablon ogłoszeń</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+    <h1>Dodaj szablon ogłoszeń</h1>
+
+    <form action="#" th:action="@{/processSelect}" method="post">
+
+        <select th:field="${template.type}">
+            <option th:each="type : ${types}"
+                    th:value="${type}"
+                    th:text="#{${type.name}}">Wireframe
+            </option>
+        </select>
+        <button type="submit" name="processSelect">Wybierz</button>
+
+    </form>
+</div>
+</body>
+</html>

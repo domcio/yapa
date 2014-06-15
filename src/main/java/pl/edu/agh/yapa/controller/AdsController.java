@@ -22,7 +22,7 @@ public class AdsController {
     @RequestMapping("/ads")
     public ModelAndView list() throws InvalidDatabaseStateException {
         ModelAndView modelAndView = new ModelAndView("ListAds");
-        modelAndView.addObject("ads", adService.getAllAds("gumtreeAGDAd"));
+        modelAndView.addObject("ads", adService.getAdsByType("gumtreeAGDAd"));
 
         return modelAndView;
     }

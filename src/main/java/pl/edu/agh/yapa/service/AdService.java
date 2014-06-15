@@ -22,10 +22,15 @@ public class AdService {
         this.adsDao = adsDao;
     }
 
-    public List<Ad> getAllAds(String adTypeName) throws InvalidDatabaseStateException {
-        return adsDao.getAllAds(adTypeName);
+    public List<Ad> getAds() throws InvalidDatabaseStateException { return adsDao.getAds(); }
+    public List<Ad> getAdsByType(String adTypeName) throws InvalidDatabaseStateException {
+        return adsDao.getAdsByType(adTypeName);
     }
     public List<AdType> getAdTypes() throws InvalidDatabaseStateException { return adsDao.getTypes(); }
     public List<AdTemplate> getTemplates() throws  InvalidDatabaseStateException { return adsDao.getTemplates(); }
     public void insertAdType(AdType adType) throws InvalidDatabaseStateException { adsDao.insertType(adType); }
+
+    public AdType getTypeByName(String typeName) throws InvalidDatabaseStateException {
+        return adsDao.getTypeByName(typeName);
+    }
 }

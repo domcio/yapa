@@ -9,8 +9,6 @@ import pl.edu.agh.yapa.model.Website;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * @author pawel
@@ -30,23 +28,25 @@ public class AdsDaoImpl implements AdsDao {
     }
 
     @Override
-    public List<Ad> getAllAds(String adTypeName) throws InvalidDatabaseStateException {
-        if (!database.collectionExists(adTypeName)) {
-            throw new IllegalArgumentException(adTypeName);
+    public List<Ad> getAds() throws InvalidDatabaseStateException {
+        List<Ad> adsList = new ArrayList<>();
+        DBCollection typesCollection = database.getCollection(TYPES_COLLECTION);
+        for (DBObject adJson : typesCollection.find()) {
+            adsList.addAll(getAdsByType((String) adJson.get("name")));
         }
+        return adsList;
+    }
 
-        String[] fields = getFields(adTypeName);
+    @Override
+    public List<Ad> getAdsByType(String adTypeName) throws InvalidDatabaseStateException {
+        if (!database.collectionExists(adTypeName)) {
+            return new ArrayList<>();
+        }
         List<Ad> resultList = new ArrayList<>();
         DBCollection collection = database.getCollection(adTypeName);
-        DBCursor cursor = collection.find();
 
-        for (DBObject adObject : cursor) {
-            Ad ad = new Ad();
-            for (String field : fields) {
-                //TODO: for now casting to String cause everything is to be a string
-                ad.setValue(field, (String) adObject.get(field));
-            }
-            resultList.add(ad);
+        for (DBObject adJson : collection.find()) {
+            resultList.add(adFromJson(adJson));
         }
         return resultList;
     }
@@ -63,10 +63,9 @@ public class AdsDaoImpl implements AdsDao {
 
     @Override
     public List<AdTemplate> getTemplates() throws InvalidDatabaseStateException {
-        DBCollection templates = database.getCollection(TEMPLATES_COLLECTION);
         List<AdTemplate> result = new ArrayList<>();
+        DBCollection templates = database.getCollection(TEMPLATES_COLLECTION);
         for (DBObject templateDoc : templates.find()) {
-            System.out.println("get templates" + templateDoc);
             result.add(templateFromJson(templateDoc));
         }
         return result;
@@ -87,29 +86,13 @@ public class AdsDaoImpl implements AdsDao {
         typesCollection.insert(newType);
     }
 
-    private String[] getFields(String adTypeName) throws InvalidDatabaseStateException {
-        if (!database.collectionExists(TYPES_COLLECTION)) {
-            throw new InvalidDatabaseStateException("Collection " + TYPES_COLLECTION + " does not exist");
-        }
-
+    public AdType getTypeByName(String name) throws InvalidDatabaseStateException {
         DBCollection collection = database.getCollection(TYPES_COLLECTION);
-        DBObject adTypeObject = collection.findOne(new BasicDBObject("name", adTypeName));
-
-        //TODO: kind of WTF-casting
-        BasicDBList fieldList = (BasicDBList) adTypeObject.get("fields");
-        return fieldList.toArray(new String[0]);
-    }
-
-    private AdType getTypeByName(String name) throws InvalidDatabaseStateException {
-        if (!database.collectionExists(TYPES_COLLECTION)) {
-            throw new InvalidDatabaseStateException("Collection " + TYPES_COLLECTION + " does not exist");
-        }
-        DBCollection collection = database.getCollection(TYPES_COLLECTION);
+        System.out.println("name " + name);
         return typeFromJson(collection.findOne(new BasicDBObject("name", name)));
     }
 
     private AdType getTypeByID(ObjectId id) throws InvalidDatabaseStateException {
-        System.out.println("get type by id " + id);
         return typeFromJson(getByID(id, TYPES_COLLECTION));
     }
 
@@ -127,26 +110,21 @@ public class AdsDaoImpl implements AdsDao {
         }
         DBCollection types = database.getCollection(collection);
         DBObject finder = new BasicDBObject("_id", id);
-        DBObject found = types.findOne(finder);
-        System.out.println("found by id " + found);
-        return found;
+        return types.findOne(finder);
     }
 
-    //TODO delete?
     private Ad adFromJson(DBObject json) {
         Ad ad = new Ad();
-        Map map = json.toMap();
-        Set<Map.Entry<String, String>> adFields = map.entrySet();
-        for (Map.Entry<String, String> adField : adFields) {
-            ad.setValue(adField.getKey(), adField.getValue());
+        for (String field : json.keySet()) {
+            if (!field.equals("_id")) {
+                ad.setValue(field, (String) json.get(field));
+            }
         }
         return ad;
     }
 
     private AdType typeFromJson(DBObject json) {
-        System.out.println("type form json" + json);
         AdType type = new AdType();
-        json.get("name");
         type.setName((String) json.get("name"));
         BasicDBList fieldList = (BasicDBList) json.get("fields");
         for (Object field : fieldList) {
@@ -165,14 +143,11 @@ public class AdsDaoImpl implements AdsDao {
     }
 
     private AdTemplate templateFromJson(DBObject json) throws InvalidDatabaseStateException {
-        System.out.println("template from json " + json);
         AdType type = getTypeByID((ObjectId) json.get("type"));
         AdTemplate template = new AdTemplate(type);
-        Map map = json.toMap();
-        Set<Map.Entry<String, String>> adFields = map.entrySet();
-        for (Map.Entry<String, String> adField : adFields) {
-            if (!adField.getKey().equals("_id") && !adField.getKey().equals("type")) {
-                template.setPath(adField.getKey(), adField.getValue());
+        for (String adField : json.keySet()) {
+            if (!adField.equals("_id") && !adField.equals("type")) {
+                template.setPath(adField, (String) json.get(adField));
             }
         }
         return template;
