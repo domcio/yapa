@@ -8,15 +8,17 @@
 <div layout:fragment="content">
     <h1>Dodaj szablon ogłoszeń</h1>
 
-    <form action="#" th:action="@{/processSelect}" th:object="${template}" method="post">
+    <form action="#" th:action="@{/showSelect}" th:object="${template}" method="post">
 
-        <select th:field="*{type}">
-            <option th:each="type : ${types}"
-                    th:value="${type.name}"
-                    th:text="${type.name}">Wireframe
-            </option>
-        </select>
-        <button type="submit">Wybierz</button>
+        <!--<select th:field="*{type}">-->
+            <!--<option th:each="type : ${types}"-->
+                    <!--th:value="${type.name}"-->
+                    <!--th:text="${type.name}">Wireframe-->
+            <!--</option>-->
+        <!--</select>-->
+        Nazwa typu szablonu:
+        <input type="text" th:field="*{type}"/>
+        <button type="submit" name="submitType">Wybierz</button>
 
     </form>
 </div>

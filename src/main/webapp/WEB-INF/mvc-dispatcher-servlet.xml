@@ -42,4 +42,15 @@
         <property name="characterEncoding" value="UTF-8"/>
     </bean>
 
+    <mvc:annotation-driven conversion-service="conversionService"/>
+
+    <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+        <property name="formatters">
+            <set>
+                <bean class="pl.edu.agh.yapa.conversion.AdTypeFormatter">
+                </bean>
+            </set>
+        </property>
+    </bean>
+
 </beans>
