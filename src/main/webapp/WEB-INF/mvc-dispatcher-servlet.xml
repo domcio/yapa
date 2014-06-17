@@ -12,7 +12,7 @@
             http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
     <context:component-scan base-package="pl.edu.agh.yapa"/>
-    <mvc:annotation-driven/>
+    <mvc:annotation-driven conversion-service="conversionService"/>
     <mvc:resources mapping="/resources/**" location="/resources/"/>
 
     <bean id="templateResolver"
@@ -42,13 +42,10 @@
         <property name="characterEncoding" value="UTF-8"/>
     </bean>
 
-    <mvc:annotation-driven conversion-service="conversionService"/>
-
     <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
         <property name="formatters">
             <set>
-                <bean class="pl.edu.agh.yapa.conversion.AdTypeFormatter">
-                </bean>
+                <bean class="pl.edu.agh.yapa.conversion.AdTypeFormatter"/>
             </set>
         </property>
     </bean>

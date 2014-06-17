@@ -1,5 +1,6 @@
 package pl.edu.agh.yapa.conversion;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.Formatter;
 import pl.edu.agh.yapa.model.AdType;
 import pl.edu.agh.yapa.persistence.AdsDao;
@@ -14,6 +15,7 @@ import java.util.Locale;
 public class AdTypeFormatter implements Formatter<AdType> {
     private AdsDao adsDao;
 
+    @Autowired
     public AdTypeFormatter(AdsDao adsDao) {
         this.adsDao = adsDao;
     }
@@ -35,7 +37,6 @@ public class AdTypeFormatter implements Formatter<AdType> {
 
     @Override
     public String print(AdType adType, Locale locale) {
-        System.out.println("Wolane print z typem: "+ adType.getName());
         return adType.getName();
     }
 }

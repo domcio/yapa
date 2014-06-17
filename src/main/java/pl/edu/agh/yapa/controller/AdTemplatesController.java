@@ -12,6 +12,7 @@ import pl.edu.agh.yapa.persistence.InvalidDatabaseStateException;
 import pl.edu.agh.yapa.service.AdService;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 /**
  * Created by Dominik on 09.06.2014.
@@ -42,19 +43,27 @@ public class AdTemplatesController {
     }
 
     @RequestMapping(value = "/showSelect", params = {"submitType"})
-    public String submitType(final AdTemplate adTemplate, final BindingResult bindingResult, final HttpServletRequest req) {
+    public String submitType(final AdTemplate adTemplate, final BindingResult bindingResult, final HttpServletRequest req, Model model) {
+        if (bindingResult.hasErrors()) {
+            System.out.println("Binding rezult ma errory");
+            return "SelectAdType";
+        }
+        for (Map.Entry<String, Object> entry : model.asMap().entrySet()) {
+            System.out.println(entry.getKey() + " -> " + entry.getValue());
+        }
+
         System.out.println(req.getParameter("submitType"));
         System.out.println(adTemplate.getType());
         return "AddAdTemplate";
     }
 
-//    @RequestMapping(value = "/processSelect", method = RequestMethod.POST)
-//    public ModelAndView processSelect(final AdTemplate template, final HttpServletRequest req) throws InvalidDatabaseStateException {
-//        System.out.println(template.getType());
-//
-//        ModelAndView modelAndView = new ModelAndView("AddAdTemplate");
-//        modelAndView.addObject("template", template);
-//
-//        return modelAndView;
-//    }
+    @RequestMapping(value = "/processSelect", method = RequestMethod.POST)
+    public ModelAndView processSelect(final AdTemplate template, final HttpServletRequest req) throws InvalidDatabaseStateException {
+        System.out.println(template.getType());
+
+        ModelAndView modelAndView = new ModelAndView("AddAdTemplate");
+        modelAndView.addObject("template", template);
+
+        return modelAndView;
+    }
 }

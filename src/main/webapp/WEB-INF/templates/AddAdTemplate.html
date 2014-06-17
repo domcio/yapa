@@ -7,20 +7,22 @@
 
 <div layout:fragment="content">
     <h1>Dodaj szablon ogłoszeń</h1>
-    Dalsza część dodawania ;)
-    <!--<form action="#" th:action="@{/processTemplate}" method="post">-->
 
-    <!--<table border="1" style="width:300px">-->
-    <!--<div th:text="${template.type.name}"/>-->
-    <!--<tr th:each="field : ${template.type.fields}">-->
-    <!--<td th:text="${field}"/>-->
-    <!--<td>-->
-    <!--<input type="text" th:field="*{template.type.field}"/>-->
-    <!--</td>-->
-    <!--</tr>-->
-    <!--</table>-->
+    <form action="#" th:action="@{/processSelect}" method="post">
 
-    <!--</form>-->
+        <table border="1" style="width:300px">
+            <div th:text="${adTemplate.type.name}"/>
+            <tr th:each="field : ${adTemplate.type.fields}">
+                <td th:text="${field}"/>
+                <td>
+                    <input type="text" />
+                </td>
+            </tr>
+        </table>
+
+        <button type="submit">Dodaj</button>
+
+    </form>
 </div>
 
 </body>
