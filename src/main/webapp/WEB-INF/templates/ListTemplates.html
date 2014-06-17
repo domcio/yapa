@@ -11,18 +11,18 @@
 
     <input type="button" onclick="location.href='/showSelect'" value="Dodaj nowy szablon"/>
 
-    <table>
-        <ul>
-            <li th:each="template : ${templates}">
+    <ul>
+        <li th:each="template : ${templates}">
+        <p th:text="${template.type.name}"/>
+        <p>
             <ul>
-                <li th:text="${template.type.name}"/>
                 <li th:each="field : ${template.paths}">
-                        <div th:text="${field.key} + ': ' +  ${field.value}"/>
-                    </li>
-                </ul>
-            </li>
-        </ul>
-    </table>
+                    <div th:text="${field.key} + ': ' +  ${field.value}"/>
+                </li>
+            </ul>
+        </p>
+        </li>
+    </ul>
 
 </div>
 

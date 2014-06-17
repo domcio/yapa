@@ -28,7 +28,7 @@ import java.util.Map;
 public class ExtractionEngine {
     private HtmlCleaner cleaner;
     //TODO move this to MonitoringJob/Website
-    private static final int PAGE_LIMIT = 1; // limit the amount of pages traversed within a single job
+    private static final int PAGE_LIMIT = 2; // limit the amount of pages traversed within a single job
 
     public ExtractionEngine() {
         //set up the cleaner
