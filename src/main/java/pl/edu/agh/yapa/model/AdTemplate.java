@@ -1,9 +1,6 @@
 package pl.edu.agh.yapa.model;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -25,10 +22,10 @@ public class AdTemplate {
         this.paths = new HashMap<>();
     }
 
-    public AdTemplate(AdType type, Collection<String> paths) {
+    public AdTemplate(AdType type, List<String> paths) {
         this.type = type;
         Map<String, String> fieldPaths = new HashMap<String, String>();
-        Collection<String> fields = type.getFields();
+        List<String> fields = type.getFields();
         if (fields.size() > paths.size()) throw new IllegalArgumentException();
         Iterator<String> it1 = fields.iterator();
         Iterator<String> it2 = paths.iterator();

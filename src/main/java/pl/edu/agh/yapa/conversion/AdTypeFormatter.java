@@ -27,7 +27,6 @@ public class AdTypeFormatter implements Formatter<AdType> {
     @Override
     public AdType parse(String s, Locale locale) throws ParseException {
         try {
-            System.out.println("Wolane parse z stringiem: "+ s);
             return adsDao.getTypeByName(s);
         } catch (InvalidDatabaseStateException e) {
             e.printStackTrace();

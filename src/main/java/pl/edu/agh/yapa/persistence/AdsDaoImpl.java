@@ -9,6 +9,7 @@ import pl.edu.agh.yapa.model.Website;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author pawel
@@ -61,6 +62,16 @@ public class AdsDaoImpl implements AdsDao {
         return typesList;
     }
 
+    private ObjectId getTypeId(AdType type) throws InvalidDatabaseStateException {
+        DBCollection typesCollection = database.getCollection(TYPES_COLLECTION);
+        for (DBObject typeObj : typesCollection.find()) {
+            if (type.getName().equals((String) typeObj.get("name"))) {
+                return (ObjectId) typeObj.get("_id");
+            }
+        }
+        return null;
+    }
+
     @Override
     public List<AdTemplate> getTemplates() throws InvalidDatabaseStateException {
         List<AdTemplate> result = new ArrayList<>();
@@ -84,6 +95,17 @@ public class AdsDaoImpl implements AdsDao {
         }
         newType.put("fields", fieldsList);
         typesCollection.insert(newType);
+    }
+
+    @Override
+    public void insertTemplate(AdTemplate adTemplate) throws InvalidDatabaseStateException {
+        DBCollection templates = database.getCollection(TEMPLATES_COLLECTION);
+        DBObject newTemplate = new BasicDBObject();
+        newTemplate.put("type", getTypeId(adTemplate.getType()));
+        for (Map.Entry<String, String> entry : adTemplate.getPaths().entrySet()) {
+            newTemplate.put(entry.getKey(), entry.getValue());
+        }
+        templates.insert(newTemplate);
     }
 
     public AdType getTypeByName(String name) throws InvalidDatabaseStateException {

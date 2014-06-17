@@ -33,4 +33,8 @@ public class AdService {
     public AdType getTypeByName(String typeName) throws InvalidDatabaseStateException {
         return adsDao.getTypeByName(typeName);
     }
+
+    public void insertAdTemplate(AdTemplate adTemplate) throws InvalidDatabaseStateException {
+        adsDao.insertTemplate(adTemplate);
+    }
 }

@@ -7,12 +7,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import pl.edu.agh.yapa.conversion.FieldsContainer;
 import pl.edu.agh.yapa.model.AdTemplate;
 import pl.edu.agh.yapa.persistence.InvalidDatabaseStateException;
 import pl.edu.agh.yapa.service.AdService;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Map;
 
 /**
  * Created by Dominik on 09.06.2014.
@@ -48,22 +48,32 @@ public class AdTemplatesController {
             System.out.println("Binding rezult ma errory");
             return "SelectAdType";
         }
-        for (Map.Entry<String, Object> entry : model.asMap().entrySet()) {
-            System.out.println(entry.getKey() + " -> " + entry.getValue());
-        }
+//        for (Map.Entry<String, Object> entry : model.asMap().entrySet()) {
+//            System.out.println(entry.getKey() + " -> " + entry.getValue());
+//        }
+//
+//        System.out.println(req.getParameter("submitType"));
+//        System.out.println(adTemplate.getType());
 
-        System.out.println(req.getParameter("submitType"));
-        System.out.println(adTemplate.getType());
+        FieldsContainer fieldsContainer = new FieldsContainer(adTemplate.getType().getFields().size());
+        fieldsContainer.setAdType(adTemplate.getType());
+        model.addAttribute("fieldContainer", fieldsContainer);
+
         return "AddAdTemplate";
     }
 
     @RequestMapping(value = "/processSelect", method = RequestMethod.POST)
-    public ModelAndView processSelect(final AdTemplate template, final HttpServletRequest req) throws InvalidDatabaseStateException {
-        System.out.println(template.getType());
+    public String processSelect(final AdTemplate template, final FieldsContainer container, final BindingResult bindingResult, final HttpServletRequest req) throws InvalidDatabaseStateException {
+        if (bindingResult.hasErrors()) {
+            System.out.println("Binding rezult ma errory");
+            return "SelectAdType";
+        }
 
-        ModelAndView modelAndView = new ModelAndView("AddAdTemplate");
-        modelAndView.addObject("template", template);
+        System.out.println(template);
+        System.out.println(container);
 
-        return modelAndView;
+        adService.insertAdTemplate(new AdTemplate(container.getAdType(), container.getFieldXPaths()));
+
+        return "redirect:/templates";
     }
 }
