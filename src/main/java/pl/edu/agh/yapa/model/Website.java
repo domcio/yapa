@@ -24,6 +24,10 @@ public class Website {
         this.subURLXPaths = new ArrayList<>();
     }
 
+    public Website() {
+        this.subURLXPaths = new ArrayList<>();
+    }
+
     public void addSubURLXPath(String subURLXPath) {
         this.subURLXPaths.add(subURLXPath);
     }
@@ -31,6 +35,10 @@ public class Website {
     public void setNextPageXPath(String nextPageXPath) {
         this.nextPageXPath = nextPageXPath;
         this.multiPage = true;
+    }
+
+    public void setTopURL(String topURL) {
+        this.topURL = topURL;
     }
 
     public String getTopURL() {
@@ -47,5 +55,10 @@ public class Website {
 
     public boolean isMultiPage() {
         return multiPage;
+    }
+
+    public void removeField(int index) {
+        ArrayList<String> subURLs = (ArrayList<String>) subURLXPaths;
+        subURLs.remove(index);
     }
 }

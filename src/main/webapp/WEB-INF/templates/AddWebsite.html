@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html layout:decorator="layout">
+<head>
+    <title>Dodaj typ ogłoszeń</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+    <h1>Dodaj portal ogłoszeniowy</h1>
+
+    <form action="#" th:action="@{/addWebsite}" th:object="${website}" method="post">
+        URL strony głownej:
+        <input type="text" th:field="*{topURL}"/>
+        XPath(y) do poszczególnych ogłoszeń:
+        <table>
+            <thead>
+            <th>
+                <button type="submit" name="addField">Dodaj XPath</button>
+            </th>
+            </thead>
+            <tr th:each="row,rowStat : ${website.subURLXPaths}">
+                <td th:text="${rowStat.count}">1</td>
+                <td>
+                    <input type="text" th:field="*{subURLXPaths[__${rowStat.index}__]}"/>
+                </td>
+                <td>
+                    <button type="submit" name="removeField"
+                            th:value="${rowStat.index}">Usuń XPath
+                    </button>
+                </td>
+            </tr>
+        </table>
+        XPath do kolejnej strony (opcjonalne):
+        <input type="text" th:field="*{nextPageXPath}"/>
+        <button type="submit" name="submitType">Dodaj</button>
+    </form>
+
+</div>
+
+</body>
+</html>

@@ -22,4 +22,8 @@ public class WebsiteService {
     public List<Website> getWebsites() {
         return adsDao.getWebsites();
     }
+
+    public void insertWebsite(Website website) {
+        adsDao.insertWebsite(website);
+    }
 }

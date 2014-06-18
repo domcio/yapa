@@ -12,9 +12,9 @@
 
     <table border="1" style="width:300px">
         <thead>
-        <td>Strona główna</td>
-        <td>XPath(y) do podstron</td>
-        <td>XPath do następnej strony (opcj.)</td>
+        <th>Strona główna</th>
+        <th>XPath(y) do podstron</th>
+        <th>XPath do następnej strony (opcj.)</th>
         </thead>
         <tr th:each="website : ${websites}">
             <td th:text="${website.topURL}"/>
@@ -26,6 +26,8 @@
             <td th:text="${website.multiPage}? ${website.nextPageXPath} : 'brak'"/>
         </tr>
     </table>
+    <input type="button" onclick="location.href='/addWebsite'" value="Dodaj nowy portal"/>
+
 </div>
 
 </body>
