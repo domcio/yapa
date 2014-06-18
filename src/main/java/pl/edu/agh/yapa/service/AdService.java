@@ -37,4 +37,8 @@ public class AdService {
     public void insertAdTemplate(AdTemplate adTemplate) throws InvalidDatabaseStateException {
         adsDao.insertTemplate(adTemplate);
     }
+
+    public void removeType(String typeName) {
+        adsDao.removeTypeByName(typeName);
+    }
 }

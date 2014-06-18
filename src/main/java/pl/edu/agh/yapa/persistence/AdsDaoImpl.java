@@ -107,6 +107,12 @@ public class AdsDaoImpl implements AdsDao {
     }
 
     @Override
+    public void removeTypeByName(String typeName) {
+        DBCollection types = database.getCollection(TYPES_COLLECTION);
+        types.remove(new BasicDBObject().append("name", typeName));
+    }
+
+    @Override
     public ObjectId insertAd(Ad ad, AdType adType) throws InvalidDatabaseStateException {
         String tableName = adType.getName();
         if (!database.collectionExists(tableName)) {
@@ -185,7 +191,8 @@ public class AdsDaoImpl implements AdsDao {
         for (String subURL : website.getSubURLXPaths())
             subURLsList.add(subURL);
         websiteJson.append("subURLXPaths", subURLsList);
-        websiteJson.append("nextPageXPath", website.getNextPageXPath());
+        if (website.isMultiPage())
+            websiteJson.append("nextPageXPath", website.getNextPageXPath());
         websites.insert(websiteJson);
         return (ObjectId) websiteJson.get("_id");
     }

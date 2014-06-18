@@ -48,12 +48,6 @@ public class AdTemplatesController {
             System.out.println("Binding rezult ma errory");
             return "SelectAdType";
         }
-//        for (Map.Entry<String, Object> entry : model.asMap().entrySet()) {
-//            System.out.println(entry.getKey() + " -> " + entry.getValue());
-//        }
-//
-//        System.out.println(req.getParameter("submitType"));
-//        System.out.println(adTemplate.getType());
 
         FieldsContainer fieldsContainer = new FieldsContainer(adTemplate.getType().getFields().size());
         fieldsContainer.setAdType(adTemplate.getType());

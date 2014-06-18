@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -31,6 +32,14 @@ public class AdTypesController {
         modelAndView.addObject("types", adService.getAdTypes());
 
         return modelAndView;
+    }
+
+
+    @RequestMapping(value = "/types/{type}/remove")
+    public String removeType(@PathVariable("type") String typeName, final HttpServletRequest request) {
+        System.out.println("Usuwam typ " + typeName);
+        adService.removeType(typeName);
+        return "redirect:/types";
     }
 
     @RequestMapping(value = "/addType", method = RequestMethod.GET)

@@ -37,4 +37,6 @@ public interface AdsDao {
     void clear();
 
     List<Website> getWebsites();
+
+    void removeTypeByName(String typeName);
 }
