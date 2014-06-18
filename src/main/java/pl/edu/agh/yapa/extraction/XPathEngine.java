@@ -25,12 +25,12 @@ import java.util.Map;
  * Time: 10:14
  * In the final release - interface (?)
  */
-public class ExtractionEngine {
+public class XPathEngine implements Engine {
     private HtmlCleaner cleaner;
     //TODO move this to MonitoringJob/Website
     private static final int PAGE_LIMIT = 2; // limit the amount of pages traversed within a single job
 
-    public ExtractionEngine() {
+    public XPathEngine() {
         //set up the cleaner
         this.cleaner = new HtmlCleaner();
         CleanerProperties props = cleaner.getProperties();
@@ -41,6 +41,7 @@ public class ExtractionEngine {
     }
 
     //extract from top-level website
+    @Override
     public Collection<Ad> extractAds(Website website, AdTemplate template) throws Exception {
         TagNode topLevelNode = cleaner.clean(new URL(website.getTopURL()));
         Document doc = new DomSerializer(new CleanerProperties()).createDOM(topLevelNode);

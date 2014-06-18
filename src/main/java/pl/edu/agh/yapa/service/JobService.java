@@ -1,11 +1,14 @@
 package pl.edu.agh.yapa.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.edu.agh.yapa.extraction.ExtractionEngine;
+import pl.edu.agh.yapa.extraction.JobTask;
+import pl.edu.agh.yapa.extraction.XPathEngine;
 import pl.edu.agh.yapa.model.AdTemplate;
 import pl.edu.agh.yapa.model.AdType;
 import pl.edu.agh.yapa.model.MonitoringJob;
 import pl.edu.agh.yapa.model.Website;
+import pl.edu.agh.yapa.persistence.AdsDao;
 import pl.edu.agh.yapa.persistence.InvalidDatabaseStateException;
 
 import java.util.Arrays;
@@ -16,30 +19,20 @@ import java.util.List;
  */
 @Service
 public class JobService {
+    private final AdsDao adsDao;
 
-    public List<String> getAllJobs() throws InvalidDatabaseStateException {
-        //TODO: ask DAO
-        return Arrays.asList( "GumtreeJob" );
+    @Autowired
+    public JobService(AdsDao adsDao) {
+        this.adsDao = adsDao;
     }
 
-    public void runTheOnlyJob(){
-        final MonitoringJob job = createTheOnlyJob();
-
-        new Thread( new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    job.update();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        } ).start();
+    public List<String> getAllJobsNames() throws InvalidDatabaseStateException {
+        return adsDao.getJobsNames();
     }
 
-    private MonitoringJob createTheOnlyJob(){
+    private MonitoringJob createTheOnlyJob() {
         AdType type = new AdType(Arrays.asList("title", "description", "locality"), "gumtreeAGDAd");
-        ExtractionEngine engine = new ExtractionEngine();
+        XPathEngine engine = new XPathEngine();
 
         Website website = new Website("http://www.gumtree.pl/fp-agd/c9366");
         website.addSubURLXPath("//a[@class=\'adLinkSB\']/@href");
@@ -50,7 +43,11 @@ public class JobService {
         template.setPath("description", "//meta[@property=\'og:description\']/@content");
         template.setPath("locality", "//meta[@property=\'og:locality\']/@content");
 
-        return new MonitoringJob(website, template, engine, 100);
+        return new MonitoringJob("gumtreeJob", website, template, engine, 100);
     }
 
+    public void runJob(String jobName) throws InvalidDatabaseStateException, Exception {
+        MonitoringJob job = adsDao.getJobByName(jobName);
+        new Thread(new JobTask(adsDao, job)).start();
+    }
 }

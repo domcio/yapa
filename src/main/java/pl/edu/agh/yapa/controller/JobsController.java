@@ -24,16 +24,16 @@ public class JobsController {
     @RequestMapping("/jobs")
     public ModelAndView list() throws InvalidDatabaseStateException {
         ModelAndView modelAndView = new ModelAndView("ListJobs");
-        modelAndView.addObject("jobs", jobService.getAllJobs());
+        modelAndView.addObject("jobs", jobService.getAllJobsNames());
 
         return modelAndView;
     }
 
     @RequestMapping("/jobs/{template}/run")
-    public String runJob(@PathVariable("template") String template){
-        jobService.runTheOnlyJob();
+    public String runJob(@PathVariable("template") String template) throws InvalidDatabaseStateException, Exception {
+        System.out.println("running: " + template);
+        jobService.runJob(template);
 
         return "redirect:" + "/ads";
     }
-
 }

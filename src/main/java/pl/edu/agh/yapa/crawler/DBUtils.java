@@ -3,6 +3,7 @@ package pl.edu.agh.yapa.crawler;
 import com.mongodb.*;
 import org.bson.types.ObjectId;
 import pl.edu.agh.yapa.model.*;
+import pl.edu.agh.yapa.persistence.AdsDao;
 
 import java.net.UnknownHostException;
 import java.util.Map;
@@ -24,6 +25,7 @@ public class DBUtils {
     public static final String JOBS_TABLE = "AdJobs";
     public static final String WEBSITES_TABLE = "AdWebsites";
     private static DB connection = null;
+    private AdsDao adsDao;
 
     public static DB getConnection() throws UnknownHostException {
         if (connection == null) {
@@ -97,6 +99,7 @@ public class DBUtils {
         for (String subURL : website.getSubURLXPaths())
         subURLsList.add(subURL);
         sampleWebsite.append("subURLXPaths", subURLsList);
+        sampleWebsite.append("nextPageXPath", website.getNextPageXPath());
         coll.insert(sampleWebsite);
         return (ObjectId) sampleWebsite.get("_id");
     }
@@ -108,6 +111,7 @@ public class DBUtils {
         }
         DBCollection coll = connection.getCollection(JOBS_TABLE);
         BasicDBObject jobObj = new BasicDBObject();
+        jobObj.append("name", job.getName());
         jobObj.append("website", websiteID);
         jobObj.append("template", templateID);
         jobObj.append("engine", "htmlCleaner"); //??
