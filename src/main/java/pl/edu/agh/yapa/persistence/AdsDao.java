@@ -35,4 +35,6 @@ public interface AdsDao {
     ObjectId insertWebsite(Website website);
 
     void clear();
+
+    List<Website> getWebsites();
 }

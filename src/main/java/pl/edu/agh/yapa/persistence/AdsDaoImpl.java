@@ -97,6 +97,16 @@ public class AdsDaoImpl implements AdsDao {
     }
 
     @Override
+    public List<Website> getWebsites() {
+        DBCollection collection = database.getCollection(WEBSITES_COLLECTION);
+        List<Website> websites = new ArrayList<>();
+        for (DBObject websiteJson : collection.find()) {
+            websites.add(websiteFromJson(websiteJson));
+        }
+        return websites;
+    }
+
+    @Override
     public ObjectId insertAd(Ad ad, AdType adType) throws InvalidDatabaseStateException {
         String tableName = adType.getName();
         if (!database.collectionExists(tableName)) {
@@ -247,7 +257,9 @@ public class AdsDaoImpl implements AdsDao {
         for (Object subURLs : (BasicDBList) json.get("subURLXPaths")) {
             website.addSubURLXPath((String) subURLs);
         }
-        website.setNextPageXPath((String) json.get("nextPageXPath"));
+        if (json.get("nextPageXPath") != null) {
+            website.setNextPageXPath((String) json.get("nextPageXPath"));
+        }
         return website;
     }
 

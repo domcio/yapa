@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+<html layout:decorator="layout">
+<head>
+    <title>Portale ogłoszeniowe</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+
+    <h1>Portale ogłoszeniowe</h1>
+
+    <table border="1" style="width:300px">
+        <thead>
+        <td>Strona główna</td>
+        <td>XPath(y) do podstron</td>
+        <td>XPath do następnej strony (opcj.)</td>
+        </thead>
+        <tr th:each="website : ${websites}">
+            <td th:text="${website.topURL}"/>
+            <td>
+                <ul>
+                    <li th:each="subURLXPath : ${website.subURLXPaths}" th:text="${subURLXPath}"/>
+                </ul>
+            </td>
+            <td th:text="${website.multiPage}? ${website.nextPageXPath} : 'brak'"/>
+        </tr>
+    </table>
+</div>
+
+</body>
+</html>
