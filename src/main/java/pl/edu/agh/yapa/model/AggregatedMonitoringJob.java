@@ -9,24 +9,32 @@ import java.util.Collection;
  * Date: 01.05.14
  * Time: 11:07
  */
-public class AggregatedMonitoringJob {
-    private Collection<MonitoringJob> jobs;
+public class AggregatedMonitoringJob implements Job {
+    private Collection<Job> jobs;
 
     public AggregatedMonitoringJob() {
-        this.jobs = new ArrayList<MonitoringJob>();
+        this.jobs = new ArrayList<Job>();
     }
 
-    public AggregatedMonitoringJob(Collection<MonitoringJob> jobs) {
-        this.jobs = new ArrayList<MonitoringJob>(jobs);
+    public AggregatedMonitoringJob(Collection<Job> jobs) {
+        this.jobs = new ArrayList<Job>(jobs);
     }
 
     public void addJob(MonitoringJob job) {
         this.jobs.add(job);
     }
 
-    public void update() throws Exception {
-        for (MonitoringJob job : jobs) {
-            job.update();
+    @Override
+    public Collection<Ad> update() throws Exception {
+        ArrayList<Ad> ads = new ArrayList<>();
+        for (Job job : jobs) {
+            ads.addAll(job.update());
         }
+        return ads;
+    }
+
+    @Override
+    public AdTemplate getTemplate() {
+        return null;
     }
 }

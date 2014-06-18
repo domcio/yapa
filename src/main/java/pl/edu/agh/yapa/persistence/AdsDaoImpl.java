@@ -8,7 +8,6 @@ import pl.edu.agh.yapa.model.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author pawel
@@ -84,7 +83,7 @@ public class AdsDaoImpl implements AdsDao {
     }
 
     @Override
-    public MonitoringJob getJobByName(String jobName) throws InvalidDatabaseStateException {
+    public Job getJobByName(String jobName) throws InvalidDatabaseStateException {
         DBCollection jobs = database.getCollection(JOBS_COLLECTION);
         DBObject finder = new BasicDBObject().append("name", jobName);
         DBCursor cursor = jobs.find(finder);
@@ -93,10 +92,28 @@ public class AdsDaoImpl implements AdsDao {
     }
 
     @Override
-    public void insertType(AdType adType) throws InvalidDatabaseStateException {
+    public void clear() {
+        database.dropDatabase();
+    }
+
+    @Override
+    public ObjectId insertAd(Ad ad, AdType adType) throws InvalidDatabaseStateException {
+        String tableName = adType.getName();
+        if (!database.collectionExists(tableName)) {
+            database.createCollection(tableName, null);
+        }
+        DBCollection ads = database.getCollection(tableName);
+
+        BasicDBObject adJson = new BasicDBObject();
+        adJson.putAll(ad.getFieldValues());
+        ads.insert(adJson);
+        return (ObjectId) adJson.get("_id");
+    }
+
+    @Override
+    public ObjectId insertType(AdType adType) throws InvalidDatabaseStateException {
         DBCollection typesCollection = database.getCollection(TYPES_COLLECTION);
 
-        //TODO collection.insert(typeToJson(type));
         DBObject newType = new BasicDBObject();
         newType.put("name", adType.getName());
         BasicDBList fieldsList = new BasicDBList();
@@ -105,6 +122,7 @@ public class AdsDaoImpl implements AdsDao {
         }
         newType.put("fields", fieldsList);
         typesCollection.insert(newType);
+        return (ObjectId) newType.get("_id");
     }
 
     @Override
@@ -136,14 +154,45 @@ public class AdsDaoImpl implements AdsDao {
     }
 
     @Override
-    public void insertTemplate(AdTemplate adTemplate) throws InvalidDatabaseStateException {
+    public ObjectId insertJob(MonitoringJob job) throws InvalidDatabaseStateException {
+        DBCollection coll = database.getCollection(JOBS_COLLECTION);
+        BasicDBObject jobObj = new BasicDBObject();
+        jobObj.append("name", job.getName());
+        jobObj.append("website", insertWebsite(job.getWebsite())); //TODO can duplicate some documents, we need some method of identifying websites/templates
+        jobObj.append("template", insertTemplate(job.getTemplate()));
+        jobObj.append("engine", "htmlCleaner"); //TODO: still WTF
+        jobObj.append("interval", job.getInterval());
+        coll.insert(jobObj);
+        return (ObjectId) jobObj.get("_id");
+    }
+
+    @Override
+    public ObjectId insertWebsite(Website website) {
+        DBCollection websites = database.getCollection(WEBSITES_COLLECTION);
+        BasicDBObject websiteJson = new BasicDBObject();
+        BasicDBList subURLsList = new BasicDBList();
+        websiteJson.append("topURL", website.getTopURL());
+        for (String subURL : website.getSubURLXPaths())
+            subURLsList.add(subURL);
+        websiteJson.append("subURLXPaths", subURLsList);
+        websiteJson.append("nextPageXPath", website.getNextPageXPath());
+        websites.insert(websiteJson);
+        return (ObjectId) websiteJson.get("_id");
+    }
+
+    @Override
+    public ObjectId insertTemplate(AdTemplate adTemplate) throws InvalidDatabaseStateException {
         DBCollection templates = database.getCollection(TEMPLATES_COLLECTION);
         DBObject newTemplate = new BasicDBObject();
-        newTemplate.put("type", getTypeId(adTemplate.getType()));
-        for (Map.Entry<String, String> entry : adTemplate.getPaths().entrySet()) {
-            newTemplate.put(entry.getKey(), entry.getValue());
+        ObjectId typeId = getTypeId(adTemplate.getType());
+        if (typeId == null) {
+            newTemplate.put("type", insertType(adTemplate.getType()));
+        } else {
+            newTemplate.put("type", typeId);
         }
+        newTemplate.putAll(adTemplate.getPaths());
         templates.insert(newTemplate);
+        return (ObjectId) newTemplate.get("_id");
     }
 
     public AdType getTypeByName(String name) throws InvalidDatabaseStateException {
@@ -213,7 +262,7 @@ public class AdsDaoImpl implements AdsDao {
         return template;
     }
 
-    private MonitoringJob jobFromJson(DBObject json) throws InvalidDatabaseStateException {
+    private Job jobFromJson(DBObject json) throws InvalidDatabaseStateException {
         MonitoringJob job = new MonitoringJob();
         job.setName((String) json.get("name"));
         job.setTemplate(getTemplateByID((ObjectId) json.get("template")));

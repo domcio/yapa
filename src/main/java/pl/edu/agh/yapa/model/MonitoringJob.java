@@ -69,4 +69,8 @@ public class MonitoringJob implements Job {
     public void setName(String name) {
         this.name = name;
     }
+
+    public Website getWebsite() {
+        return website;
+    }
 }

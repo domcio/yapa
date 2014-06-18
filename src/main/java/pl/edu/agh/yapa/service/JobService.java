@@ -2,12 +2,9 @@ package pl.edu.agh.yapa.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.edu.agh.yapa.extraction.JobTask;
+import pl.edu.agh.yapa.extraction.JobExecutor;
 import pl.edu.agh.yapa.extraction.XPathEngine;
-import pl.edu.agh.yapa.model.AdTemplate;
-import pl.edu.agh.yapa.model.AdType;
-import pl.edu.agh.yapa.model.MonitoringJob;
-import pl.edu.agh.yapa.model.Website;
+import pl.edu.agh.yapa.model.*;
 import pl.edu.agh.yapa.persistence.AdsDao;
 import pl.edu.agh.yapa.persistence.InvalidDatabaseStateException;
 
@@ -47,7 +44,7 @@ public class JobService {
     }
 
     public void runJob(String jobName) throws InvalidDatabaseStateException, Exception {
-        MonitoringJob job = adsDao.getJobByName(jobName);
-        new Thread(new JobTask(adsDao, job)).start();
+        Job job = adsDao.getJobByName(jobName);
+        new Thread(new JobExecutor(adsDao, job)).start();
     }
 }

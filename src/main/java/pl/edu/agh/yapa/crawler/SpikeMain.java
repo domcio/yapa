@@ -1,5 +1,10 @@
 package pl.edu.agh.yapa.crawler;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
+import pl.edu.agh.yapa.persistence.AdsDao;
+import pl.edu.agh.yapa.persistence.InvalidDatabaseStateException;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Dominik
@@ -7,36 +12,28 @@ package pl.edu.agh.yapa.crawler;
  * Time: 23:54
  */
 public class SpikeMain {
+
     public static void main(String[] args) {
+        ApplicationContext ctx = new FileSystemXmlApplicationContext("src\\main\\webapp\\WEB-INF\\applicationContext.xml");
+        AdsDao adsDao = (AdsDao) ctx.getBean("adsDao");
 
         String line;
         java.io.BufferedReader in = new java.io.BufferedReader(
                 new java.io.InputStreamReader(System.in));
         try {
             do {
-                System.out.println("(c) clear database (ex-g) execute Gumtree job (ex-o) execute OLX job");
-                System.out
-                        .print("(a) show ads (e) show templates (t) show types (j) show jobs (x) exit\n==> ");
+                System.out.println("(c) clear database (i) insert sample data (x) exit\n>");
                 System.out.flush();
                 line = in.readLine();
-                if (line.equals("t")) {
-                    DBUtils.listTable(DBUtils.TYPES_TABLE);
-                } else if (line.equals("j")) {
-                    DBUtils.listTable(DBUtils.JOBS_TABLE);
-                } else if (line.equals("e")) {
-                    DBUtils.listTable(DBUtils.TEMPLATES_TABLE);
-                } else if (line.equals("a")) {
-                    DBUtils.listAds();
-                } else if (line.equals("ex-g")) {
-                    ConstructAndExecute.sampleGumtreeJob();
-                } else if (line.equals("ex-o")) {
-                    ConstructAndExecute.sampleOlxJob();
+                if (line.equals("i")) {
+                    ConstructAndExecute.sampleGumtreeJob(adsDao);
+                    ConstructAndExecute.sampleOlxJob(adsDao);
                 } else if (line.equals("c")) {
-                    DBUtils.clearDB();
+                    adsDao.clear();
                 }
             }
             while (!line.equals("x"));
-        } catch (Exception e) {
+        } catch (Exception | InvalidDatabaseStateException e) {
             e.printStackTrace();
         }
     }
