@@ -23,7 +23,7 @@ public class JobScheduler {
     }
 
     /**
-     * Run a job once.
+     * Run a job oneOff.
      *
      * @param job
      */
@@ -59,7 +59,7 @@ public class JobScheduler {
     }
 
     /**
-     * Remove a job without cancelling it (for jobs that run once to deactivate themselves).
+     * Remove a job without cancelling it (for jobs that run oneOff to deactivate themselves).
      *
      * @param job
      * @return true if the job was deactivated as a result of this call, false otherwise
@@ -72,14 +72,15 @@ public class JobScheduler {
         return activeJobs.containsKey(job);
     }
 
-    private void schedule(Job job, boolean once) {
+    private void schedule(Job job, boolean oneOff) {
         checkNotActive(job);
         // TODO Get a fully initialized JobExecutor from a factory (use parameters)
         final JobExecutor jobExecutor = jobExecutorFactory.getObject();
         jobExecutor.setJob(job);
-        jobExecutor.setJobScheduler(this);
+        jobExecutor.setJobScheduler(this); // for callback (one-off jobs have to cancel themselves)
+        jobExecutor.setOneOff(oneOff);
         final ScheduledFuture<?> scheduledJobFuture;
-        if (once) {
+        if (oneOff) {
             scheduledJobFuture = scheduler.schedule(jobExecutor, new Date());
         } else {
             scheduledJobFuture = scheduler.scheduleWithFixedDelay(jobExecutor, job.getInterval()*1000);

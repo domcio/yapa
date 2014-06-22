@@ -10,6 +10,7 @@ public class JobExecutor implements Runnable {
     private final AdsDao adsDao;
     private Job job;
     private JobScheduler jobScheduler;
+    private boolean isOneOff;
 
     // TODO Remove
     public JobExecutor(AdsDao adsDao) {
@@ -32,6 +33,14 @@ public class JobExecutor implements Runnable {
         this.jobScheduler = jobScheduler;
     }
 
+    public boolean isOneOff() {
+        return isOneOff;
+    }
+
+    public void setOneOff(boolean oneOff) {
+        this.isOneOff = oneOff;
+    }
+
     @Override
     public void run() {
         try {
@@ -39,6 +48,8 @@ public class JobExecutor implements Runnable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        jobScheduler.remove(job);
+        if (isOneOff) {
+            jobScheduler.remove(job);
+        }
     }
 }
