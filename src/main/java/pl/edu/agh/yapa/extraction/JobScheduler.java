@@ -82,7 +82,7 @@ public class JobScheduler {
         if (once) {
             scheduledJobFuture = scheduler.schedule(jobExecutor, new Date());
         } else {
-            scheduledJobFuture = scheduler.scheduleWithFixedDelay(jobExecutor, job.getInterval());
+            scheduledJobFuture = scheduler.scheduleWithFixedDelay(jobExecutor, job.getInterval()*1000);
         }
         activeJobs.put(job, scheduledJobFuture);
     }
