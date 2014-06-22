@@ -84,8 +84,11 @@ public class JobScheduler {
             scheduledJobFuture = scheduler.schedule(jobExecutor, new Date());
         } else {
             scheduledJobFuture = scheduler.scheduleWithFixedDelay(jobExecutor, job.getInterval()*1000);
+            // Comment to put one-off jobs into active jobs
+            activeJobs.put(job, scheduledJobFuture);
         }
-        activeJobs.put(job, scheduledJobFuture);
+        // Uncomment to put one-off jobs into active jobs
+        // activeJobs.put(job, scheduledJobFuture);
     }
 
     private void checkNotActive(Job job) {
