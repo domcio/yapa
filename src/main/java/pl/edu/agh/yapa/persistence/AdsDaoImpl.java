@@ -160,13 +160,13 @@ public class AdsDaoImpl implements AdsDao {
     }
 
     @Override
-    public List<String> getJobsNames() {
-        DBCollection jobs = database.getCollection(JOBS_COLLECTION);
-        List<String> result = new ArrayList<>();
-        for (DBObject obj : jobs.find()) {
-            result.add((String) obj.get("name"));
+    public List<Job> getJobs() throws InvalidDatabaseStateException {
+        DBCollection jobsCollection = database.getCollection(JOBS_COLLECTION);
+        List<Job> jobs = new ArrayList<>();
+        for (DBObject jobJson : jobsCollection.find()) {
+            jobs.add(jobFromJson(jobJson));
         }
-        return result;
+        return jobs;
     }
 
     @Override

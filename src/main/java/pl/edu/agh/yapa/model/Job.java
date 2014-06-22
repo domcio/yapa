@@ -8,4 +8,6 @@ import java.util.Collection;
 public interface Job {
     Collection<Ad> update() throws Exception;
     AdTemplate getTemplate();
+    String getName();
+    long getInterval();
 }

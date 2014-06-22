@@ -28,7 +28,7 @@ public interface AdsDao {
 
     void executeJob(Job job) throws Exception;
 
-    List<String> getJobsNames();
+    List<Job> getJobs() throws InvalidDatabaseStateException;
 
     ObjectId insertJob(MonitoringJob job) throws InvalidDatabaseStateException;
 

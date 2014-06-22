@@ -12,10 +12,10 @@
     <table class="table">
         <tr th:each="job : ${jobs}">
             <td>
-                <div th:text="${job}"/>
+                <div th:text="${job.name}"/>
             </td>
             <td>
-                <a th:href="'/jobs/' + ${job} + '/run/'" class="btn btn-danger" role="button">Run</a>
+                <a th:href="'/jobs/' + ${job.name} + '/run/'" class="btn btn-danger" role="button">Run</a>
             </td>
         </tr>
     </table>

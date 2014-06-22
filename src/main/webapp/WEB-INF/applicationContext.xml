@@ -7,6 +7,23 @@
 
     <context:property-placeholder location="classpath*:mongodb.properties"/>
 
+    <bean id="scheduledJobContainer" class="pl.edu.agh.yapa.extraction.JobScheduler">
+        <constructor-arg index="0" ref="taskScheduler"/>
+        <constructor-arg index="1" ref="jobExecutorFactory"/>
+    </bean>
+
+    <bean id="taskScheduler" class="org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler">
+        <property name="poolSize" value="5"/>
+    </bean>
+
+    <bean id="jobExecutorFactory" class="org.springframework.beans.factory.config.ObjectFactoryCreatingFactoryBean">
+        <property name="targetBeanName"><idref bean="jobExecutor"/></property>
+    </bean>
+
+    <bean id="jobExecutor" class="pl.edu.agh.yapa.extraction.JobExecutor" scope="prototype">
+        <constructor-arg index="0" ref="adsDao"/>
+    </bean>
+
     <bean id="adsDao" class="pl.edu.agh.yapa.persistence.AdsDaoImpl">
         <constructor-arg index="0" ref="db" />
     </bean>
@@ -19,4 +36,5 @@
         <constructor-arg index="0" type="java.lang.String" value="${mongodb.hostname}"/>
         <constructor-arg index="1" type="int" value="${mongodb.port}"/>
     </bean>
+
 </beans>

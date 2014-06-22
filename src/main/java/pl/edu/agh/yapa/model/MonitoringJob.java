@@ -42,6 +42,7 @@ public class MonitoringJob implements Job {
         return template;
     }
 
+    @Override
     public long getInterval() {
         return intervalSeconds;
     }
@@ -62,6 +63,7 @@ public class MonitoringJob implements Job {
         this.template = template;
     }
 
+    @Override
     public String getName() {
         return name;
     }
@@ -72,5 +74,24 @@ public class MonitoringJob implements Job {
 
     public Website getWebsite() {
         return website;
+    }
+
+    // TODO use ID
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof MonitoringJob)) return false;
+
+        MonitoringJob that = (MonitoringJob) o;
+
+        if (name != null ? !name.equals(that.name) : that.name != null) return false;
+
+        return true;
+    }
+
+    // TODO use ID
+    @Override
+    public int hashCode() {
+        return name != null ? name.hashCode() : 0;
     }
 }
