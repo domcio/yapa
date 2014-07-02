@@ -6,7 +6,7 @@
 <body>
 
 <div layout:fragment="content">
-    <h1>Wyspecyfikuj szukanie</h1>
+    <h1>Podaj kryteria wyszukiwania</h1>
     Puste pole oznacza dowolną zawartość
 
     <form action="#" th:action="@{/processSearch}" th:object="${fieldContainer}" method="post">
@@ -23,7 +23,7 @@
 
         <input type="hidden" th:field="${{fieldContainer.adType}}"/>
 
-        <button type="submit">Dodaj</button>
+        <button type="submit">Szukaj</button>
 
     </form>
 </div>

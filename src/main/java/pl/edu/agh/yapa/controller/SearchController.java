@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import pl.edu.agh.yapa.conversion.FieldsContainer;
 import pl.edu.agh.yapa.model.Ad;
+import pl.edu.agh.yapa.model.AdSnapshot;
 import pl.edu.agh.yapa.model.AdTemplate;
 import pl.edu.agh.yapa.persistence.InvalidDatabaseStateException;
 import pl.edu.agh.yapa.service.AdService;
@@ -49,7 +50,7 @@ public class SearchController {
     public ModelAndView processSearch(final AdTemplate template, final FieldsContainer container, final BindingResult bindingResult, final HttpServletRequest req) throws InvalidDatabaseStateException {
         List<Ad> ads = adService.search(container);
         ModelAndView modelAndView = new ModelAndView("ListAds");
-        modelAndView.addObject("ads", ads);
+        modelAndView.addObject("snapshots", AdSnapshot.groupBySnapshots(ads));
 
         return modelAndView;
     }

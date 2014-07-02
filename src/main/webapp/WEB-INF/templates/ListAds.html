@@ -7,11 +7,12 @@
 
 <div layout:fragment="content">
 
-    <h1>Wszystkie ogłoszenia</h1>
+    <h1>Wyniki wyszukiwania</h1>
 
     <table>
-        <ul>
-            <li th:each="ad : ${ads}">
+        <ul th:each="snapshot : ${snapshots}">
+            <h2 th:text="'Snapshot ' + ${snapshot.date}"/>
+            <li th:each="ad : ${snapshot.ads}">
                 <ul>
                     <li th:each="field : ${ad.fieldValues}">
                         <div th:text="${field.key} + ': ' +  ${field.value}"/>
