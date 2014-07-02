@@ -2,12 +2,14 @@ package pl.edu.agh.yapa.persistence;
 
 import com.mongodb.*;
 import org.bson.types.ObjectId;
+import pl.edu.agh.yapa.conversion.FieldsContainer;
 import pl.edu.agh.yapa.extraction.EngineFactory;
 import pl.edu.agh.yapa.model.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.regex.Pattern;
 
 /**
  * @author pawel
@@ -110,6 +112,30 @@ public class AdsDaoImpl implements AdsDao {
     public void removeTypeByName(String typeName) {
         DBCollection types = database.getCollection(TYPES_COLLECTION);
         types.remove(new BasicDBObject().append("name", typeName));
+    }
+
+    @Override
+    public List<Ad> search(FieldsContainer container) throws InvalidDatabaseStateException {
+        //TODO implement actual search
+        BasicDBObject query = new BasicDBObject();
+
+        List<String> constraints = container.getFieldXPaths();
+        List<String> fields = container.getAdType().getFields();
+
+        for (int i = 0; i < fields.size(); i++) {
+            if (constraints.get(i).equals("")) {
+                query.append(fields.get(i), Pattern.compile(".*", Pattern.CASE_INSENSITIVE));
+            } else {
+                Pattern pattern = Pattern.compile(".*" + constraints.get(i) + ".*", Pattern.CASE_INSENSITIVE);
+                query.append(fields.get(i), pattern);
+            }
+        }
+        List<Ad> ads = new ArrayList<>();
+        DBCollection collection = database.getCollection(container.getAdType().getName());
+        for (DBObject object : collection.find(query)) {
+            ads.add(adFromJson(object));
+        }
+        return ads;
     }
 
     @Override

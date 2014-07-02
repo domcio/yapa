@@ -2,6 +2,7 @@ package pl.edu.agh.yapa.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.edu.agh.yapa.conversion.FieldsContainer;
 import pl.edu.agh.yapa.model.Ad;
 import pl.edu.agh.yapa.model.AdTemplate;
 import pl.edu.agh.yapa.model.AdType;
@@ -40,5 +41,13 @@ public class AdService {
 
     public void removeType(String typeName) {
         adsDao.removeTypeByName(typeName);
+    }
+
+    public List<Ad> search(FieldsContainer container) throws InvalidDatabaseStateException {
+        return adsDao.search(container);
+//        System.out.println("Search po typie " + container.getAdType());
+//        for (String path : container.getFieldXPaths()) {
+//            System.out.println("Slowo kluczowe: " + path);
+//        }
     }
 }

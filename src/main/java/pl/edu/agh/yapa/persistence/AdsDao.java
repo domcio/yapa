@@ -1,6 +1,7 @@
 package pl.edu.agh.yapa.persistence;
 
 import org.bson.types.ObjectId;
+import pl.edu.agh.yapa.conversion.FieldsContainer;
 import pl.edu.agh.yapa.model.*;
 
 import java.util.List;
@@ -39,4 +40,6 @@ public interface AdsDao {
     List<Website> getWebsites();
 
     void removeTypeByName(String typeName);
+
+    List<Ad> search(FieldsContainer container) throws InvalidDatabaseStateException;
 }

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html layout:decorator="layout">
+<head>
+    <title>Przeszukaj ogłoszenia</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+    <h1>Wybierz interesujący Cię typ</h1>
+
+    <form action="#" th:action="@{/search}" th:object="${template}" method="post">
+
+        <select th:field="*{{type}}">
+            <option th:each="type : ${types}"
+                    th:value="${{type}}"
+                    th:text="${{type}}">Wireframe
+            </option>
+        </select>
+        <!--Nazwa typu szablonu:-->
+        <!--<input type="text" th:field="*{type}"/>-->
+        <button type="submit" name="submitType">Wybierz</button>
+
+    </form>
+</div>
+</body>
+</html>

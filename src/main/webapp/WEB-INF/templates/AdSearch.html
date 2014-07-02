@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html layout:decorator="layout">
+<head>
+    <title>Przeszukaj ogłoszenia</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+    <h1>Wyspecyfikuj szukanie</h1>
+    Puste pole oznacza dowolną zawartość
+
+    <form action="#" th:action="@{/processSearch}" th:object="${fieldContainer}" method="post">
+
+        <table border="1" style="width:300px">
+            <div th:text="${adTemplate.type.name}"/>
+            <tr th:each="field, fieldStat : ${adTemplate.type.fields}">
+                <td th:text="${field}"/>
+                <td>
+                    <input type="text" th:field="${fieldContainer.fieldXPaths[__${fieldStat.index}__]}"/>
+                </td>
+            </tr>
+        </table>
+
+        <input type="hidden" th:field="${{fieldContainer.adType}}"/>
+
+        <button type="submit">Dodaj</button>
+
+    </form>
+</div>
+
+</body>
+</html>
