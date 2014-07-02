@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Map;
 
 /**
@@ -43,6 +44,7 @@ public class XPathEngine implements Engine {
     //extract from top-level website
     @Override
     public Collection<Ad> extractAds(Website website, AdTemplate template) throws Exception {
+        Date date = new Date();
         TagNode topLevelNode = cleaner.clean(new URL(website.getTopURL()));
         Document doc = new DomSerializer(new CleanerProperties()).createDOM(topLevelNode);
         XPath path = XPathFactory.newInstance().newXPath();
@@ -53,7 +55,7 @@ public class XPathEngine implements Engine {
             NodeList list = (NodeList) path.evaluate(subURLXPath, doc, XPathConstants.NODESET);
             for (int i = 0; i < list.getLength(); i++) {
                 String subURLString = list.item(i).getNodeValue();
-                ads.add(extractAd(new URL(subURLString), template));
+                ads.add(extractAd(new URL(subURLString), template, date));
             }
         }
 
@@ -70,7 +72,7 @@ public class XPathEngine implements Engine {
                     NodeList list = (NodeList) path.evaluate(subURLXPath, doc, XPathConstants.NODESET);
                     for (int i = 0; i < list.getLength(); i++) {
                         String subURLString = list.item(i).getNodeValue();
-                        ads.add(extractAd(new URL(subURLString), template));
+                        ads.add(extractAd(new URL(subURLString), template, date));
                     }
                 }
                 nextPageList = (NodeList) path.evaluate(website.getNextPageXPath(), doc, XPathConstants.NODESET);
@@ -81,7 +83,7 @@ public class XPathEngine implements Engine {
     }
 
     //extract from this website
-    private Ad extractAd(URL subURL, AdTemplate template) throws IOException, XPatherException, ParserConfigurationException, XPathExpressionException {
+    private Ad extractAd(URL subURL, AdTemplate template, Date date) throws IOException, XPatherException, ParserConfigurationException, XPathExpressionException {
         System.out.println("Extracting from URL: " + subURL);
         Ad ad = new Ad();
         Collection<String> fields = template.getType().getFields();
@@ -101,6 +103,7 @@ public class XPathEngine implements Engine {
                     ad.setValue(field, list.item(0).getNodeValue());
                 }
             }
+            ad.setSnapshot(date);
         }
         return ad;
     }

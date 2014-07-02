@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html layout:decorator="layout">
+<head>
+    <title>Ogłoszenia</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+
+    <h1>Wszystkie ogłoszenia</h1>
+
+    <table>
+        <ul th:each="snapshot : ${snapshots}">
+            <div th:text="${snapshot.date}"/>
+            <li th:each="ad : ${snapshot.ads}">
+                <ul>
+                    <li th:each="field : ${ad.fieldValues}">
+                        <div th:text="${field.key} + ': ' +  ${field.value}"/>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </table>
+
+</div>
+
+</body>
+</html>

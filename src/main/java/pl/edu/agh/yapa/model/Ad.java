@@ -1,5 +1,6 @@
 package pl.edu.agh.yapa.model;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,6 +13,7 @@ import java.util.Map;
  */
 public class Ad {
     private Map<String, String> fieldValues;
+    private Date snapshot;
 
     public Ad() {
         this.fieldValues = new HashMap<>();
@@ -25,7 +27,13 @@ public class Ad {
         return fieldValues;
     }
 
+    public Date getSnapshot() {
+        return snapshot;
+    }
 
+    public void setSnapshot(Date snapshot) {
+        this.snapshot = snapshot;
+    }
 
     @Override
     public String toString() {

@@ -2,6 +2,8 @@ package pl.edu.agh.yapa.persistence;
 
 import com.mongodb.*;
 import org.bson.types.ObjectId;
+import org.joda.time.format.DateTimeFormatter;
+import org.joda.time.format.ISODateTimeFormat;
 import pl.edu.agh.yapa.conversion.FieldsContainer;
 import pl.edu.agh.yapa.extraction.EngineFactory;
 import pl.edu.agh.yapa.model.*;
@@ -182,6 +184,7 @@ public class AdsDaoImpl implements AdsDao {
     private DBObject adToJson(Ad ad) {
         DBObject json = new BasicDBObject();
         json.putAll(ad.getFieldValues());
+        json.put("__date", ad.getSnapshot());
         return json;
     }
 
@@ -268,10 +271,12 @@ public class AdsDaoImpl implements AdsDao {
     private Ad adFromJson(DBObject json) {
         Ad ad = new Ad();
         for (String field : json.keySet()) {
-            if (!field.equals("_id")) {
+            if (!field.equals("_id") && !field.equals("__date")) {
                 ad.setValue(field, (String) json.get(field));
             }
         }
+        DateTimeFormatter parser = ISODateTimeFormat.dateTime();
+        ad.setSnapshot((java.util.Date) json.get("__date"));
         return ad;
     }
 
