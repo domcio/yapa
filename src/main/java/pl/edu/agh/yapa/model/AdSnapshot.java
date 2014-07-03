@@ -6,11 +6,11 @@ import java.util.*;
  * Created by Dominik on 02.07.2014.
  */
 public class AdSnapshot {
-    private Date date;
+    private SnapshotStamp stamp;
     private List<Ad> ads;
 
-    public AdSnapshot(Date date, List<Ad> ads) {
-        this.date = date;
+    public AdSnapshot(SnapshotStamp stamp, List<Ad> ads) {
+        this.stamp = stamp;
         this.ads = ads;
     }
 
@@ -22,16 +22,16 @@ public class AdSnapshot {
         this.ads = ads;
     }
 
-    public Date getDate() {
-        return date;
+    public SnapshotStamp getStamp() {
+        return stamp;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setStamp(SnapshotStamp stamp) {
+        this.stamp = stamp;
     }
 
     public static List<AdSnapshot> groupBySnapshots(List<Ad> ads) {
-        Map<Date, List<Ad>> map = new HashMap<>();
+        Map<SnapshotStamp, List<Ad>> map = new HashMap<>();
         for (Ad ad : ads) {
             if (!map.containsKey(ad.getSnapshot())) {
                 List<Ad> adList = new ArrayList<>();
@@ -43,7 +43,7 @@ public class AdSnapshot {
             }
         }
         List<AdSnapshot> snapshots = new ArrayList<>();
-        for (Map.Entry<Date, List<Ad>> entry : map.entrySet()) {
+        for (Map.Entry<SnapshotStamp, List<Ad>> entry : map.entrySet()) {
             snapshots.add(new AdSnapshot(entry.getKey(), entry.getValue()));
         }
         return snapshots;

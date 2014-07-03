@@ -2,6 +2,7 @@ package pl.edu.agh.yapa.persistence;
 
 import com.mongodb.*;
 import org.bson.types.ObjectId;
+import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
 import pl.edu.agh.yapa.conversion.FieldsContainer;
@@ -22,6 +23,7 @@ public class AdsDaoImpl implements AdsDao {
     private static final String TEMPLATES_COLLECTION = "AdTemplates";
     private static final String WEBSITES_COLLECTION = "AdWebsites";
     private static final String JOBS_COLLECTION = "AdJobs";
+    private static final DateTimeFormatter formatter = ISODateTimeFormat.dateTime();
     private final DB database;
 
     public AdsDaoImpl(DB database) {
@@ -184,7 +186,14 @@ public class AdsDaoImpl implements AdsDao {
     private DBObject adToJson(Ad ad) {
         DBObject json = new BasicDBObject();
         json.putAll(ad.getFieldValues());
-        json.put("__date", ad.getSnapshot());
+
+        SnapshotStamp stamp = ad.getSnapshot();
+        DBObject stampJson = new BasicDBObject();
+        stampJson.put( "date", stamp.getDatetime().toString(formatter) );
+        stampJson.put( "job", stamp.getJobName() );
+
+        json.put("__stamp", stampJson);
+
         return json;
     }
 
@@ -271,12 +280,17 @@ public class AdsDaoImpl implements AdsDao {
     private Ad adFromJson(DBObject json) {
         Ad ad = new Ad();
         for (String field : json.keySet()) {
-            if (!field.equals("_id") && !field.equals("__date")) {
+            if (!field.equals("_id") && !field.equals("__stamp")) {
                 ad.setValue(field, (String) json.get(field));
             }
         }
-        DateTimeFormatter parser = ISODateTimeFormat.dateTime();
-        ad.setSnapshot((java.util.Date) json.get("__date"));
+
+        DBObject stamp = (DBObject) json.get("__stamp");
+
+        DateTime date = formatter.parseDateTime((String) stamp.get("date"));
+        String jobName = (String) stamp.get("job");
+
+        ad.setSnapshot(new SnapshotStamp(date, jobName));
         return ad;
     }
 

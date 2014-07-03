@@ -1,5 +1,6 @@
 package pl.edu.agh.yapa.model;
 
+import org.joda.time.DateTime;
 import pl.edu.agh.yapa.extraction.Engine;
 
 import java.util.Collection;
@@ -34,6 +35,8 @@ public class MonitoringJob implements Job {
     //prototype method
     @Override
     public Collection<Ad> update() throws Exception {
+        engine.setStamp( new SnapshotStamp(DateTime.now(), name) );
+
         return engine.extractAds(website, template);
     }
 

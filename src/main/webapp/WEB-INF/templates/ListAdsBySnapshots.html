@@ -14,7 +14,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <a data-toggle="collapse" th:href="'#collapse' + ${iterStat.index}" th:attr="data-target='#collapse' + ${iterStat.index}">
-                        <div th:text="'Snapshot ' + ${snapshot.date}"/>
+                        <div th:text="'Snapshot ' + ${snapshot.stamp.jobName} + ' ' + ${snapshot.stamp.datetime.toString(datetimeFormatter)}"/>
                     </a>
                 </div>
                 <div th:id="'collapse' + ${iterStat.index}" class="panel-collapse collapse">
@@ -22,7 +22,7 @@
                         <dl class="dl-horizontal">
                             <div th:each="field : ${ad.fieldValues}">
                                 <dt th:text="${field.key}"/>
-                                <dd th:text="${field.value}"/>
+                                <dd th:text="${field.value}" class="text-justify"/>
                             </div>
                         </dl>
                     </div>

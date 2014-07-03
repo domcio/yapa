@@ -5,6 +5,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import pl.edu.agh.yapa.model.Ad;
 import pl.edu.agh.yapa.model.AdTemplate;
+import pl.edu.agh.yapa.model.SnapshotStamp;
 import pl.edu.agh.yapa.model.Website;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -16,7 +17,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.Map;
 
 /**
@@ -28,6 +28,7 @@ import java.util.Map;
  */
 public class XPathEngine implements Engine {
     private HtmlCleaner cleaner;
+    private SnapshotStamp stamp;
     //TODO move this to MonitoringJob/Website
     private static final int PAGE_LIMIT = 2; // limit the amount of pages traversed within a single job
 
@@ -41,10 +42,14 @@ public class XPathEngine implements Engine {
         props.setOmitComments(true);
     }
 
+    @Override
+    public void setStamp(SnapshotStamp stamp) {
+        this.stamp = stamp;
+    }
+
     //extract from top-level website
     @Override
     public Collection<Ad> extractAds(Website website, AdTemplate template) throws Exception {
-        Date date = new Date();
         TagNode topLevelNode = cleaner.clean(new URL(website.getTopURL()));
         Document doc = new DomSerializer(new CleanerProperties()).createDOM(topLevelNode);
         XPath path = XPathFactory.newInstance().newXPath();
@@ -55,7 +60,7 @@ public class XPathEngine implements Engine {
             NodeList list = (NodeList) path.evaluate(subURLXPath, doc, XPathConstants.NODESET);
             for (int i = 0; i < list.getLength(); i++) {
                 String subURLString = list.item(i).getNodeValue();
-                ads.add(extractAd(new URL(subURLString), template, date));
+                ads.add(extractAd(new URL(subURLString), template, stamp));
             }
         }
 
@@ -72,7 +77,7 @@ public class XPathEngine implements Engine {
                     NodeList list = (NodeList) path.evaluate(subURLXPath, doc, XPathConstants.NODESET);
                     for (int i = 0; i < list.getLength(); i++) {
                         String subURLString = list.item(i).getNodeValue();
-                        ads.add(extractAd(new URL(subURLString), template, date));
+                        ads.add(extractAd(new URL(subURLString), template, stamp));
                     }
                 }
                 nextPageList = (NodeList) path.evaluate(website.getNextPageXPath(), doc, XPathConstants.NODESET);
@@ -83,7 +88,7 @@ public class XPathEngine implements Engine {
     }
 
     //extract from this website
-    private Ad extractAd(URL subURL, AdTemplate template, Date date) throws IOException, XPatherException, ParserConfigurationException, XPathExpressionException {
+    private Ad extractAd(URL subURL, AdTemplate template, SnapshotStamp stamp) throws IOException, XPatherException, ParserConfigurationException, XPathExpressionException {
         System.out.println("Extracting from URL: " + subURL);
         Ad ad = new Ad();
         Collection<String> fields = template.getType().getFields();
@@ -103,7 +108,7 @@ public class XPathEngine implements Engine {
                     ad.setValue(field, list.item(0).getNodeValue());
                 }
             }
-            ad.setSnapshot(date);
+            ad.setSnapshot(stamp);
         }
         return ad;
     }
