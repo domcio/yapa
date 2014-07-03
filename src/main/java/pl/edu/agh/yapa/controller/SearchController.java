@@ -1,5 +1,7 @@
 package pl.edu.agh.yapa.controller;
 
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +25,7 @@ import java.util.List;
 @Controller
 public class SearchController {
     private final AdService adService;
+    private final DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
 
     @Autowired
     public SearchController(AdService adService) {
@@ -51,6 +54,7 @@ public class SearchController {
         List<Ad> ads = adService.search(container);
         ModelAndView modelAndView = new ModelAndView("ListAds");
         modelAndView.addObject("snapshots", AdSnapshot.groupBySnapshots(ads));
+        modelAndView.addObject("datetimeFormatter", dateTimeFormatter);
 
         return modelAndView;
     }
