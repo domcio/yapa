@@ -17,7 +17,7 @@ import java.util.Arrays;
  * Date: 30.04.14
  * Time: 15:54
  */
-public class ConstructAndExecute {
+public class Construct {
     public static void sampleGumtreeJob(AdsDao adsDao) throws Exception, InvalidDatabaseStateException {
         AdType type = new AdType(Arrays.asList("title", "description", "locality"), "gumtreeAGDAd");
         Engine engine = new XPathEngine();
@@ -34,7 +34,6 @@ public class ConstructAndExecute {
         MonitoringJob job = new MonitoringJob("gumtreeJob", website, template, engine, 100);
 
         adsDao.insertJob(job);
-//        adsDao.executeJob(job);
     }
 
     public static void sampleOlxJob(AdsDao adsDao) throws Exception, InvalidDatabaseStateException {
@@ -54,6 +53,5 @@ public class ConstructAndExecute {
 
         adsDao.insertType(adType);
         adsDao.insertJob(job);
-//        adsDao.executeJob(job);
     }
 }
