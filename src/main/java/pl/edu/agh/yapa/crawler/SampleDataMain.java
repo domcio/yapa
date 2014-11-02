@@ -11,8 +11,7 @@ import pl.edu.agh.yapa.persistence.InvalidDatabaseStateException;
  * Date: 19.05.14
  * Time: 23:54
  */
-public class SpikeMain {
-
+public class SampleDataMain {
     public static void main(String[] args) {
         ApplicationContext ctx = new FileSystemXmlApplicationContext("src\\main\\webapp\\WEB-INF\\applicationContext.xml");
         AdsDao adsDao = (AdsDao) ctx.getBean("adsDao");
@@ -26,8 +25,8 @@ public class SpikeMain {
                 System.out.flush();
                 line = in.readLine();
                 if (line.equals("i")) {
-                    ConstructAndExecute.sampleGumtreeJob(adsDao);
-                    ConstructAndExecute.sampleOlxJob(adsDao);
+                    Construct.sampleGumtreeJob(adsDao);
+                    Construct.sampleOlxJob(adsDao);
                 } else if (line.equals("c")) {
                     adsDao.clear();
                 }

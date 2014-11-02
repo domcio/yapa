@@ -1,6 +1,6 @@
 *.iml
 .idea/
-
+src/main/java/resources
 target/
 
 *.properties
