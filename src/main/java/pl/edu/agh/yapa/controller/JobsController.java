@@ -2,11 +2,18 @@ package pl.edu.agh.yapa.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import pl.edu.agh.yapa.conversion.QueryContainer;
+import pl.edu.agh.yapa.model.MonitoringJob;
 import pl.edu.agh.yapa.persistence.InvalidDatabaseStateException;
 import pl.edu.agh.yapa.service.JobService;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author pawel
@@ -51,5 +58,44 @@ public class JobsController {
         jobService.deactivateJob(name);
 
         return "redirect:" + "/ads";
+    }
+
+
+    @RequestMapping(value = "/selectTemplate", method = RequestMethod.GET)
+    public String selectTemplate(Model model) throws InvalidDatabaseStateException {
+        model.addAttribute("templates", jobService.getTemplates());
+
+        return "SelectAdTemplate";
+    }
+
+    @RequestMapping(value = "/selectTemplate", params = {"submitTemplate"})
+    public String submitTemplate(final HttpServletRequest req, Model model) {
+//        if (bindingResult.hasErrors()) {
+//            System.out.println(job.getName());
+//            System.out.println("Binding rezult ma errory");
+//            return "SelectAdTemplate";
+//        }
+
+        QueryContainer container = new QueryContainer();
+        model.addAttribute("container", container);
+
+        return "AddJob";
+    }
+
+    @RequestMapping(value = "/processJob", method = RequestMethod.POST)
+    public String processSelect(final MonitoringJob job, final QueryContainer container, final BindingResult bindingResult, final HttpServletRequest req) throws InvalidDatabaseStateException {
+        if (bindingResult.hasErrors()) {
+            System.out.println("Binding rezult ma errory");
+            return "SelectAdType";
+        }
+
+        System.out.println(job.getName());
+
+//        System.out.println(template);
+        System.out.println(container.getField());
+
+        jobService.addJob(container.getField(), job);
+
+        return "redirect:/jobs";
     }
 }

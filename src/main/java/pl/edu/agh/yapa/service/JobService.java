@@ -3,7 +3,10 @@ package pl.edu.agh.yapa.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.edu.agh.yapa.extraction.JobScheduler;
+import pl.edu.agh.yapa.model.AdTemplate;
 import pl.edu.agh.yapa.model.Job;
+import pl.edu.agh.yapa.model.MonitoringJob;
+import pl.edu.agh.yapa.model.Website;
 import pl.edu.agh.yapa.persistence.AdsDao;
 import pl.edu.agh.yapa.persistence.InvalidDatabaseStateException;
 
@@ -52,5 +55,13 @@ public class JobService {
     public boolean isJobActive(String jobName) throws InvalidDatabaseStateException {
         Job job = adsDao.getJobByName(jobName);
         return jobScheduler.isActive(job);
+    }
+
+    public List<AdTemplate> getTemplates() throws  InvalidDatabaseStateException { return adsDao.getTemplates(); }
+
+    public void addJob(String field, MonitoringJob job) throws InvalidDatabaseStateException {
+        job.setWebsite(new Website());
+        job.getWebsite().setTopURL(field);
+        adsDao.insertJob(job);
     }
 }

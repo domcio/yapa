@@ -19,9 +19,6 @@ import pl.edu.agh.yapa.service.AdService;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-/**
- * Created by Dominik on 02.07.2014.
- */
 @Controller
 public class SearchController {
     private final AdService adService;

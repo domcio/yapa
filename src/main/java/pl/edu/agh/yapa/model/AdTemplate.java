@@ -50,4 +50,13 @@ public class AdTemplate {
     public void setType(AdType type) {
         this.type = type;
     }
+
+    public String print() {
+        StringBuilder buffer = new StringBuilder();
+        buffer.append(type.getName()).append(":");
+        for(Map.Entry entry : paths.entrySet()) {
+            buffer.append(entry.getKey()).append(":").append(entry.getValue());
+        }
+        return buffer.toString();
+    }
 }

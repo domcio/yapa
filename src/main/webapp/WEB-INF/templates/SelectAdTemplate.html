@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html layout:decorator="layout">
+<head>
+    <title>Dodaj zadanie monitorowania</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+    <h1>Dodaj zadanie monitorowania</h1>
+
+
+    <form action="#" th:action="@{/selectTemplate}" th:object="${job}" method="post">
+
+        <select th:field="*{{template}}">
+            <option th:each="template : ${templates}"
+                    th:value="${{template}}"
+                    th:text="${{template}}">Wireframe
+            </option>
+        </select>
+        <!--Nazwa typu szablonu:-->
+        <!--<input type="text" th:field="*{type}"/>-->
+        <button type="submit" name="submitTemplate">Wybierz</button>
+
+    </form>
+</div>
+</body>
+</html>

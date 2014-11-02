@@ -2,7 +2,6 @@ package pl.edu.agh.yapa.persistence;
 
 import com.mongodb.*;
 import org.bson.types.ObjectId;
-import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
 import pl.edu.agh.yapa.conversion.FieldsContainer;
@@ -12,6 +11,7 @@ import pl.edu.agh.yapa.model.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 /**
@@ -19,10 +19,12 @@ import java.util.regex.Pattern;
  */
 public class AdsDaoImpl implements AdsDao {
 
+    private static final String PYTHON_CRAWLER_PATH = "C:\\Users\\Dominik\\PycharmProjects\\crawler\\";
     private static final String TYPES_COLLECTION = "AdTypes";
     private static final String TEMPLATES_COLLECTION = "AdTemplates";
     private static final String WEBSITES_COLLECTION = "AdWebsites";
     private static final String JOBS_COLLECTION = "AdJobs";
+    private static final String NEW_ADS_COLL = "ads";
     private static final DateTimeFormatter formatter = ISODateTimeFormat.dateTime();
     private final DB database;
 
@@ -34,12 +36,23 @@ public class AdsDaoImpl implements AdsDao {
         database.createCollection(JOBS_COLLECTION, null);
     }
 
+//    @Override
+//    public List<Ad> getAds() throws InvalidDatabaseStateException {
+//        List<Ad> adsList = new ArrayList<>();
+//        DBCollection typesCollection = database.getCollection(TYPES_COLLECTION);
+//        for (DBObject adJson : typesCollection.find()) {
+//            adsList.addAll(getAdsByType((String) adJson.get("name")));
+//        }
+//        return adsList;
+//    }
+
+
     @Override
     public List<Ad> getAds() throws InvalidDatabaseStateException {
         List<Ad> adsList = new ArrayList<>();
-        DBCollection typesCollection = database.getCollection(TYPES_COLLECTION);
+        DBCollection typesCollection = database.getCollection(NEW_ADS_COLL);
         for (DBObject adJson : typesCollection.find()) {
-            adsList.addAll(getAdsByType((String) adJson.get("name")));
+            adsList.add(adFromJson(adJson));
         }
         return adsList;
     }
@@ -173,7 +186,50 @@ public class AdsDaoImpl implements AdsDao {
 
     @Override
     public void executeJob(Job job) throws Exception {
-        insertAds(job.update(), job.getTemplate().getType());
+        MonitoringJob mJob = (MonitoringJob) job;
+        AdTemplate template = mJob.getTemplate();
+        String jsonizedTemplate = jsonize(template);
+        System.out.println("Running Python for " + mJob.getWebsite().getTopURL() + " and " + jsonizedTemplate);
+//
+        ProcessBuilder builder = new ProcessBuilder("python", PYTHON_CRAWLER_PATH + "main.py", mJob.getWebsite().getTopURL(), jsonizedTemplate);
+        builder.start(); //fire and forget...
+//        String line, errorLine;
+//        BufferedReader input =
+//                new BufferedReader
+//                        (new InputStreamReader(process.getInputStream()));
+//        BufferedReader error = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+//        while (true) {
+//            line = input.readLine();
+//            errorLine = error.readLine();
+
+//            if (line != null)
+//                System.out.println(line);
+//            if (errorLine != null)
+//                System.out.println(errorLine);
+//        }
+//        input.close();
+//        insertAds(job.update(), job.getTemplate().getType());
+    }
+
+    private String jsonize(AdTemplate template) {
+        StringBuilder builder = new StringBuilder();
+        builder.append("{");
+        for (Map.Entry<String, String> entry : template.getPaths().entrySet()) {
+            builder.append("\\\"").append(entry.getKey()).append("\\\"").append(":").append("\\\"").append(entry.getValue()).append("\\\"").append(",");
+        }
+        builder.append("}");
+        return builder.toString();
+    }
+
+
+    private String jsonize2(AdTemplate template) {
+        StringBuilder builder = new StringBuilder();
+        builder.append("{");
+        for (Map.Entry<String, String> entry : template.getPaths().entrySet()) {
+            builder.append("'").append(entry.getKey()).append("'").append(":").append("\\\"").append(entry.getValue()).append("\\\"").append(",");
+        }
+        builder.append("}");
+        return builder.toString();
     }
 
     private void insertAds(Collection<Ad> ads, AdType type) {
@@ -189,8 +245,8 @@ public class AdsDaoImpl implements AdsDao {
 
         SnapshotStamp stamp = ad.getSnapshot();
         DBObject stampJson = new BasicDBObject();
-        stampJson.put( "date", stamp.getDatetime().toString(formatter) );
-        stampJson.put( "job", stamp.getJobName() );
+        stampJson.put("date", stamp.getDatetime().toString(formatter));
+        stampJson.put("job", stamp.getJobName());
 
         json.put("__stamp", stampJson);
 
@@ -285,12 +341,12 @@ public class AdsDaoImpl implements AdsDao {
             }
         }
 
-        DBObject stamp = (DBObject) json.get("__stamp");
+//        DBObject stamp = (DBObject) json.get("__stamp");
 
-        DateTime date = formatter.parseDateTime((String) stamp.get("date"));
-        String jobName = (String) stamp.get("job");
+//        DateTime date = formatter.parseDateTime((String) stamp.get("date"));
+//        String jobName = (String) stamp.get("job");
 
-        ad.setSnapshot(new SnapshotStamp(date, jobName));
+//        ad.setSnapshot(new SnapshotStamp(date, jobName));
         return ad;
     }
 
