@@ -46,6 +46,7 @@
         <property name="formatters">
             <set>
                 <bean class="pl.edu.agh.yapa.conversion.AdTypeFormatter"/>
+                <bean class="pl.edu.agh.yapa.conversion.AdTemplateFormatter"/>
             </set>
         </property>
     </bean>

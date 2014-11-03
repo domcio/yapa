@@ -10,14 +10,12 @@ import org.htmlcleaner.HtmlCleaner;
 import org.htmlcleaner.TagNode;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
-import sun.plugin.dom.html.HTMLDocument;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
-import java.net.URL;
 import java.util.regex.Pattern;
 
 /**

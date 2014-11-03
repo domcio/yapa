@@ -8,8 +8,7 @@
 <div layout:fragment="content">
     <h1>Dodaj zadanie monitorowania</h1>
 
-
-    <form action="#" th:action="@{/selectTemplate}" th:object="${job}" method="post">
+    <form action="#" th:action="@{/selectTemplate}" th:object="${monitoringJob}" method="post">
 
         <select th:field="*{{template}}">
             <option th:each="template : ${templates}"

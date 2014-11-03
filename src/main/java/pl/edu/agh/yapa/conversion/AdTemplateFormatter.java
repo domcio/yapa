@@ -1,5 +1,6 @@
 package pl.edu.agh.yapa.conversion;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.Formatter;
 import pl.edu.agh.yapa.model.AdTemplate;
 import pl.edu.agh.yapa.model.AdType;
@@ -15,8 +16,12 @@ import java.util.Locale;
 public class AdTemplateFormatter implements Formatter<AdTemplate> {
     private AdsDao adsDao;
 
+    @Autowired
     public AdTemplateFormatter(AdsDao adsDao) {
         this.adsDao = adsDao;
+    }
+
+    public AdTemplateFormatter() {
     }
 
     @Override
