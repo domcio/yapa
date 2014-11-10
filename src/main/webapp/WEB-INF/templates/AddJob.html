@@ -1,23 +1,13 @@
 <!DOCTYPE html>
 <html layout:decorator="layout">
 <head>
-    <title>dodaj taska</title>
+    <title>Dodaj zadanie wyszukiwania</title>
 </head>
 <body>
 
 <div layout:fragment="content">
 
-    <h1>Dodaj taska</h1>
-
-    <!--<p th:text="${job.template.type.name}"/>-->
-
-    <!--<p>-->
-    <!--<ul>-->
-        <!--<li th:each="field : ${job.template.paths}">-->
-            <!--<div th:text="${field.key} + ': ' +  ${field.value}"/>-->
-        <!--</li>-->
-    <!--</ul>-->
-    <!--</p>-->
+    <h1>Dodaj zadanie wyszukiwania</h1>
 
     <form action="#" th:action="@{/processJob}" th:object="${container}" method="post">
         <input type="text" th:text="Nazwa" th:field="${container.name}"/><br/>

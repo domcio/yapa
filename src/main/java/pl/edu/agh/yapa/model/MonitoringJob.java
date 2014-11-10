@@ -5,14 +5,6 @@ import pl.edu.agh.yapa.extraction.Engine;
 
 import java.util.Collection;
 
-/**
- * Created with IntelliJ IDEA.
- * User: Dominik
- * Date: 01.05.14
- * Time: 09:50
- * In future: change to implement Runnable
- * TODO Make this and AggregatedMonitoringJob implement the same interface
- */
 public class MonitoringJob implements Job {
     private Website website;
     private AdTemplate template;
@@ -32,10 +24,9 @@ public class MonitoringJob implements Job {
 
     }
 
-    //prototype method
     @Override
     public Collection<Ad> update() throws Exception {
-        engine.setStamp( new SnapshotStamp(DateTime.now(), name) );
+        engine.setStamp(new SnapshotStamp(DateTime.now(), name));
 
         return engine.extractAds(website, template);
     }
@@ -87,9 +78,8 @@ public class MonitoringJob implements Job {
 
         MonitoringJob that = (MonitoringJob) o;
 
-        if (name != null ? !name.equals(that.name) : that.name != null) return false;
+        return !(name != null ? !name.equals(that.name) : that.name != null);
 
-        return true;
     }
 
     // TODO use ID

@@ -13,34 +13,22 @@
 
     <table class="table">
         <thead>
-            <th>Nazwa</th>
-            <th>Interwał</th>
-            <th>Akcje</th>
+        <th>Nazwa</th>
+        <th>Uruchom</th>
         </thead>
         <tr th:each="job : ${jobs.keySet()}">
             <td>
                 <span th:text="${job.name}">Przykładowe zadanie</span>
             </td>
             <td>
-                <span th:text="${job.interval}">3600</span> sekund
-            </td>
-            <td>
-                <a th:unless="${jobs.get(job)}" href="#" th:href="'/jobs/' + ${job.name} + '/activate/'"
-                   class="btn btn-success enable-tooltip" role="button" data-toggle="tooltip" title="Aktywuj">
-                    <span class="glyphicon glyphicon-play"></span>
-                </a>
                 <a th:unless="${jobs.get(job)}" href="#" th:href="'/jobs/' + ${job.name} + '/run/'"
-                   class="btn btn-warning enable-tooltip" role="button" data-toggle="tooltip" title="Uruchom jednorazowo">
-                    <span class="glyphicon glyphicon-fast-forward"></span>
-                </a>
-                <a th:if="${jobs.get(job)}" href="#" th:href="'/jobs/' + ${job.name} + '/deactivate/'"
-                   class="btn btn-danger enable-tooltip" role="button" data-toggle="tooltip" title="Dezaktywuj">
-                    <span class="glyphicon glyphicon-stop"></span>
+                   class="btn btn-success enable-tooltip" role="button" data-toggle="tooltip"
+                   title="Uruchom jednorazowo">
+                    <span class="glyphicon glyphicon-play"></span>
                 </a>
             </td>
         </tr>
     </table>
-
 </div>
 
 </body>

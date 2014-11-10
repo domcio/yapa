@@ -4,3 +4,4 @@ src/main/java/resources
 target/
 
 *.properties
+*.pyc
