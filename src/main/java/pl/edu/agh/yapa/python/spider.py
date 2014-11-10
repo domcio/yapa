@@ -32,7 +32,8 @@ class Page(Item):
 
 class AdCrawler(CrawlSpider):
     name = 'AdCrawler'
-    page_count = 0
+    overall_count = 0
+    nonempty_count = 0
     rules = [Rule(LxmlLinkExtractor(), 'parse_ad', follow=True)]
 
     def __init__(self, **kw):
@@ -44,28 +45,27 @@ class AdCrawler(CrawlSpider):
         if '/' in domain:
             domain = domain[:domain.find('/')]
         self.allowed_domains = [domain]
-        print 'allowed domains: ', self.allowed_domains
         self.ad_dict = kw.get('ad')
-        # self.rules = [Rule(LxmlLinkExtractor(allow=['.*?' + self.keyword + '.*']), 'parse_ad', follow=True)]
-
+        
     def parse_ad(self, response):
+    
+        self.overall_count += 1
         ad = FlexItem()
-
         find_positive = self.keyword in response.url
-        print response.url
+        print 'response url', response.url, '\n'
         ad['url'] = response.url
+        empty = ad['url'] == '' or ad['url'] is None
         for k, v in self.ad_dict.iteritems():
             ad[k] = " ".join(map(lambda x: x.strip(), response.xpath(v).extract())).strip()
+            if ad[k] == '' or ad[k] is None:
+                empty = True
             find_positive = find_positive or self.keyword in ad[k]
-
-        # ad['title'] = map(lambda x: x.strip(), response.xpath("//h1[@class='brkword lheight28']/text()").extract())
-        #ad['description'] = map(lambda x: x.strip(),
-        #                        response.xpath("//p[@class='pding10 lheight20 large']/text()").extract())
-        # if (ad['title'] != []) or (ad['description'] != []):
-        if self.page_count == 100:
+            
+        if self.nonempty_count == 100 or self.overall_count == 1000:
+            print 'page limit reached'
             raise CloseSpider('page limit reached')
-        # print ad
-        # if find_positive:
-        #     print "positive"
-        self.page_count += 1
-        return ad
+            
+        if not empty:
+            self.nonempty_count += 1
+            print ad
+            return ad

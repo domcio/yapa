@@ -20,7 +20,7 @@
     <!--</p>-->
 
     <form action="#" th:action="@{/processJob}" th:object="${container}" method="post">
-        <input type="text" th:text="Nazwa" th:field="${container.name}"><br/>
+        <input type="text" th:text="Nazwa" th:field="${container.name}"/><br/>
         <input type="text" th:text="URL" th:field="${container.url}"/><br/>
         <input type="hidden" th:field="${{container.template}}"/>
         <button type="submit">Dodaj</button>

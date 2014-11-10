@@ -13,7 +13,6 @@ import ast
 if len(sys.argv) < 3:
     print 'python main.py <website> <object_as_a_dict>'
     sys.exit(-1)
-print 'here here'
 website = sys.argv[1]
 joined_ad = " ".join(sys.argv[2:])
 print joined_ad
