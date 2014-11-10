@@ -9,32 +9,10 @@
 
     <h1>Ogłoszenia</h1>
 
-    <!--<table>-->
-    <!--<ul th:each="snapshot, iterStat : ${snapshots}">-->
-    <!--<div class="panel panel-default">-->
-    <!--<div class="panel-heading">-->
-    <!--<a data-toggle="collapse" th:href="'#collapse' + ${iterStat.index}" th:attr="data-target='#collapse' + ${iterStat.index}">-->
-    <!--<div th:text="'Snapshot ' + ${snapshot.stamp.jobName} + ' ' + ${snapshot.stamp.datetime.toString(datetimeFormatter)}"/>-->
-    <!--</a>-->
-    <!--</div>-->
-    <!--<div th:id="'collapse' + ${iterStat.index}" class="panel-collapse collapse">-->
-    <!--<div class="panel-body" th:each="ad : ${snapshot.ads}">-->
-    <!--<dl class="dl-horizontal">-->
-    <!--<div th:each="field : ${ad.fieldValues}">-->
-    <!--<dt th:text="${field.key}"/>-->
-    <!--<dd th:text="${field.value}" class="text-justify"/>-->
-    <!--</div>-->
-    <!--</dl>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--</div>-->
-
-    <!--</ul>-->
-    <!--</table>-->
-
     <table>
         <div class="panel panel-default">
             <div class="panel-body" th:each="ad : ${ads}">
+                <a href="SelectAdTypeForSearch.html" th:href="${ad.url}" th:text="${ad.url}">view</a>
                 <dl class="dl-horizontal">
                     <div th:each="field : ${ad.fieldValues}">
                         <dt th:text="${field.key}"/>

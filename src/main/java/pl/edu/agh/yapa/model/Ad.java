@@ -11,6 +11,7 @@ import java.util.Map;
  * An instance of ad data obtained using a template.
  */
 public class Ad {
+    private String url;
     private Map<String, String> fieldValues;
     private SnapshotStamp snapshot;
 
@@ -41,5 +42,13 @@ public class Ad {
             builder.append(entry.getKey()).append(":").append(entry.getValue()).append("\n");
         }
         return builder.toString();
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

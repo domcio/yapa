@@ -268,10 +268,11 @@ public class AdsDaoImpl implements AdsDao {
     private Ad adFromJson(DBObject json) {
         Ad ad = new Ad();
         for (String field : json.keySet()) {
-            if (!field.equals("_id") && !field.equals("__stamp")) {
+            if (!field.equals("url") && !field.equals("_id") && !field.equals("__stamp")) {
                 ad.setValue(field, (String) json.get(field));
             }
         }
+        ad.setUrl((String) json.get("url"));
 
 //        DBObject stamp = (DBObject) json.get("__stamp");
 
