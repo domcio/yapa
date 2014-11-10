@@ -1,14 +1,10 @@
 package pl.edu.agh.yapa.model;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
-/**
- * Created with IntelliJ IDEA.
- * User: Dominik
- * Date: 30.04.14
- * Time: 18:00
- * A template for obtaining the ad data from a concrete URL.
- */
 public class AdTemplate {
     private Map<String, String> paths;  //XPaths for accessing fields
     private AdType type;

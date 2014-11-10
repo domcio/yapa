@@ -1,15 +1,23 @@
 package pl.edu.agh.yapa.persistence;
 
-import com.mongodb.*;
+import com.mongodb.BasicDBList;
+import com.mongodb.BasicDBObject;
+import com.mongodb.DB;
+import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
+import com.mongodb.DBObject;
 import org.bson.types.ObjectId;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
 import pl.edu.agh.yapa.conversion.FieldsContainer;
-import pl.edu.agh.yapa.extraction.EngineFactory;
-import pl.edu.agh.yapa.model.*;
+import pl.edu.agh.yapa.model.Ad;
+import pl.edu.agh.yapa.model.AdTemplate;
+import pl.edu.agh.yapa.model.AdType;
+import pl.edu.agh.yapa.model.Job;
+import pl.edu.agh.yapa.model.MonitoringJob;
+import pl.edu.agh.yapa.model.SnapshotStamp;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -19,7 +27,7 @@ import java.util.regex.Pattern;
  */
 public class AdsDaoImpl implements AdsDao {
 
-    private static final String PYTHON_CRAWLER_PATH = "C:\\Users\\Dominik\\PycharmProjects\\crawler\\";
+    private static final String PYTHON_CRAWLER_PATH = "D:\\yapa-final\\yapa\\src\\main\\java\\pl\\edu\\agh\\yapa\\python\\";
     private static final String TYPES_COLLECTION = "AdTypes";
     private static final String TEMPLATES_COLLECTION = "AdTemplates";
     private static final String WEBSITES_COLLECTION = "AdWebsites";
@@ -35,17 +43,6 @@ public class AdsDaoImpl implements AdsDao {
         database.createCollection(TEMPLATES_COLLECTION, null);
         database.createCollection(JOBS_COLLECTION, null);
     }
-
-//    @Override
-//    public List<Ad> getAds() throws InvalidDatabaseStateException {
-//        List<Ad> adsList = new ArrayList<>();
-//        DBCollection typesCollection = database.getCollection(TYPES_COLLECTION);
-//        for (DBObject adJson : typesCollection.find()) {
-//            adsList.addAll(getAdsByType((String) adJson.get("name")));
-//        }
-//        return adsList;
-//    }
-
 
     @Override
     public List<Ad> getAds() throws InvalidDatabaseStateException {
@@ -116,16 +113,6 @@ public class AdsDaoImpl implements AdsDao {
     }
 
     @Override
-    public List<Website> getWebsites() {
-        DBCollection collection = database.getCollection(WEBSITES_COLLECTION);
-        List<Website> websites = new ArrayList<>();
-        for (DBObject websiteJson : collection.find()) {
-            websites.add(websiteFromJson(websiteJson));
-        }
-        return websites;
-    }
-
-    @Override
     public void removeTypeByName(String typeName) {
         DBCollection types = database.getCollection(TYPES_COLLECTION);
         types.remove(new BasicDBObject().append("name", typeName));
@@ -189,26 +176,10 @@ public class AdsDaoImpl implements AdsDao {
         MonitoringJob mJob = (MonitoringJob) job;
         AdTemplate template = mJob.getTemplate();
         String jsonizedTemplate = jsonize(template);
-        System.out.println("Running Python for " + mJob.getWebsite().getTopURL() + " and " + jsonizedTemplate);
+        System.out.println("Running Python for " + mJob.getWebsite() + " and " + jsonizedTemplate);
 //
-        ProcessBuilder builder = new ProcessBuilder("python", PYTHON_CRAWLER_PATH + "main.py", mJob.getWebsite().getTopURL(), jsonizedTemplate);
+        ProcessBuilder builder = new ProcessBuilder("python", PYTHON_CRAWLER_PATH + "main.py", mJob.getWebsite(), jsonizedTemplate);
         builder.start(); //fire and forget...
-//        String line, errorLine;
-//        BufferedReader input =
-//                new BufferedReader
-//                        (new InputStreamReader(process.getInputStream()));
-//        BufferedReader error = new BufferedReader(new InputStreamReader(process.getErrorStream()));
-//        while (true) {
-//            line = input.readLine();
-//            errorLine = error.readLine();
-
-//            if (line != null)
-//                System.out.println(line);
-//            if (errorLine != null)
-//                System.out.println(errorLine);
-//        }
-//        input.close();
-//        insertAds(job.update(), job.getTemplate().getType());
     }
 
     private String jsonize(AdTemplate template) {
@@ -219,24 +190,6 @@ public class AdsDaoImpl implements AdsDao {
         }
         builder.append("}");
         return builder.toString();
-    }
-
-
-    private String jsonize2(AdTemplate template) {
-        StringBuilder builder = new StringBuilder();
-        builder.append("{");
-        for (Map.Entry<String, String> entry : template.getPaths().entrySet()) {
-            builder.append("'").append(entry.getKey()).append("'").append(":").append("\\\"").append(entry.getValue()).append("\\\"").append(",");
-        }
-        builder.append("}");
-        return builder.toString();
-    }
-
-    private void insertAds(Collection<Ad> ads, AdType type) {
-        DBCollection collection = database.getCollection(type.getName());
-        for (Ad ad : ads) {
-            collection.insert(adToJson(ad));
-        }
     }
 
     private DBObject adToJson(Ad ad) {
@@ -268,27 +221,10 @@ public class AdsDaoImpl implements AdsDao {
         DBCollection coll = database.getCollection(JOBS_COLLECTION);
         BasicDBObject jobObj = new BasicDBObject();
         jobObj.append("name", job.getName());
-        jobObj.append("website", insertWebsite(job.getWebsite())); //TODO can duplicate some documents, we need some method of identifying websites/templates
+        jobObj.append("website", job.getWebsite());
         jobObj.append("template", insertTemplate(job.getTemplate()));
-        jobObj.append("engine", "htmlCleaner"); //TODO: still WTF
-        jobObj.append("interval", job.getInterval());
         coll.insert(jobObj);
         return (ObjectId) jobObj.get("_id");
-    }
-
-    @Override
-    public ObjectId insertWebsite(Website website) {
-        DBCollection websites = database.getCollection(WEBSITES_COLLECTION);
-        BasicDBObject websiteJson = new BasicDBObject();
-        BasicDBList subURLsList = new BasicDBList();
-        websiteJson.append("topURL", website.getTopURL());
-        for (String subURL : website.getSubURLXPaths())
-            subURLsList.add(subURL);
-        websiteJson.append("subURLXPaths", subURLsList);
-        if (website.isMultiPage())
-            websiteJson.append("nextPageXPath", website.getNextPageXPath());
-        websites.insert(websiteJson);
-        return (ObjectId) websiteJson.get("_id");
     }
 
     @Override
@@ -318,10 +254,6 @@ public class AdsDaoImpl implements AdsDao {
 
     private AdTemplate getTemplateByID(ObjectId id) throws InvalidDatabaseStateException {
         return templateFromJson(getByID(id, TEMPLATES_COLLECTION));
-    }
-
-    private Website getWebsiteByID(ObjectId id) throws InvalidDatabaseStateException {
-        return websiteFromJson(getByID(id, WEBSITES_COLLECTION));
     }
 
     private DBObject getByID(ObjectId id, String collection) throws InvalidDatabaseStateException {
@@ -360,17 +292,6 @@ public class AdsDaoImpl implements AdsDao {
         return type;
     }
 
-    private Website websiteFromJson(DBObject json) {
-        Website website = new Website((String) json.get("topURL"));
-        for (Object subURLs : (BasicDBList) json.get("subURLXPaths")) {
-            website.addSubURLXPath((String) subURLs);
-        }
-        if (json.get("nextPageXPath") != null) {
-            website.setNextPageXPath((String) json.get("nextPageXPath"));
-        }
-        return website;
-    }
-
     private AdTemplate templateFromJson(DBObject json) throws InvalidDatabaseStateException {
         AdType type = getTypeByID((ObjectId) json.get("type"));
         AdTemplate template = new AdTemplate(type);
@@ -386,9 +307,7 @@ public class AdsDaoImpl implements AdsDao {
         MonitoringJob job = new MonitoringJob();
         job.setName((String) json.get("name"));
         job.setTemplate(getTemplateByID((ObjectId) json.get("template")));
-        job.setWebsite(getWebsiteByID((ObjectId) json.get("website")));
-        job.setEngine(EngineFactory.getEngineByName((String) json.get("engine")));
-        job.setInterval((Long) json.get("interval"));
+        job.setWebsite((String) json.get("website"));
         return job;
     }
 }

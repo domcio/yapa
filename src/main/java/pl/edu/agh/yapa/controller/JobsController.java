@@ -8,11 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import pl.edu.agh.yapa.conversion.FieldsContainer;
 import pl.edu.agh.yapa.conversion.JobFieldsContainer;
-import pl.edu.agh.yapa.conversion.QueryContainer;
-import pl.edu.agh.yapa.model.AdTemplate;
-import pl.edu.agh.yapa.model.Job;
 import pl.edu.agh.yapa.model.MonitoringJob;
 import pl.edu.agh.yapa.persistence.InvalidDatabaseStateException;
 import pl.edu.agh.yapa.service.JobService;
@@ -98,7 +94,8 @@ public class JobsController {
         MonitoringJob job = new MonitoringJob();
         job.setTemplate(container.getTemplate());
         job.setName(container.getName());
-        jobService.addJob(container.getUrl(), job);
+        job.setWebsite(container.getUrl());
+        jobService.addJob(job);
 
         return "redirect:/jobs";
     }

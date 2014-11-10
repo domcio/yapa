@@ -6,7 +6,6 @@ import pl.edu.agh.yapa.extraction.JobScheduler;
 import pl.edu.agh.yapa.model.AdTemplate;
 import pl.edu.agh.yapa.model.Job;
 import pl.edu.agh.yapa.model.MonitoringJob;
-import pl.edu.agh.yapa.model.Website;
 import pl.edu.agh.yapa.persistence.AdsDao;
 import pl.edu.agh.yapa.persistence.InvalidDatabaseStateException;
 
@@ -59,9 +58,7 @@ public class JobService {
 
     public List<AdTemplate> getTemplates() throws  InvalidDatabaseStateException { return adsDao.getTemplates(); }
 
-    public void addJob(String field, MonitoringJob job) throws InvalidDatabaseStateException {
-        job.setWebsite(new Website());
-        job.getWebsite().setTopURL(field);
+    public void addJob(MonitoringJob job) throws InvalidDatabaseStateException {
         adsDao.insertJob(job);
     }
 }

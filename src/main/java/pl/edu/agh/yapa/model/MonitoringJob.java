@@ -6,23 +6,19 @@ import pl.edu.agh.yapa.extraction.Engine;
 import java.util.Collection;
 
 public class MonitoringJob implements Job {
-    private Website website;
+    private String website;
     private AdTemplate template;
     private Engine engine;
     private long intervalSeconds;
     private String name;
 
-    public MonitoringJob(String name, Website website, AdTemplate template, Engine engine, long intervalSeconds) {
-        this.name = name;
+    public MonitoringJob(String name, String website, AdTemplate template) {
         this.website = website;
+        this.name = name;
         this.template = template;
-        this.engine = engine;
-        this.intervalSeconds = intervalSeconds;
     }
 
-    public MonitoringJob() {
-
-    }
+    public MonitoringJob() {}
 
     @Override
     public Collection<Ad> update() throws Exception {
@@ -45,11 +41,7 @@ public class MonitoringJob implements Job {
         this.intervalSeconds = interval;
     }
 
-    public void setEngine(Engine engine) {
-        this.engine = engine;
-    }
-
-    public void setWebsite(Website website) {
+    public void setWebsite(String website) {
         this.website = website;
     }
 
@@ -66,7 +58,7 @@ public class MonitoringJob implements Job {
         this.name = name;
     }
 
-    public Website getWebsite() {
+    public String getWebsite() {
         return website;
     }
 

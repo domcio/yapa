@@ -33,11 +33,7 @@ public interface AdsDao {
 
     ObjectId insertJob(MonitoringJob job) throws InvalidDatabaseStateException;
 
-    ObjectId insertWebsite(Website website);
-
     void clear();
-
-    List<Website> getWebsites();
 
     void removeTypeByName(String typeName);
 
