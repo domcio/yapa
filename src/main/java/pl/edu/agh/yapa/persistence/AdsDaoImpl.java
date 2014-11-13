@@ -168,6 +168,11 @@ public class AdsDaoImpl implements AdsDao {
         }
         newType.put("fields", fieldsList);
         typesCollection.insert(newType);
+
+        DBCollection thisTypeCollection = database.getCollection(adType.getName());
+        //TODO: on known fields only
+        thisTypeCollection.createIndex(new BasicDBObject("$**", "text"));
+
         return (ObjectId) newType.get("_id");
     }
 

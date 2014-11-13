@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html layout:decorator="layout">
+<head>
+    <title>Ogłoszenia</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+
+    <h1>Wyniki wyszukiwania</h1>
+
+    <p th:text="${kwery}"/>
+
+    <table>
+        <ul th:each="ad, iterStat : ${ads}">
+            <div class="panel panel-default">
+                    <a th:href="${ad.url}" th:text="${ad.url}"></a>
+                    <dl class="dl-horizontal">
+                        <div th:each="field : ${ad.fieldValues}">
+                            <dt th:text="${field.key}"/>
+                            <dd th:text="${field.value}" class="text-justify"/>
+                        </div>
+                    </dl>
+
+            </div>
+        </ul>
+    </table>
+
+</div>
+
+</body>
+</html>

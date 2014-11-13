@@ -1,5 +1,7 @@
 package pl.edu.agh.yapa.model;
 
+import com.mongodb.DBObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -50,5 +52,18 @@ public class Ad {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public static Ad fromJSON(DBObject json) {
+        //TODO: some cleanup cause its copied from somewhere
+        Ad ad = new Ad();
+        for (String field : json.keySet()) {
+            if ( !field.equals("url") && !field.startsWith("_") ) {
+                ad.setValue(field, (String) json.get(field));
+            }
+        }
+        ad.setUrl((String) json.get("url"));
+
+        return ad;
     }
 }

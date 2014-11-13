@@ -8,6 +8,8 @@ import pl.edu.agh.yapa.model.AdTemplate;
 import pl.edu.agh.yapa.model.AdType;
 import pl.edu.agh.yapa.persistence.AdsDao;
 import pl.edu.agh.yapa.persistence.InvalidDatabaseStateException;
+import pl.edu.agh.yapa.search.MongoSearcher;
+import pl.edu.agh.yapa.search.SearchQuery;
 
 import java.util.List;
 

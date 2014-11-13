@@ -8,8 +8,14 @@
 <div layout:fragment="content">
     <h1>Witaj w YAPA</h1>
     <p>
-        Wybierz opcję z menu na górze
+        Wyszukaj ogłoszenie
     </p>
+
+    <form action="#" th:action="@{/smartSearch}" method="post">
+        <input type="text" th:name="query"/>
+        <button type="submit">Szukaj</button>
+
+    </form>
 </div>
 
 </body>

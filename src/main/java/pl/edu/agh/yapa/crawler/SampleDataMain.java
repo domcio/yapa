@@ -32,7 +32,7 @@ public class SampleDataMain {
                 }
             }
             while (!line.equals("x"));
-        } catch (Exception | InvalidDatabaseStateException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
