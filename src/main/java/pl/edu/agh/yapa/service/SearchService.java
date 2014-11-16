@@ -36,13 +36,11 @@ public class SearchService {
         SearchQuery searchQuery = new SearchQuery(query);
         List<Ad> foundAds = new ArrayList<>();
 
-        for (AdType adType : adsDao.getTypes()) {
-            DBCollection collection = database.getCollection(adType.getName());
-            DBCursor result = new MongoSearcher(collection).search(searchQuery);
+        DBCollection collection = database.getCollection( adsDao.getAdsCollectionName() );
+        DBCursor result = new MongoSearcher(collection).search(searchQuery);
 
-            for (DBObject dbObject : result) {
-                foundAds.add( Ad.fromJSON(dbObject) );
-            }
+        for (DBObject dbObject : result) {
+            foundAds.add( Ad.fromJSON(dbObject) );
         }
 
         return foundAds;

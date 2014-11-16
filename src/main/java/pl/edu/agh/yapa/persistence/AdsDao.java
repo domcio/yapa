@@ -38,4 +38,6 @@ public interface AdsDao {
     void removeTypeByName(String typeName);
 
     List<Ad> search(FieldsContainer container) throws InvalidDatabaseStateException;
+
+    String getAdsCollectionName();
 }

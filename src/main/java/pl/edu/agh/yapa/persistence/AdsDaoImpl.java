@@ -17,6 +17,7 @@ import pl.edu.agh.yapa.model.Job;
 import pl.edu.agh.yapa.model.MonitoringJob;
 import pl.edu.agh.yapa.model.SnapshotStamp;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -42,6 +43,9 @@ public class AdsDaoImpl implements AdsDao {
         database.createCollection(WEBSITES_COLLECTION, null);
         database.createCollection(TEMPLATES_COLLECTION, null);
         database.createCollection(JOBS_COLLECTION, null);
+
+        DBCollection adsCollection = database.createCollection(NEW_ADS_COLL, null);
+        adsCollection.createIndex(new BasicDBObject("$**", "text"));
     }
 
     @Override
@@ -143,6 +147,11 @@ public class AdsDaoImpl implements AdsDao {
     }
 
     @Override
+    public String getAdsCollectionName() {
+        return NEW_ADS_COLL;
+    }
+
+    @Override
     public ObjectId insertAd(Ad ad, AdType adType) throws InvalidDatabaseStateException {
         String tableName = adType.getName();
         if (!database.collectionExists(tableName)) {
@@ -169,10 +178,6 @@ public class AdsDaoImpl implements AdsDao {
         newType.put("fields", fieldsList);
         typesCollection.insert(newType);
 
-        DBCollection thisTypeCollection = database.getCollection(adType.getName());
-        //TODO: on known fields only
-        thisTypeCollection.createIndex(new BasicDBObject("$**", "text"));
-
         return (ObjectId) newType.get("_id");
     }
 
@@ -180,10 +185,12 @@ public class AdsDaoImpl implements AdsDao {
     public void executeJob(Job job) throws Exception {
         MonitoringJob mJob = (MonitoringJob) job;
         AdTemplate template = mJob.getTemplate();
-        String jsonizedTemplate = jsonize(template);
+        String jsonizedTemplate = "\"" + jsonize(template) + "\"";
         System.out.println("Running Python for " + mJob.getWebsite() + " and " + jsonizedTemplate);
 //
         ProcessBuilder builder = new ProcessBuilder("python", PYTHON_CRAWLER_PATH + "main.py", mJob.getWebsite(), jsonizedTemplate);
+        builder.redirectOutput( new File("/home/pawel/yyyyyyyy") );
+        builder.redirectError(new File("/home/pawel/yyyyyyyyerr"));
         builder.start(); //fire and forget...
     }
 
