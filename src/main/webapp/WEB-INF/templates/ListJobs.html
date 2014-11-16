@@ -9,26 +9,35 @@
 
     <h1>Zadania monitorowania</h1>
 
-    <input type="button" onclick="location.href='/selectTemplate'" value="Dodaj nowe zadanie"/>
+    <br/>
 
-    <table class="table">
-        <thead>
-        <th>Nazwa</th>
-        <th>Uruchom</th>
-        </thead>
-        <tr th:each="job : ${jobs.keySet()}">
-            <td>
-                <span th:text="${job.name}">Przykładowe zadanie</span>
-            </td>
-            <td>
-                <a th:unless="${jobs.get(job)}" href="#" th:href="'/jobs/' + ${job.name} + '/run/'"
-                   class="btn btn-success enable-tooltip" role="button" data-toggle="tooltip"
-                   title="Uruchom jednorazowo">
-                    <span class="glyphicon glyphicon-play"></span>
-                </a>
-            </td>
-        </tr>
-    </table>
+    <div class="container">
+        <input type="button" onclick="location.href='/selectTemplate'" value="Dodaj nowe zadanie" class="btn btn-primary"/>
+    </div>
+
+    <br/>
+
+    <div class="container">
+        <table class="table">
+            <thead>
+            <th>Nazwa</th>
+            <th>Uruchom</th>
+            </thead>
+            <tr th:each="job : ${jobs.keySet()}">
+                <td>
+                    <span th:text="${job.name}">Przykładowe zadanie</span>
+                </td>
+                <td>
+                    <a th:unless="${jobs.get(job)}" href="#" th:href="'/jobs/' + ${job.name} + '/run/'"
+                       class="btn btn-success enable-tooltip" role="button" data-toggle="tooltip"
+                       title="Uruchom jednorazowo">
+                        <span class="glyphicon glyphicon-play"></span>
+                    </a>
+                </td>
+            </tr>
+        </table>
+    </div>
+
 </div>
 
 </body>

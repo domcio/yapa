@@ -9,11 +9,23 @@
 
     <h1>Dodaj zadanie wyszukiwania</h1>
 
-    <form action="#" th:action="@{/processJob}" th:object="${container}" method="post">
-        <input type="text" th:text="Nazwa" th:field="${container.name}"/><br/>
-        <input type="text" th:text="URL" th:field="${container.url}"/><br/>
+    <form action="#" th:action="@{/processJob}" th:object="${container}" method="post" class="form-horizontal" role="form">
+        <div class="form-group">
+            <label class="col-sm-1 control-label">Nazwa</label>
+            <div class="col-sm-5">
+                <input type="text" th:field="${container.name}" class="form-control"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-1 control-label">URL</label>
+            <div class="col-sm-5">
+                <input type="text" th:field="${container.url}" class="form-control"/>
+            </div>
+        </div>
+
         <input type="hidden" th:field="${{container.template}}"/>
-        <button type="submit">Dodaj</button>
+
+        <button type="submit" class="btn btn-primary">Dodaj</button>
     </form>
 
 </div>

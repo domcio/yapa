@@ -8,21 +8,20 @@
 <div layout:fragment="content">
     <h1>Dodaj szablon ogłoszeń</h1>
 
-    <form action="#" th:action="@{/processSelect}" th:object="${fieldContainer}" method="post">
+    <h3 th:text="${adTemplate.type.name}"/>
 
-        <table border="1" style="width:300px">
-            <div th:text="${adTemplate.type.name}"/>
-            <tr th:each="field, fieldStat : ${adTemplate.type.fields}">
-                <td th:text="${field}"/>
-                <td>
-                    <input type="text" th:field="${fieldContainer.fieldXPaths[__${fieldStat.index}__]}"/>
-                </td>
-            </tr>
-        </table>
+    <form action="#" th:action="@{/processSelect}" th:object="${fieldContainer}" method="post" class="form-horizontal" role="form">
+
+        <div th:each="field, fieldStat : ${adTemplate.type.fields}" class="form-group">
+            <label class="col-sm-1 control-label" th:text="${field}"/>
+            <div class="col-sm-5">
+                <input type="text" th:field="${fieldContainer.fieldXPaths[__${fieldStat.index}__]}" class="form-control"/>
+            </div>
+        </div>
 
         <input type="hidden" th:field="${{fieldContainer.adType}}"/>
 
-        <button type="submit">Dodaj</button>
+        <button type="submit" class="btn btn-primary">Dodaj</button>
 
     </form>
 </div>

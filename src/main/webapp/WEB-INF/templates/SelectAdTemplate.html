@@ -8,19 +8,21 @@
 <div layout:fragment="content">
     <h1>Dodaj zadanie monitorowania</h1>
 
-    <form action="#" th:action="@{/selectTemplate}" th:object="${monitoringJob}" method="post">
+    <div class="container">
+        <form action="#" th:action="@{/selectTemplate}" th:object="${monitoringJob}" method="post" class="form-inline">
 
-        <select th:field="*{{template}}">
-            <option th:each="template : ${templates}"
-                    th:value="${{template}}"
-                    th:text="${{template}}">Wireframe
-            </option>
-        </select>
-        <!--Nazwa typu szablonu:-->
-        <!--<input type="text" th:field="*{type}"/>-->
-        <button type="submit" name="submitTemplate">Wybierz</button>
+            <select th:field="*{{template}}" class="form-control">
+                <option th:each="template : ${templates}"
+                        th:value="${{template}}"
+                        th:text="${{template.type}}">Wireframe
+                </option>
+            </select>
+            <!--Nazwa typu szablonu:-->
+            <!--<input type="text" th:field="*{type}"/>-->
+            <button type="submit" name="submitTemplate" class="btn btn-default">Wybierz</button>
 
-    </form>
+        </form>
+    </div>
 </div>
 </body>
 </html>

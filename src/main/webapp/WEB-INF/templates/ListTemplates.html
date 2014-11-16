@@ -9,20 +9,29 @@
 
     <h1>Szablony ogłoszeń</h1>
 
-    <input type="button" onclick="location.href='/showSelect'" value="Dodaj nowy szablon"/>
+    <br/>
 
-    <ul>
-        <li th:each="template : ${templates}">
-        <p th:text="${template.type.name}"/>
-        <p>
-            <ul>
-                <li th:each="field : ${template.paths}">
-                    <div th:text="${field.key} + ': ' +  ${field.value}"/>
-                </li>
-            </ul>
-        </p>
-        </li>
-    </ul>
+    <div class="container">
+        <input type="button" onclick="location.href='/showSelect'" value="Dodaj nowy szablon" class="btn btn-primary"/>
+    </div>
+
+    <br/>
+
+    <div class="container">
+        <ul class="list-group">
+            <li class="list-group-item" th:each="template : ${templates}">
+                <h4 class="list-group-item-heading" th:text="${template.type.name}" />
+                <table class="list-group-item-text table table-condensed">
+                    <tr th:each="field : ${template.paths}">
+                        <td th:text="${field.key}"/>
+                        <td>
+                            <code th:text="${field.value}"/>
+                        </td>
+                    </tr>
+                </table>
+            </li>
+        </ul>
+    </div>
 
 </div>
 

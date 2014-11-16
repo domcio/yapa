@@ -9,29 +9,35 @@
 
     <h1>Dodaj typ ogłoszeń</h1>
 
-    <form action="#" th:action="@{/addType}" th:object="${adType}" method="post">
-        Nazwa typu:
-        <input type="text" th:field="*{name}"/>
-        Pola typu:
-        <table>
-            <thead>
-            <th>
-                <button type="submit" name="addField">Dodaj pole</button>
-            </th>
-            </thead>
-            <tr th:each="row,rowStat : ${adType.fields}">
-                <td th:text="${rowStat.count}">1</td>
-                <td>
-                    <input type="text" th:field="*{fields[__${rowStat.index}__]}"/>
-                </td>
-                <td>
-                    <button type="submit" name="removeField"
-                            th:value="${rowStat.index}">Usuń pole
-                    </button>
-                </td>
-            </tr>
-        </table>
-        <button type="submit" name="submitType">Dodaj</button>
+    <form action="#" th:action="@{/addType}" th:object="${adType}" method="post" class="form-horizontal" role="form">
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Nazwa typu</label>
+            <div class="col-sm-5">
+                <input type="text" th:field="*{name}" class="form-control"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-1"/>
+            <button type="submit" name="addField" class="btn btn-success col-sm-1">Dodaj pole</button>
+        </div>
+
+        <ul class="form-group">
+            <li class="form-group col-sm-8 list-group-item" th:each="row,rowStat : ${adType.fields}">
+                <label class="col-sm-2 control-label">Nazwa pola</label>
+                <div class="col-sm-8">
+                    <input type="text" th:field="*{fields[__${rowStat.index}__]}" class="form-control"/>
+                </div>
+                <button type="submit" name="removeField"
+                            th:value="${rowStat.index}" class="col-sm-2 btn btn-warning">Usuń pole
+                </button>
+            </li>
+        </ul>
+
+        <div class="form-group">
+            <div class="col-sm-1"/>
+            <button type="submit" name="submitType" class="btn btn-primary col-sm-1">Dodaj</button>
+        </div>
     </form>
 
 </div>

@@ -9,16 +9,28 @@
 
     <h1>Typy ogłoszeń</h1>
 
-    <table border="1" style="width:300px">
-        <tr th:each="type,rowStat : ${types}">
-            <td th:text="${type.name}"/>
-            <td th:each="field : ${type.fields}" th:text="${field}"/>
-            <td>
-                <a th:href="'/types/' + ${type.name} + '/remove/'" class="btn" role="button">Usuń typ</a>
-            </td>
-        </tr>
-    </table>
-    <input type="button" onclick="location.href='/addType'" value="Dodaj nowy typ"/>
+    <br/>
+
+    <div class="container">
+        <input type="button" onclick="location.href='/addType'" value="Dodaj nowy typ" class="btn btn-primary"/>
+    </div>
+
+    <br/>
+
+    <div class="container">
+        <ul class="list-group col-sm-6">
+            <li class="list-group-item" th:each="type,rowStat : ${types}">
+                <h4 class="col-sm-10 list-group-item-heading" th:text="${type.name}" />
+                <a th:href="'/types/' + ${type.name} + '/remove/'" class="col-sm-2 btn btn-danger" role="button">Usuń typ</a>
+                <table class="list-group-item-text table table-condensed">
+                    <tr th:each="field : ${type.fields}">
+                        <td th:text="${field}"/>
+                    </tr>
+                </table>
+            </li>
+        </ul>
+    </div>
+
 
 </div>
 
