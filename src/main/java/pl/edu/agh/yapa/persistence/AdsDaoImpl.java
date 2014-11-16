@@ -185,12 +185,10 @@ public class AdsDaoImpl implements AdsDao {
     public void executeJob(Job job) throws Exception {
         MonitoringJob mJob = (MonitoringJob) job;
         AdTemplate template = mJob.getTemplate();
-        String jsonizedTemplate = "\"" + jsonize(template) + "\"";
+        String jsonizedTemplate = jsonize(template);
         System.out.println("Running Python for " + mJob.getWebsite() + " and " + jsonizedTemplate);
-//
+
         ProcessBuilder builder = new ProcessBuilder("python", PYTHON_CRAWLER_PATH + "main.py", mJob.getWebsite(), jsonizedTemplate);
-        builder.redirectOutput( new File("/home/pawel/yyyyyyyy") );
-        builder.redirectError(new File("/home/pawel/yyyyyyyyerr"));
         builder.start(); //fire and forget...
     }
 
