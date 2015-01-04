@@ -26,36 +26,35 @@
   wizja produktu, krótkie studium wykonalności i analiza zagrożeń.}
 
 Problemem, z którym stara się mierzyć system stworzony w ramach niniejszej
-pracy inżynierskiej, jest obserwacja wielu źródeł informacji w Sieci w pos
-zukiwaniu interesujących użytkownika zagadnień z danej tematyki. Klient wy
-raził pragnienie posiadania narzędzia, umożliwiającego mu monitorowanie st
-ron i portali internetowych pod kątem zdefiniowenego przez niego zbioru in
-formacji, a ponadto udostępniającego metody analizy tych informacji. 
+pracy inżynierskiej, jest obserwacja wielu źródeł informacji w Sieci w 
+poszukiwaniu interesujących użytkownika zagadnień z danej tematyki. Klient 
+wyraził pragnienie posiadania narzędzia, umożliwiającego mu monitorowanie 
+stron i portali internetowych pod kątem zdefiniowenego przez niego zbioru 
+informacji, a ponadto udostępniającego metody analizy tych informacji. 
 
-Istnieją narzędzia odpowiadające na podobne potrzeby - Google Search pozwala na
-m na poszukiwanie informacji w Internecie w odpowiedzi na podane hasło, a
+Istnieją narzędzia odpowiadające na podobne potrzeby - Google Search pozwala 
+nam na poszukiwanie informacji w Internecie w odpowiedzi na podane hasło, a
 Google Analytics może służyć do analizowania trendów w Sieci.
 Nie dają one jednak użytkownikowi możliwości w bardziej specyficzny sposób
- definiowania sposobu ekstrakcji danych ze stron. Nie są też w stanie groma
-dzić zebranych informacji i w wygodny sposób przeprowadzać na nich analizy. 
+definiowania sposobu ekstrakcji danych ze stron. Nie są też w stanie gromadzić
+zebranych informacji i w wygodny sposób przeprowadzać na nich analizy. 
 
 W ramach tworzonego projektu powstałby system, dający użytkownikowi swobodę
 definiowania rodzaju informacji, jakie będą przezeń poszukiwane, a także 
-szczegółowego sposobu ich ekstrakcji ze źródła. Zakładana jest pewna znajo
-mość przez użytkownika mechanizmów dopasowania wzorca, jak XPath lub wyraże
-nia regularne. Proces ektrakcji oparty będzie o web-crawling przy użyciu jednego
-z rozwiązań open-source lub z wykorzystaniem naszego własnego crawlera. Wye
-kstrahowane informacje przechowywane będą w postaci dedykowanej bazy danych, 
+szczegółowego sposobu ich ekstrakcji ze źródła. Zakładana jest pewna znajomość
+ przez użytkownika mechanizmów dopasowania wzorca, jak XPath lub wyrażenia 
+regularne. Proces ektrakcji oparty będzie o web-crawling przy użyciu jednego
+z rozwiązań open-source lub z wykorzystaniem naszego własnego crawlera. 
+Wyekstrahowane informacje przechowywane będą w postaci dedykowanej bazy danych, 
 z której będą korzystały narzędzia do analizy. Na wspomnianą analizę ma się 
-składać np. wyszukiwanie w zgromadzonych danych słowa kluczowego lub pokazy
-wanie trendów czasowych.
+składać np. wyszukiwanie w zgromadzonych danych słowa kluczowego lub pokazywanie
+ trendów czasowych.
 
 Wizja wypracowana w wyniku naszej współpracy z klientem wydawała się do spełnienia.
 Część, która mogła nam sprawić dużo problemów, to moduł analizy, wymagający
 zarówno złożonych algorytmów po stronie logiki systemu, jak i atrakcyjnego
-sposobu prezentacji w formie odpowiedniej technologii frontendowej. Nasze doś
-wiadczenie na tym polu było niewielkie. Być może dlatego ta część systemu zosta
-ła zaimplementowana tylko po części.
+sposobu prezentacji w formie odpowiedniej technologii frontendowej. Nasze 
+doświadczenie na tym polu było niewielkie.
 
 Ponadto, podczas specyfikacji wizji systemu zidentyfikowaliśmy następujące zagrożenia:
 \begin{itemize}
@@ -99,8 +98,8 @@ research, development, testy, wdrażanie systemu czy tworzenie dokumentacji.
 
 W aspekcie procesu wytwarzania oprogramowania przyjęliśmy podejście podobne do procesu ewolucyjnego. W pierwszej fazie tworzenia systemu 
 stworzyliśmy prosty prototyp, tak, aby wyklaryfikować niektóre z wymagań klienta, oraz pozyskać wiedzę na temat możliwości oferowanych
-przez wybrane przez nas technologie. Następnie, po konsultacjach z klientem, postanowiliśmy rozwijać dalej rzeczony prototyp, dodając ko
-lejne funkcjonalności lub modyfikując te już zaimplementowane. 
+przez wybrane przez nas technologie. Następnie, po konsultacjach z klientem, postanowiliśmy rozwijać dalej rzeczony prototyp, dodając 
+kolejne funkcjonalności lub modyfikując te już zaimplementowane. 
 
 W pierwszej kolejności skupiliśmy się nad implementacją części systemu, odpowiedzialnej za crawling stron internetowych. Było tak, ponieważ
 dopiero po jej sukcesywnej implementacji rozsądne było zastanawiać się nad możliwymi metodami analizy danych. Ze względu jednak na to, że 
@@ -123,8 +122,8 @@ Ponadto do edycji kodu źródłowego używaliśmy nowoczesnego IDE do Javy firmy
   istniejące ograniczenia i propozycje dalszych prac.}
 
 W wyniku prac udało się uzyskać część funkcjonalności
-wymaganej początkowo przez klienta. Proces monitorowania odbywa się zgo
-dnie z założeniami, natomiast, z powodu wspomnianych problemów z czasem, zrealizowane przez nas metody analizy
+wymaganej początkowo przez klienta. Proces monitorowania odbywa się zgodnie z założeniami,
+natomiast, z powodu wspomnianych problemów z czasem, zrealizowane przez nas metody analizy
 zgromadzonych danych ograniczone są do wyszukiwania po słowach kluczowych. Stanowi
 to więc dobry wektor dla dalszego rozwoju systemu.
 
