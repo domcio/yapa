@@ -2,6 +2,7 @@ package pl.edu.agh.yapa.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.edu.agh.yapa.conversion.JobStatus;
 import pl.edu.agh.yapa.extraction.JobScheduler;
 import pl.edu.agh.yapa.model.AdTemplate;
 import pl.edu.agh.yapa.model.Job;
@@ -12,6 +13,7 @@ import pl.edu.agh.yapa.persistence.InvalidDatabaseStateException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 /**
  * @author Piotr Góralczyk
@@ -27,11 +29,11 @@ public class JobService {
         this.jobScheduler = jobScheduler;
     }
 
-    public Map<Job, Boolean> getJobsAndStatuses() throws InvalidDatabaseStateException {
+    public Map<Job, JobStatus> getJobsAndStatuses() throws InvalidDatabaseStateException, ExecutionException, InterruptedException {
         List<Job> jobs = adsDao.getJobs();
-        Map<Job, Boolean> jobStatuses = new HashMap<>();
+        Map<Job, JobStatus> jobStatuses = new HashMap<>();
         for (Job job : jobs) {
-            jobStatuses.put(job, jobScheduler.isActive(job));
+            jobStatuses.put(job, jobScheduler.getStatus(job));
         }
         return jobStatuses;
     }
@@ -49,11 +51,6 @@ public class JobService {
     public void deactivateJob(String jobName) throws InvalidDatabaseStateException {
         Job job = adsDao.getJobByName(jobName);
         jobScheduler.deactivate(job);
-    }
-
-    public boolean isJobActive(String jobName) throws InvalidDatabaseStateException {
-        Job job = adsDao.getJobByName(jobName);
-        return jobScheduler.isActive(job);
     }
 
     public List<AdTemplate> getTemplates() throws  InvalidDatabaseStateException { return adsDao.getTemplates(); }

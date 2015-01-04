@@ -21,6 +21,7 @@
         <table class="table">
             <thead>
             <th>Nazwa</th>
+            <th>Stan</th>
             <th>Uruchom</th>
             </thead>
             <tr th:each="job : ${jobs.keySet()}">
@@ -28,7 +29,20 @@
                     <span th:text="${job.name}">Przykładowe zadanie</span>
                 </td>
                 <td>
-                    <a th:unless="${jobs.get(job)}" href="#" th:href="'/jobs/' + ${job.name} + '/run/'"
+                    <span th:object="${jobs.get(job)}">
+                        <span th:switch="*{running}">
+                            <span th:case="true">Uruchomione</span>
+                            <span th:case="false">
+                                <span th:switch="*{exitCode}">
+                                    <span th:case="0">OK</span>
+                                    <span th:case="*" th:text="'Niepowodzenie, kod błędu: ' + *{exitCode}">Zakończone niepowodzeniem</span>
+                                </span>
+                            </span>
+                        </span>
+                    </span>
+                </td>
+                <td>
+                    <a th:unless="${jobs.get(job).running}" href="#" th:href="'/jobs/' + ${job.name} + '/run/'"
                        class="btn btn-success enable-tooltip" role="button" data-toggle="tooltip"
                        title="Uruchom jednorazowo">
                         <span class="glyphicon glyphicon-play"></span>
