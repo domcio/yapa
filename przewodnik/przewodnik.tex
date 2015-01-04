@@ -58,13 +58,10 @@ doświadczenie na tym polu było niewielkie.
 
 Ponadto, podczas specyfikacji wizji systemu zidentyfikowaliśmy następujące zagrożenia:
 \begin{itemize}
-
-\item Ograniczenia dotyczące crawlingu w regulaminach portali ogłoszeniowych.
-\item Brak doświadczenia zespołu z nierelacyjnym modelem bazy danych.
-\item Konieczność współpracy z różnymi formatami ogłoszeń. Konieczność dostosowywania się do zmian w tych formatach w czasie działania systemu.
-\item Uzależnienie od pracy portali może nastąpić brak dostępu do informacji, na który nie mamy wpływu.
-\item Stosunkowo szybkie tempo gromadzenia danych wykorzystywanych przez system, co może prowadzić do problemów wydajnościowych.
-\item Trudność w implementacji algorytmów wyszukiwania powiązań między ogłoszeniami odpowiadających oczekiwaniom klienta.
+\item Brak dostatecznej wiedzy i/lub doświadczenia w takich dziedzinach jak nierelacyjne bazy danych, crawling, technologie front-endowe.
+\item Potrzeba łatwego skalowania systemu ze względu na ilość przechowywanych informacji.
+\item Konieczność współpracy z różnymi formatami ogłoszeń, które mogą ponadto być zmienne w czasie.
+\item Uzależnienie od pracy portali - w przypadku trudności z połączeniem z serwerem, nasz system może przestać działać.
 \end{itemize}
 
 \section{Zakres funkcjonalności}
@@ -78,7 +75,7 @@ Aktorem dla naszego systemu jest użytkownik, chcący uzyskać z określonych st
 Jako współpracujące z nim inne systemy należy wyróżnić portale ogłoszeniowe, które użytkownik stargetyzuje
 w celu pobrania z nich informacji. Ten fakt narzuca na nas konieczność obsługi danych różnych formatów.
 
-Wymagania funkcjonalne:
+Najważniejsze wymagania funkcjonalne:
 \begin{itemize}
 \item Użytkownik ma mieć możliwość definiowania danych poprzez określenie ich atrybutów,
 sposobu ich ekstrakcji z konkretnego źródła oraz adresu strony, z której zostaną
