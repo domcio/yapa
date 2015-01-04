@@ -20,9 +20,7 @@
         <property name="targetBeanName"><idref bean="jobExecutor"/></property>
     </bean>
 
-    <bean id="jobExecutor" class="pl.edu.agh.yapa.extraction.JobExecutor" scope="prototype">
-        <constructor-arg index="0" ref="adsDao"/>
-    </bean>
+    <bean id="jobExecutor" class="pl.edu.agh.yapa.extraction.JobExecutor" scope="prototype"/>
 
     <bean id="adsDao" class="pl.edu.agh.yapa.persistence.AdsDaoImpl">
         <constructor-arg index="0" ref="db" />

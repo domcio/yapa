@@ -13,7 +13,7 @@ import pl.edu.agh.yapa.persistence.InvalidDatabaseStateException;
  */
 public class SampleDataMain {
     public static void main(String[] args) {
-        ApplicationContext ctx = new FileSystemXmlApplicationContext("src\\main\\webapp\\WEB-INF\\applicationContext.xml");
+        ApplicationContext ctx = new FileSystemXmlApplicationContext("src/main/webapp/WEB-INF/applicationContext.xml");
         AdsDao adsDao = (AdsDao) ctx.getBean("adsDao");
 
         String line;

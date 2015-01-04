@@ -27,8 +27,6 @@ public interface AdsDao {
     ObjectId insertAd(Ad ad, AdType adType) throws InvalidDatabaseStateException;
     ObjectId insertType(AdType adType) throws InvalidDatabaseStateException;
 
-    void executeJob(Job job) throws Exception;
-
     List<Job> getJobs() throws InvalidDatabaseStateException;
 
     ObjectId insertJob(MonitoringJob job) throws InvalidDatabaseStateException;

@@ -29,7 +29,7 @@ public class JobsController {
     }
 
     @RequestMapping("/jobs")
-    public ModelAndView list() throws InvalidDatabaseStateException {
+    public ModelAndView list() throws Exception {
         ModelAndView modelAndView = new ModelAndView("ListJobs");
         modelAndView.addObject("jobs", jobService.getJobsAndStatuses());
 
@@ -37,15 +37,15 @@ public class JobsController {
     }
 
     @RequestMapping("/jobs/{name}/run")
-    public String runJob(@PathVariable("name") String name) throws InvalidDatabaseStateException, Exception {
+    public String runJob(@PathVariable("name") String name) throws Exception {
         System.out.println("running: " + name);
         jobService.runJob(name);
 
-        return "redirect:" + "/ads";
+        return "redirect:" + "/jobs";
     }
 
     @RequestMapping("/jobs/{name}/activate")
-    public String activateJob(@PathVariable("name") String name) throws InvalidDatabaseStateException, Exception {
+    public String activateJob(@PathVariable("name") String name) throws Exception {
         System.out.println("Activated: " + name);
         jobService.activateJob(name);
 
@@ -53,7 +53,7 @@ public class JobsController {
     }
 
     @RequestMapping("/jobs/{name}/deactivate")
-    public String deactivateJob(@PathVariable("name") String name) throws InvalidDatabaseStateException, Exception {
+    public String deactivateJob(@PathVariable("name") String name) throws Exception {
         System.out.println("Deactivated: " + name);
         jobService.deactivateJob(name);
 

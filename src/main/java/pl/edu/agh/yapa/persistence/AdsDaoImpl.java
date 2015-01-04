@@ -27,8 +27,6 @@ import java.util.regex.Pattern;
  * @author pawel
  */
 public class AdsDaoImpl implements AdsDao {
-
-    private static final String PYTHON_CRAWLER_PATH = "D:\\yapa-final\\yapa\\src\\main\\java\\pl\\edu\\agh\\yapa\\python\\";
     private static final String TYPES_COLLECTION = "AdTypes";
     private static final String TEMPLATES_COLLECTION = "AdTemplates";
     private static final String WEBSITES_COLLECTION = "AdWebsites";
@@ -179,27 +177,6 @@ public class AdsDaoImpl implements AdsDao {
         typesCollection.insert(newType);
 
         return (ObjectId) newType.get("_id");
-    }
-
-    @Override
-    public void executeJob(Job job) throws Exception {
-        MonitoringJob mJob = (MonitoringJob) job;
-        AdTemplate template = mJob.getTemplate();
-        String jsonizedTemplate = jsonize(template);
-        System.out.println("Running Python for " + mJob.getWebsite() + " and " + jsonizedTemplate);
-
-        ProcessBuilder builder = new ProcessBuilder("python", PYTHON_CRAWLER_PATH + "main.py", mJob.getWebsite(), jsonizedTemplate);
-        builder.start(); //fire and forget...
-    }
-
-    private String jsonize(AdTemplate template) {
-        StringBuilder builder = new StringBuilder();
-        builder.append("{");
-        for (Map.Entry<String, String> entry : template.getPaths().entrySet()) {
-            builder.append("\\\"").append(entry.getKey()).append("\\\"").append(":").append("\\\"").append(entry.getValue()).append("\\\"").append(",");
-        }
-        builder.append("}");
-        return builder.toString();
     }
 
     private DBObject adToJson(Ad ad) {

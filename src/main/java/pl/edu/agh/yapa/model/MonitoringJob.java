@@ -8,7 +8,6 @@ import java.util.Collection;
 public class MonitoringJob implements Job {
     private String website;
     private AdTemplate template;
-    private Engine engine;
     private long intervalSeconds;
     private String name;
 
@@ -22,9 +21,7 @@ public class MonitoringJob implements Job {
 
     @Override
     public Collection<Ad> update() throws Exception {
-        engine.setStamp(new SnapshotStamp(DateTime.now(), name));
-
-        return engine.extractAds(website, template);
+        return null;
     }
 
     @Override
