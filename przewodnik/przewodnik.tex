@@ -1,0 +1,126 @@
+% By zmienic jezyk na angielski/polski, dodaj opcje do klasy english lub polish
+\documentclass[polish,12pt]{aghthesis}
+\usepackage[utf8]{inputenc}
+\usepackage{url}
+
+\author{Piotr Góralczyk, Paweł Mikołajczyk\\ Dominik Rusiecki}
+
+\title{System do analizy i monitorowania\\ portali ogłoszeniowych}
+
+\supervisor{dr inż.\ Jacek Dajda}
+
+\date{2015}
+
+% Szablon przystosowany jest do druku dwustronnego, 
+\begin{document}
+
+\maketitle
+
+
+
+\section{Cel prac i wizja produktu}
+%\section{Project goals and vision}
+\label{sec:cel-wizja}
+\emph{Charakterystyka problemu, motywacja projektu (w tym przeglad
+  istniejących rozwiązań prowadząca do uzasadnienia celu prac), ogólna
+  wizja produktu, krótkie studium wykonalności i analiza zagrożeń.}
+
+Problemem, z którym stara się mierzyć system stworzony w ramach niniejszej
+pracy inżynierskiej, jest obserwacja wielu źródeł informacji w Sieci w pos
+zukiwaniu interesujących użytkownika zagadnień z danej tematyki. Klient wy
+raził pragnienie posiadania narzędzia, umożliwiającego mu monitorowanie st
+ron i portali internetowych pod kątem zdefiniowenego przez niego zbioru in
+formacji, a ponadto udostępniającego metody analizy tych informacji. 
+
+Istnieją narzędzia odpowiadające na podobne potrzeby - Google Search pozwala na
+m na poszukiwanie informacji w Internecie w odpowiedzi na podane hasło, a
+Google Analytics może służyć do analizowania trendów w Sieci.
+Nie dają one jednak użytkownikowi możliwości w bardziej specyficzny sposób
+ definiowania sposobu ekstrakcji danych ze stron. Nie są też w stanie groma
+dzić zebranych informacji i w wygodny sposób przeprowadzać na nich analizy. 
+
+W ramach tworzonego projektu powstałby system, dający użytkownikowi swobodę
+definiowania rodzaju informacji, jakie będą przezeń poszukiwane, a także 
+szczegółowego sposobu ich ekstrakcji ze źródła. Zakładana jest pewna znajo
+mość przez użytkownika mechanizmów dopasowania wzorca, jak XPath lub wyraże
+nia regularne. Proces ektrakcji oparty będzie o web-crawling przy użyciu jednego
+z rozwiązań open-source lub z wykorzystaniem naszego własnego crawlera. Wye
+kstrahowane informacje przechowywane będą w postaci dedykowanej bazy danych, 
+z której będą korzystały narzędzia do analizy. Na wspomnianą analizę ma się 
+składać np. wyszukiwanie w zgromadzonych danych słowa kluczowego lub pokazy
+wanie trendów czasowych.
+
+Wizja wypracowana w wyniku naszej współpracy z klientem wydawała się do spełnienia.
+Część, która mogła nam sprawić dużo problemów, to moduł analizy, wymagający
+zarówno złożonych algorytmów po stronie logiki systemu, jak i atrakcyjnego
+sposobu prezentacji w formie odpowiedniej technologii frontendowej. Nasze doś
+wiadczenie na tym polu było niewielkie. Być może dlatego ta część systemu zosta
+ła zaimplementowana tylko po części.
+
+Ponadto, podczas specyfikacji wizji systemu zidentyfikowaliśmy następujące zagrożenia:
+\begin{itemize}
+
+\item Ograniczenia dotyczące crawlingu w regulaminach portali ogłoszeniowych.
+\item Brak doświadczenia zespołu z nierelacyjnym modelem bazy danych.
+\item Konieczność współpracy z różnymi formatami ogłoszeń. Konieczność dostosowywania się do zmian w tych formatach w czasie działania systemu.
+\item Uzależnienie od pracy portali może nastąpić brak dostępu do informacji, na który nie mamy wpływu.
+\item Stosunkowo szybkie tempo gromadzenia danych wykorzystywanych przez system, co może prowadzić do problemów wydajnościowych.
+\item Trudność w implementacji algorytmów wyszukiwania powiązań między ogłoszeniami odpowiadających oczekiwaniom klienta.
+\end{itemize}
+
+\section{Zakres funkcjonalności}
+%\section{Functional scope}
+\label{sec:zakres-funkcjonalnosci}
+
+\emph{Kontekst użytkowania produktu (aktorzy, współpracujące systemy)
+  oraz najważniejsze wymagania funkcjonalne i niefunkcjonalne.}
+
+\section{Wybrane aspekty realizacji}
+%\section{Selected realization aspects}
+\label{sec:wybrane-aspekty-realizacji}
+
+\emph{Przyjęte założenia, struktura i zasada działania systemu,
+  wykorzystane rozwiązania technologiczne wraz z krótkim uzasadnieniem
+  ich wyboru.}
+
+\section{Organizacja pracy}
+%\section{Work organization}
+\label{sec:organizacja-pracy}
+
+\emph{Struktura zespołu (role poszczególnych osób), krótki opis i
+  uzasadnienie przyjętej metodyki i/lub kolejności prac, planowane i
+  zrealizowane etapy prac ze wskazaniem udziału poszczególnych
+  członków zespołu, wykorzystane praktyki i narzędzia w zarządzaniu
+  projektem.}
+
+\section{Wyniki projektu}
+%\section{Project results}
+
+\label{sec:wyniki-projektu}
+
+\emph{Najważniejsze wyniki (co konkretnie udało się uzyskać:
+  oprogramowanie, dokumentacja, raporty z testów/wdrożenia, itd.)
+  i ocena ich użyteczności (jak zostało to zweryfikowane --- np.\ wnioski
+  klienta/użytkownika, zrealizowane testy wydajnościowe, itd.),
+  istniejące ograniczenia i propozycje dalszych prac.}
+
+W wyniku prac udało się uzyskać część funkcjonalności
+wymaganej początkowo przez klienta. Proces monitorowania odbywa się zgo
+dnie z założeniami, natomiast, z powodu problemów technicznych, metody analizy
+zgromadzonych danych ograniczone są do wyszukiwania po słowach kluczowych. Stanowi
+to dobry wektor dla dalszego rozwoju systemu.
+
+Ponadto dla systemu powstała szczegółowa dokumentacja techniczna. Zawiera ona opis
+technicznych aspektów systemu - architektura, wykorzystane technologie.
+
+Oprócz tego, stworzyliśmy również dokumentację procesową, opisującą przebieg naszych
+prac podczas tworzenia systemu, jak i dokumentację użytkownika, mającą ułatwić mu 
+zaznajomienie się z systemem i sprawne jego zainstalowanie oraz użytkownie. 
+
+% o ile to mozliwe prosze uzywac odwolan \cite w konkretnych miejscach a nie \nocite
+
+\nocite{artykul2011,ksiazka2011,narzedzie2011,projekt2011}
+
+\bibliography{bibliografia}
+
+\end{document}
