@@ -2,6 +2,8 @@
 .idea/
 src/main/java/resources
 target/
+przewodnik/*.log
+przewodnik/*.pdf
 
 *.properties
 *.pyc
