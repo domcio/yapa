@@ -4,6 +4,7 @@ src/main/java/resources
 target/
 przewodnik/*.log
 przewodnik/*.pdf
+przewodnik/*.aux
 
 *.properties
 *.pyc
