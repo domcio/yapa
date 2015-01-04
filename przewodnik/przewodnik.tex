@@ -74,6 +74,30 @@ Ponadto, podczas specyfikacji wizji systemu zidentyfikowaliśmy następujące za
 \emph{Kontekst użytkowania produktu (aktorzy, współpracujące systemy)
   oraz najważniejsze wymagania funkcjonalne i niefunkcjonalne.}
 
+Aktorem dla naszego systemu jest użytkownik, chcący uzyskać z określonych stron interesujące go informacje.
+Jako współpracujące z nim inne systemy należy wyróżnić portale ogłoszeniowe, które użytkownik stargetyzuje
+w celu pobrania z nich informacji. Ten fakt narzuca na nas konieczność obsługi danych różnych formatów.
+
+Wymagania funkcjonalne:
+\begin{itemize}
+\item Użytkownik ma mieć możliwość definiowania danych poprzez określenie ich atrybutów,
+sposobu ich ekstrakcji z konkretnego źródła oraz adresu strony, z której zostaną
+wyekstrahowane. Estrakcja jest określana za pomocą mechanizmów takich jak XPath lub wyrażenia 
+regularne.
+\item Użytkownik ma mieć możliwość uruchamiania zadania powiązanego z wyżej
+wymienionymi danymi w łatwy sposób.
+\item Dla zgromadzonych ogłoszeń, użytkownik ma mieć możliwość przeszukiwania ich po
+interesujących go frazach oraz stosować inne, bardziej wyrafinowane metody analizy.
+\end{itemize}
+
+Wymagania niefunkcjonalne:
+\begin{itemize}
+\item Interfejs webowy.
+\item Prostota użytkowania.
+\item Wydajny crawling.
+\item Skalowalność.
+\end{itemize}
+
 \section{Wybrane aspekty realizacji}
 %\section{Selected realization aspects}
 \label{sec:wybrane-aspekty-realizacji}
