@@ -4,8 +4,6 @@ import com.mongodb.DB;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 import pl.edu.agh.yapa.persistence.AdTypeDao;
-import pl.edu.agh.yapa.persistence.AdsDao;
-import pl.edu.agh.yapa.persistence.InvalidDatabaseStateException;
 import pl.edu.agh.yapa.persistence.JobDao;
 
 /**

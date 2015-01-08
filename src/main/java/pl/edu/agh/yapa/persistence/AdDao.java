@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * @author pawel
  */
-public interface AdsDao {
+public interface AdDao {
     List<Ad> getAds() throws InvalidDatabaseStateException;
 
     List<Ad> getAdsByType(String adTypeName) throws InvalidDatabaseStateException;

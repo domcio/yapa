@@ -17,13 +17,13 @@ import java.util.regex.Pattern;
 /**
  * @author pawel
  */
-public class AdsDaoImpl implements AdsDao {
+public class AdDaoImpl implements AdDao {
     private static final String WEBSITES_COLLECTION = "AdWebsites";
     private static final String NEW_ADS_COLL = "ads";
     private static final DateTimeFormatter formatter = ISODateTimeFormat.dateTime();
     private final DB database;
 
-    public AdsDaoImpl(DB database) {
+    public AdDaoImpl(DB database) {
         this.database = database;
         database.createCollection(WEBSITES_COLLECTION, null);
 

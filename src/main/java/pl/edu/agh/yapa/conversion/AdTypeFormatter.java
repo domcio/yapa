@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.Formatter;
 import pl.edu.agh.yapa.model.AdType;
 import pl.edu.agh.yapa.persistence.AdTypeDao;
-import pl.edu.agh.yapa.persistence.AdsDao;
 import pl.edu.agh.yapa.persistence.InvalidDatabaseStateException;
 
 import java.text.ParseException;

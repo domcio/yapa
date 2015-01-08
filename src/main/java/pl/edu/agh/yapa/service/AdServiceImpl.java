@@ -7,7 +7,7 @@ import pl.edu.agh.yapa.model.AdTemplate;
 import pl.edu.agh.yapa.model.AdType;
 import pl.edu.agh.yapa.persistence.AdTemplateDao;
 import pl.edu.agh.yapa.persistence.AdTypeDao;
-import pl.edu.agh.yapa.persistence.AdsDao;
+import pl.edu.agh.yapa.persistence.AdDao;
 import pl.edu.agh.yapa.persistence.InvalidDatabaseStateException;
 
 import java.util.List;
@@ -17,20 +17,20 @@ import java.util.List;
  */
 @Service
 public class AdServiceImpl implements AdService {
-    private final AdsDao adsDao;
+    private final AdDao adDao;
     private final AdTypeDao adTypeDao;
     private final AdTemplateDao adTemplateDao;
 
     @Autowired
-    public AdServiceImpl(AdsDao adsDao, AdTypeDao adTypeDao, AdTemplateDao adTemplateDao) {
-        this.adsDao = adsDao;
+    public AdServiceImpl(AdDao adDao, AdTypeDao adTypeDao, AdTemplateDao adTemplateDao) {
+        this.adDao = adDao;
         this.adTypeDao = adTypeDao;
         this.adTemplateDao = adTemplateDao;
     }
 
     @Override
     public List<Ad> getAds() throws InvalidDatabaseStateException {
-        return adsDao.getAds();
+        return adDao.getAds();
     }
 
     @Override
