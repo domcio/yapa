@@ -26,6 +26,20 @@
         <constructor-arg index="0" ref="db" />
     </bean>
 
+    <bean id="adTypeDao" class="pl.edu.agh.yapa.persistence.AdTypeDaoImpl">
+        <constructor-arg index="0" ref="db" />
+    </bean>
+
+    <bean id="adTemplateDao" class="pl.edu.agh.yapa.persistence.AdTemplateDaoImpl">
+        <constructor-arg index="0" ref="db" />
+        <constructor-arg index="1" ref="adTypeDao" />
+    </bean>
+
+    <bean id="jobDao" class="pl.edu.agh.yapa.persistence.JobDaoImpl">
+        <constructor-arg index="0" ref="db" />
+        <constructor-arg index="1" ref="adTemplateDao" />
+    </bean>
+
     <bean id="db" class="com.mongodb.DB" factory-bean="mongoClient" factory-method="getDB">
         <constructor-arg type="java.lang.String" value="${mongodb.database}"/>
     </bean>

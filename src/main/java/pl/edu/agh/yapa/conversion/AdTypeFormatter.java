@@ -3,6 +3,7 @@ package pl.edu.agh.yapa.conversion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.Formatter;
 import pl.edu.agh.yapa.model.AdType;
+import pl.edu.agh.yapa.persistence.AdTypeDao;
 import pl.edu.agh.yapa.persistence.AdsDao;
 import pl.edu.agh.yapa.persistence.InvalidDatabaseStateException;
 
@@ -14,21 +15,21 @@ import java.util.Locale;
  */
 public class AdTypeFormatter implements Formatter<AdType> {
     // TODO move to service layer
-    private AdsDao adsDao;
+    private AdTypeDao adTypeDao;
 
     @Autowired
-    public AdTypeFormatter(AdsDao adsDao) {
-        this.adsDao = adsDao;
+    public AdTypeFormatter(AdTypeDao adTypeDao) {
+        this.adTypeDao = adTypeDao;
     }
 
     public AdTypeFormatter() {
-        this.adsDao = null;
+        this.adTypeDao = null;
     }
 
     @Override
     public AdType parse(String s, Locale locale) throws ParseException {
         try {
-            return adsDao.getTypeByName(s);
+            return adTypeDao.getTypeByName(s);
         } catch (InvalidDatabaseStateException e) {
             e.printStackTrace();
         }

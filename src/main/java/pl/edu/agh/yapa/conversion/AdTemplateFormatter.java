@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.Formatter;
 import pl.edu.agh.yapa.model.AdTemplate;
 import pl.edu.agh.yapa.model.AdType;
-import pl.edu.agh.yapa.persistence.AdsDao;
+import pl.edu.agh.yapa.persistence.AdTypeDao;
 import pl.edu.agh.yapa.persistence.InvalidDatabaseStateException;
 
 import java.text.ParseException;
@@ -15,11 +15,11 @@ import java.util.Locale;
  */
 public class AdTemplateFormatter implements Formatter<AdTemplate> {
     // TODO move to service layer
-    private AdsDao adsDao;
+    private AdTypeDao adTypeDao;
 
     @Autowired
-    public AdTemplateFormatter(AdsDao adsDao) {
-        this.adsDao = adsDao;
+    public AdTemplateFormatter(AdTypeDao adTypeDao) {
+        this.adTypeDao = adTypeDao;
     }
 
     public AdTemplateFormatter() {
@@ -31,7 +31,7 @@ public class AdTemplateFormatter implements Formatter<AdTemplate> {
         AdTemplate template = null;
         try {
             template = new AdTemplate();
-            AdType type = adsDao.getTypeByName(strs[0]);
+            AdType type = adTypeDao.getTypeByName(strs[0]);
             template.setType(type);
 
             for (int i = 1; i < strs.length - 1; i += 2) {

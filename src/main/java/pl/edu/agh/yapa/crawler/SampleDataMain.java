@@ -1,9 +1,12 @@
 package pl.edu.agh.yapa.crawler;
 
+import com.mongodb.DB;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
+import pl.edu.agh.yapa.persistence.AdTypeDao;
 import pl.edu.agh.yapa.persistence.AdsDao;
 import pl.edu.agh.yapa.persistence.InvalidDatabaseStateException;
+import pl.edu.agh.yapa.persistence.JobDao;
 
 /**
  * Created with IntelliJ IDEA.
@@ -14,7 +17,9 @@ import pl.edu.agh.yapa.persistence.InvalidDatabaseStateException;
 public class SampleDataMain {
     public static void main(String[] args) {
         ApplicationContext ctx = new FileSystemXmlApplicationContext("src/main/webapp/WEB-INF/applicationContext.xml");
-        AdsDao adsDao = (AdsDao) ctx.getBean("adsDao");
+        AdTypeDao adTypeDao = (AdTypeDao) ctx.getBean("adTypeDao");
+        JobDao jobDao = (JobDao) ctx.getBean("jobDao");
+        DB database = (DB) ctx.getBean("db");
 
         String line;
         java.io.BufferedReader in = new java.io.BufferedReader(
@@ -25,10 +30,10 @@ public class SampleDataMain {
                 System.out.flush();
                 line = in.readLine();
                 if (line.equals("i")) {
-                    Construct.sampleGumtreeJob(adsDao);
-                    Construct.sampleOlxJob(adsDao);
+                    Construct.sampleGumtreeJob(jobDao);
+                    Construct.sampleOlxJob(adTypeDao, jobDao);
                 } else if (line.equals("c")) {
-                    adsDao.clear();
+                    database.dropDatabase();
                 }
             }
             while (!line.equals("x"));

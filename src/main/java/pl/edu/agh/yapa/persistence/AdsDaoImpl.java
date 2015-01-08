@@ -1,20 +1,12 @@
 package pl.edu.agh.yapa.persistence;
 
-import com.mongodb.BasicDBList;
-import com.mongodb.BasicDBObject;
-import com.mongodb.DB;
-import com.mongodb.DBCollection;
-import com.mongodb.DBCursor;
-import com.mongodb.DBObject;
+import com.mongodb.*;
 import org.bson.types.ObjectId;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
 import pl.edu.agh.yapa.conversion.FieldsContainer;
 import pl.edu.agh.yapa.model.Ad;
-import pl.edu.agh.yapa.model.AdTemplate;
 import pl.edu.agh.yapa.model.AdType;
-import pl.edu.agh.yapa.model.Job;
-import pl.edu.agh.yapa.model.MonitoringJob;
 import pl.edu.agh.yapa.model.SnapshotStamp;
 import pl.edu.agh.yapa.search.SearchQuery;
 
@@ -26,20 +18,14 @@ import java.util.regex.Pattern;
  * @author pawel
  */
 public class AdsDaoImpl implements AdsDao {
-    private static final String TYPES_COLLECTION = "AdTypes";
-    private static final String TEMPLATES_COLLECTION = "AdTemplates";
     private static final String WEBSITES_COLLECTION = "AdWebsites";
-    private static final String JOBS_COLLECTION = "AdJobs";
     private static final String NEW_ADS_COLL = "ads";
     private static final DateTimeFormatter formatter = ISODateTimeFormat.dateTime();
     private final DB database;
 
     public AdsDaoImpl(DB database) {
         this.database = database;
-        database.createCollection(TYPES_COLLECTION, null);
         database.createCollection(WEBSITES_COLLECTION, null);
-        database.createCollection(TEMPLATES_COLLECTION, null);
-        database.createCollection(JOBS_COLLECTION, null);
 
         DBCollection adsCollection = database.createCollection(NEW_ADS_COLL, null);
         adsCollection.createIndex(new BasicDBObject("$**", "text"));
@@ -67,56 +53,6 @@ public class AdsDaoImpl implements AdsDao {
             resultList.add(adFromJson(adJson));
         }
         return resultList;
-    }
-
-    @Override
-    public List<AdType> getTypes() throws InvalidDatabaseStateException {
-        List<AdType> typesList = new ArrayList<>();
-        DBCollection typesCollection = database.getCollection(TYPES_COLLECTION);
-        for (DBObject typeObj : typesCollection.find()) {
-            typesList.add(typeFromJson(typeObj));
-        }
-        return typesList;
-    }
-
-    private ObjectId getTypeId(AdType type) throws InvalidDatabaseStateException {
-        DBCollection typesCollection = database.getCollection(TYPES_COLLECTION);
-        for (DBObject typeObj : typesCollection.find()) {
-            if (type.getName().equals((String) typeObj.get("name"))) {
-                return (ObjectId) typeObj.get("_id");
-            }
-        }
-        return null;
-    }
-
-    @Override
-    public List<AdTemplate> getTemplates() throws InvalidDatabaseStateException {
-        List<AdTemplate> result = new ArrayList<>();
-        DBCollection templates = database.getCollection(TEMPLATES_COLLECTION);
-        for (DBObject templateDoc : templates.find()) {
-            result.add(templateFromJson(templateDoc));
-        }
-        return result;
-    }
-
-    @Override
-    public Job getJobByName(String jobName) throws InvalidDatabaseStateException {
-        DBCollection jobs = database.getCollection(JOBS_COLLECTION);
-        DBObject finder = new BasicDBObject().append("name", jobName);
-        DBCursor cursor = jobs.find(finder);
-        DBObject found = cursor.next();//we assume there would be a job with this name
-        return jobFromJson(found);
-    }
-
-    @Override
-    public void clear() {
-        database.dropDatabase();
-    }
-
-    @Override
-    public void removeTypeByName(String typeName) {
-        DBCollection types = database.getCollection(TYPES_COLLECTION);
-        types.remove(new BasicDBObject().append("name", typeName));
     }
 
     @Override
@@ -171,22 +107,6 @@ public class AdsDaoImpl implements AdsDao {
         return (ObjectId) adJson.get("_id");
     }
 
-    @Override
-    public ObjectId insertType(AdType adType) throws InvalidDatabaseStateException {
-        DBCollection typesCollection = database.getCollection(TYPES_COLLECTION);
-
-        DBObject newType = new BasicDBObject();
-        newType.put("name", adType.getName());
-        BasicDBList fieldsList = new BasicDBList();
-        for (String field : adType.getFields()) {
-            fieldsList.add(field);
-        }
-        newType.put("fields", fieldsList);
-        typesCollection.insert(newType);
-
-        return (ObjectId) newType.get("_id");
-    }
-
     private DBObject adToJson(Ad ad) {
         DBObject json = new BasicDBObject();
         json.putAll(ad.getFieldValues());
@@ -199,65 +119,6 @@ public class AdsDaoImpl implements AdsDao {
         json.put("__stamp", stampJson);
 
         return json;
-    }
-
-    @Override
-    public List<Job> getJobs() throws InvalidDatabaseStateException {
-        DBCollection jobsCollection = database.getCollection(JOBS_COLLECTION);
-        List<Job> jobs = new ArrayList<>();
-        for (DBObject jobJson : jobsCollection.find()) {
-            jobs.add(jobFromJson(jobJson));
-        }
-        return jobs;
-    }
-
-    @Override
-    public ObjectId insertJob(MonitoringJob job) throws InvalidDatabaseStateException {
-        DBCollection coll = database.getCollection(JOBS_COLLECTION);
-        BasicDBObject jobObj = new BasicDBObject();
-        jobObj.append("name", job.getName());
-        jobObj.append("website", job.getWebsite());
-        jobObj.append("template", insertTemplate(job.getTemplate()));
-        coll.insert(jobObj);
-        return (ObjectId) jobObj.get("_id");
-    }
-
-    @Override
-    public ObjectId insertTemplate(AdTemplate adTemplate) throws InvalidDatabaseStateException {
-        DBCollection templates = database.getCollection(TEMPLATES_COLLECTION);
-        DBObject newTemplate = new BasicDBObject();
-        ObjectId typeId = getTypeId(adTemplate.getType());
-        if (typeId == null) {
-            newTemplate.put("type", insertType(adTemplate.getType()));
-        } else {
-            newTemplate.put("type", typeId);
-        }
-        newTemplate.putAll(adTemplate.getPaths());
-        templates.insert(newTemplate);
-        return (ObjectId) newTemplate.get("_id");
-    }
-
-    public AdType getTypeByName(String name) throws InvalidDatabaseStateException {
-        DBCollection collection = database.getCollection(TYPES_COLLECTION);
-        System.out.println("name " + name);
-        return typeFromJson(collection.findOne(new BasicDBObject("name", name)));
-    }
-
-    private AdType getTypeByID(ObjectId id) throws InvalidDatabaseStateException {
-        return typeFromJson(getByID(id, TYPES_COLLECTION));
-    }
-
-    private AdTemplate getTemplateByID(ObjectId id) throws InvalidDatabaseStateException {
-        return templateFromJson(getByID(id, TEMPLATES_COLLECTION));
-    }
-
-    private DBObject getByID(ObjectId id, String collection) throws InvalidDatabaseStateException {
-        if (!database.collectionExists(collection)) {
-            throw new InvalidDatabaseStateException("Collection " + collection + " does not exist");
-        }
-        DBCollection types = database.getCollection(collection);
-        DBObject finder = new BasicDBObject("_id", id);
-        return types.findOne(finder);
     }
 
     private Ad adFromJson(DBObject json) {
@@ -276,34 +137,5 @@ public class AdsDaoImpl implements AdsDao {
 
 //        ad.setSnapshot(new SnapshotStamp(date, jobName));
         return ad;
-    }
-
-    private AdType typeFromJson(DBObject json) {
-        AdType type = new AdType();
-        type.setName((String) json.get("name"));
-        BasicDBList fieldList = (BasicDBList) json.get("fields");
-        for (Object field : fieldList) {
-            type.addField((String) field);
-        }
-        return type;
-    }
-
-    private AdTemplate templateFromJson(DBObject json) throws InvalidDatabaseStateException {
-        AdType type = getTypeByID((ObjectId) json.get("type"));
-        AdTemplate template = new AdTemplate(type);
-        for (String adField : json.keySet()) {
-            if (!adField.equals("_id") && !adField.equals("type")) {
-                template.setPath(adField, (String) json.get(adField));
-            }
-        }
-        return template;
-    }
-
-    private Job jobFromJson(DBObject json) throws InvalidDatabaseStateException {
-        MonitoringJob job = new MonitoringJob();
-        job.setName((String) json.get("name"));
-        job.setTemplate(getTemplateByID((ObjectId) json.get("template")));
-        job.setWebsite((String) json.get("website"));
-        return job;
     }
 }
