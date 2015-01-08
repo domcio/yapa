@@ -38,7 +38,7 @@ public class AdTypesController {
     @RequestMapping(value = "/types/{type}/remove")
     public String removeType(@PathVariable("type") String typeName, final HttpServletRequest request) {
         System.out.println("Usuwam typ " + typeName);
-        adService.removeType(typeName);
+        adService.removeAdType(typeName);
         return "redirect:/types";
     }
 

@@ -38,7 +38,7 @@ public class AdServiceImpl implements AdService {
     }
 
     @Override
-    public void removeType(String typeName) {
+    public void removeAdType(String typeName) {
         adsDao.removeTypeByName(typeName);
     }
 }

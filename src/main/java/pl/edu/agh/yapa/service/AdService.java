@@ -18,7 +18,7 @@ public interface AdService {
 
     void insertAdType(AdType adType) throws InvalidDatabaseStateException;
 
-    void removeType(String typeName);
+    void removeAdType(String typeName);
 
     List<AdTemplate> getAdTemplates() throws  InvalidDatabaseStateException;
 
