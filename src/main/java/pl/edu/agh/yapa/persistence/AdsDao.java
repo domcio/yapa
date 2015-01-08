@@ -3,6 +3,7 @@ package pl.edu.agh.yapa.persistence;
 import org.bson.types.ObjectId;
 import pl.edu.agh.yapa.conversion.FieldsContainer;
 import pl.edu.agh.yapa.model.*;
+import pl.edu.agh.yapa.search.SearchQuery;
 
 import java.util.List;
 
@@ -25,6 +26,7 @@ public interface AdsDao {
     AdType getTypeByName(String typeName) throws InvalidDatabaseStateException;
 
     ObjectId insertAd(Ad ad, AdType adType) throws InvalidDatabaseStateException;
+
     ObjectId insertType(AdType adType) throws InvalidDatabaseStateException;
 
     List<Job> getJobs() throws InvalidDatabaseStateException;
@@ -37,5 +39,5 @@ public interface AdsDao {
 
     List<Ad> search(FieldsContainer container) throws InvalidDatabaseStateException;
 
-    String getAdsCollectionName();
+    List<Ad> search(SearchQuery searchQuery) throws InvalidDatabaseStateException;
 }

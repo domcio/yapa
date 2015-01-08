@@ -1,7 +1,8 @@
-package pl.edu.agh.yapa.search;
+package pl.edu.agh.yapa.persistence;
 
 import com.mongodb.*;
 import pl.edu.agh.yapa.persistence.InvalidDatabaseStateException;
+import pl.edu.agh.yapa.search.SearchQuery;
 
 public class MongoSearcher {
 

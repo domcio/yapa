@@ -1,10 +1,12 @@
-package pl.edu.agh.yapa.search;
+package pl.edu.agh.yapa.persistence;
 
 import com.mongodb.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import pl.edu.agh.yapa.persistence.InvalidDatabaseStateException;
+import pl.edu.agh.yapa.persistence.MongoSearcher;
+import pl.edu.agh.yapa.search.SearchQuery;
 
 import static org.fest.assertions.Assertions.assertThat;
 

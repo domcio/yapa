@@ -16,11 +16,10 @@ import pl.edu.agh.yapa.model.AdType;
 import pl.edu.agh.yapa.model.Job;
 import pl.edu.agh.yapa.model.MonitoringJob;
 import pl.edu.agh.yapa.model.SnapshotStamp;
+import pl.edu.agh.yapa.search.SearchQuery;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.regex.Pattern;
 
 /**
@@ -145,8 +144,17 @@ public class AdsDaoImpl implements AdsDao {
     }
 
     @Override
-    public String getAdsCollectionName() {
-        return NEW_ADS_COLL;
+    public List<Ad> search(SearchQuery searchQuery) throws InvalidDatabaseStateException {
+        List<Ad> foundAds = new ArrayList<>();
+
+        DBCollection collection = database.getCollection(NEW_ADS_COLL);
+        DBCursor result = new MongoSearcher(collection).search(searchQuery);
+
+        for (DBObject dbObject : result) {
+            foundAds.add( Ad.fromJSON(dbObject) );
+        }
+
+        return foundAds;
     }
 
     @Override
