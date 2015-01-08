@@ -29,7 +29,7 @@ public class AdTemplatesController {
     @RequestMapping("/templates")
     public ModelAndView list() throws InvalidDatabaseStateException {
         ModelAndView modelAndView = new ModelAndView("ListTemplates");
-        modelAndView.addObject("templates", adService.getTemplates());
+        modelAndView.addObject("templates", adService.getAdTemplates());
 
         return modelAndView;
     }

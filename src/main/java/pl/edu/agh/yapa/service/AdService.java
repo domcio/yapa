@@ -14,19 +14,13 @@ import java.util.List;
 public interface AdService {
     List<Ad> getAds() throws InvalidDatabaseStateException;
 
-    List<Ad> getAdsByType(String adTypeName) throws InvalidDatabaseStateException;
-
     List<AdType> getAdTypes() throws InvalidDatabaseStateException;
-
-    List<AdTemplate> getTemplates() throws  InvalidDatabaseStateException;
 
     void insertAdType(AdType adType) throws InvalidDatabaseStateException;
 
-    AdType getTypeByName(String typeName) throws InvalidDatabaseStateException;
-
-    void insertAdTemplate(AdTemplate adTemplate) throws InvalidDatabaseStateException;
-
     void removeType(String typeName);
 
-    List<Ad> search(FieldsContainer container) throws InvalidDatabaseStateException;
+    List<AdTemplate> getAdTemplates() throws  InvalidDatabaseStateException;
+
+    void insertAdTemplate(AdTemplate adTemplate) throws InvalidDatabaseStateException;
 }

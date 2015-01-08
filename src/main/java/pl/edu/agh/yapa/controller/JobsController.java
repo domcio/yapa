@@ -66,7 +66,7 @@ public class JobsController {
 
     @RequestMapping(value = "/selectTemplate", method = RequestMethod.GET)
     public String selectTemplate(Model model) throws InvalidDatabaseStateException {
-        model.addAttribute("templates", adService.getTemplates());
+        model.addAttribute("templates", adService.getAdTemplates());
         model.addAttribute("monitoringJob", new MonitoringJob());
 
         return "SelectAdTemplate";

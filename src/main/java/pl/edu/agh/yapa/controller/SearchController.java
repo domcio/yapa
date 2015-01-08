@@ -15,6 +15,7 @@ import pl.edu.agh.yapa.model.AdSnapshot;
 import pl.edu.agh.yapa.model.AdTemplate;
 import pl.edu.agh.yapa.persistence.InvalidDatabaseStateException;
 import pl.edu.agh.yapa.service.AdService;
+import pl.edu.agh.yapa.service.SearchService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -22,11 +23,13 @@ import java.util.List;
 @Controller
 public class SearchController {
     private final AdService adService;
+    private final SearchService searchService;
     private final DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
 
     @Autowired
-    public SearchController(AdService adService) {
+    public SearchController(AdService adService, SearchService searchService) {
         this.adService = adService;
+        this.searchService = searchService;
     }
 
     @RequestMapping(value = "/search", method = RequestMethod.GET)
@@ -48,7 +51,7 @@ public class SearchController {
 
     @RequestMapping(value = "/processSearch", method = RequestMethod.POST)
     public ModelAndView processSearch(final AdTemplate template, final FieldsContainer container, final BindingResult bindingResult, final HttpServletRequest req) throws InvalidDatabaseStateException {
-        List<Ad> ads = adService.search(container);
+        List<Ad> ads = searchService.search(container);
         ModelAndView modelAndView = new ModelAndView("ListAds");
         modelAndView.addObject("snapshots", AdSnapshot.groupBySnapshots(ads));
         modelAndView.addObject("datetimeFormatter", dateTimeFormatter);

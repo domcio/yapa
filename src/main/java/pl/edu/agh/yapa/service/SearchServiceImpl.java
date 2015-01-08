@@ -6,6 +6,7 @@ import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.edu.agh.yapa.conversion.FieldsContainer;
 import pl.edu.agh.yapa.model.Ad;
 import pl.edu.agh.yapa.persistence.AdsDao;
 import pl.edu.agh.yapa.persistence.InvalidDatabaseStateException;
@@ -27,6 +28,15 @@ public class SearchServiceImpl implements SearchService {
     public SearchServiceImpl(AdsDao adsDao, DB database) {
         this.adsDao = adsDao;
         this.database = database;
+    }
+
+    @Override
+    public List<Ad> search(FieldsContainer container) throws InvalidDatabaseStateException {
+        return adsDao.search(container);
+//        System.out.println("Search po typie " + container.getAdType());
+//        for (String path : container.getFieldXPaths()) {
+//            System.out.println("Slowo kluczowe: " + path);
+//        }
     }
 
     @Override
