@@ -1,7 +1,6 @@
 package pl.edu.agh.yapa.model;
 
 import org.joda.time.DateTime;
-import pl.edu.agh.yapa.extraction.Engine;
 
 import java.util.Collection;
 

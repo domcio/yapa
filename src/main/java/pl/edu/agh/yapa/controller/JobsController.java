@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import pl.edu.agh.yapa.conversion.JobFieldsContainer;
 import pl.edu.agh.yapa.model.MonitoringJob;
 import pl.edu.agh.yapa.persistence.InvalidDatabaseStateException;
+import pl.edu.agh.yapa.service.AdService;
 import pl.edu.agh.yapa.service.JobService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,10 +23,12 @@ import javax.servlet.http.HttpServletRequest;
 public class JobsController {
 
     private final JobService jobService;
+    private final AdService adService;
 
     @Autowired
-    public JobsController(JobService jobService) {
+    public JobsController(JobService jobService, AdService adService) {
         this.jobService = jobService;
+        this.adService = adService;
     }
 
     @RequestMapping("/jobs")
@@ -63,7 +66,7 @@ public class JobsController {
 
     @RequestMapping(value = "/selectTemplate", method = RequestMethod.GET)
     public String selectTemplate(Model model) throws InvalidDatabaseStateException {
-        model.addAttribute("templates", jobService.getTemplates());
+        model.addAttribute("templates", adService.getTemplates());
         model.addAttribute("monitoringJob", new MonitoringJob());
 
         return "SelectAdTemplate";

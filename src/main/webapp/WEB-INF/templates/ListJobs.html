@@ -12,7 +12,8 @@
     <br/>
 
     <div class="container">
-        <input type="button" onclick="location.href='/selectTemplate'" value="Dodaj nowe zadanie" class="btn btn-primary"/>
+        <input type="button" onclick="location.href='/selectTemplate'" value="Dodaj nowe zadanie"
+               class="btn btn-primary"/>
     </div>
 
     <br/>
@@ -20,10 +21,13 @@
     <div class="container">
         <table class="table">
             <thead>
-            <th>Nazwa</th>
-            <th>Stan</th>
-            <th>Uruchom</th>
+            <tr>
+                <th>Nazwa</th>
+                <th>Stan</th>
+                <th>Uruchom</th>
+            </tr>
             </thead>
+            <tbody>
             <tr th:each="job : ${jobs.keySet()}">
                 <td>
                     <span th:text="${job.name}">Przykładowe zadanie</span>
@@ -49,6 +53,7 @@
                     </a>
                 </td>
             </tr>
+            </tbody>
         </table>
     </div>
 
