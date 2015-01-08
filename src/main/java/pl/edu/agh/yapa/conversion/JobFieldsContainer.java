@@ -1,10 +1,6 @@
 package pl.edu.agh.yapa.conversion;
 
 import pl.edu.agh.yapa.model.AdTemplate;
-import pl.edu.agh.yapa.model.AdType;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author Piotr Góralczyk

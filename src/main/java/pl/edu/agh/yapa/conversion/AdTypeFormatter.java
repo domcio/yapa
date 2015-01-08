@@ -13,6 +13,7 @@ import java.util.Locale;
  * Created by Dominik on 16.06.2014.
  */
 public class AdTypeFormatter implements Formatter<AdType> {
+    // TODO move to service layer
     private AdsDao adsDao;
 
     @Autowired

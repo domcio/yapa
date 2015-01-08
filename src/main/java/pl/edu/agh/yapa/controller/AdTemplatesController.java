@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import pl.edu.agh.yapa.conversion.FieldsContainer;
 import pl.edu.agh.yapa.model.AdTemplate;
-import pl.edu.agh.yapa.persistence.InvalidDatabaseStateException;
 import pl.edu.agh.yapa.service.AdService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,7 +26,7 @@ public class AdTemplatesController {
     }
 
     @RequestMapping("/templates")
-    public ModelAndView list() throws InvalidDatabaseStateException {
+    public ModelAndView list() throws Exception {
         ModelAndView modelAndView = new ModelAndView("ListTemplates");
         modelAndView.addObject("templates", adService.getAdTemplates());
 
@@ -35,7 +34,7 @@ public class AdTemplatesController {
     }
 
     @RequestMapping(value = "/showSelect", method = RequestMethod.GET)
-    public String showSelect(Model model) throws InvalidDatabaseStateException {
+    public String showSelect(Model model) throws Exception {
         model.addAttribute("types", adService.getAdTypes());
         model.addAttribute("template", new AdTemplate());
 
@@ -57,7 +56,7 @@ public class AdTemplatesController {
     }
 
     @RequestMapping(value = "/processSelect", method = RequestMethod.POST)
-    public String processSelect(final AdTemplate template, final FieldsContainer container, final BindingResult bindingResult, final HttpServletRequest req) throws InvalidDatabaseStateException {
+    public String processSelect(final AdTemplate template, final FieldsContainer container, final BindingResult bindingResult, final HttpServletRequest req) throws Exception {
         if (bindingResult.hasErrors()) {
             System.out.println("Binding rezult ma errory");
             return "SelectAdType";

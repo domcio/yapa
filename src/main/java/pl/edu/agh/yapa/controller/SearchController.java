@@ -13,7 +13,6 @@ import pl.edu.agh.yapa.conversion.FieldsContainer;
 import pl.edu.agh.yapa.model.Ad;
 import pl.edu.agh.yapa.model.AdSnapshot;
 import pl.edu.agh.yapa.model.AdTemplate;
-import pl.edu.agh.yapa.persistence.InvalidDatabaseStateException;
 import pl.edu.agh.yapa.service.AdService;
 import pl.edu.agh.yapa.service.SearchService;
 
@@ -33,7 +32,7 @@ public class SearchController {
     }
 
     @RequestMapping(value = "/search", method = RequestMethod.GET)
-    public ModelAndView selectType() throws InvalidDatabaseStateException {
+    public ModelAndView selectType() throws Exception {
         ModelAndView modelAndView = new ModelAndView("SelectAdTypeForSearch");
         modelAndView.addObject("types", adService.getAdTypes());
         modelAndView.addObject("template", new AdTemplate());
@@ -50,7 +49,7 @@ public class SearchController {
     }
 
     @RequestMapping(value = "/processSearch", method = RequestMethod.POST)
-    public ModelAndView processSearch(final AdTemplate template, final FieldsContainer container, final BindingResult bindingResult, final HttpServletRequest req) throws InvalidDatabaseStateException {
+    public ModelAndView processSearch(final AdTemplate template, final FieldsContainer container, final BindingResult bindingResult, final HttpServletRequest req) throws Exception {
         List<Ad> ads = searchService.search(container);
         ModelAndView modelAndView = new ModelAndView("ListAds");
         modelAndView.addObject("snapshots", AdSnapshot.groupBySnapshots(ads));

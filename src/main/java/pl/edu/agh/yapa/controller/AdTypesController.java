@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import pl.edu.agh.yapa.model.AdType;
-import pl.edu.agh.yapa.persistence.InvalidDatabaseStateException;
 import pl.edu.agh.yapa.service.AdService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,7 +26,7 @@ public class AdTypesController {
     }
 
     @RequestMapping("/types")
-    public ModelAndView list() throws InvalidDatabaseStateException {
+    public ModelAndView list() throws Exception {
         ModelAndView modelAndView = new ModelAndView("ListAdTypes");
         modelAndView.addObject("types", adService.getAdTypes());
 
@@ -62,7 +61,7 @@ public class AdTypesController {
     }
 
     @RequestMapping(value = "/addType")
-    public String submitType(final AdType adType, final HttpServletRequest req) throws InvalidDatabaseStateException {
+    public String submitType(final AdType adType, final HttpServletRequest req) throws Exception {
         adService.insertAdType(adType);
         return "redirect:/types";
     }

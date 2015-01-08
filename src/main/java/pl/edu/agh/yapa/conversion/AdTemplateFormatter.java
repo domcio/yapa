@@ -14,6 +14,7 @@ import java.util.Locale;
  * Created by Dominik on 16.06.2014.
  */
 public class AdTemplateFormatter implements Formatter<AdTemplate> {
+    // TODO move to service layer
     private AdsDao adsDao;
 
     @Autowired
