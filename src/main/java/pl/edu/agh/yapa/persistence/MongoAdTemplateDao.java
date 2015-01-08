@@ -14,13 +14,13 @@ import java.util.List;
 /**
  * Created by piotrek on 08.01.15.
  */
-public class AdTemplateDaoImpl implements AdTemplateDao {
+public class MongoAdTemplateDao implements AdTemplateDao {
     private static final String TEMPLATES_COLLECTION = "AdTemplates";
 
     private final DB database;
     private final AdTypeDao adTypeDao;
 
-    public AdTemplateDaoImpl(DB database, AdTypeDao adTypeDao) {
+    public MongoAdTemplateDao(DB database, AdTypeDao adTypeDao) {
         this.database = database;
         this.adTypeDao = adTypeDao;
         database.createCollection(TEMPLATES_COLLECTION, null);
@@ -41,7 +41,7 @@ public class AdTemplateDaoImpl implements AdTemplateDao {
         DBCollection templates = database.getCollection(TEMPLATES_COLLECTION);
         DBObject newTemplate = new BasicDBObject();
         // TODO remove cast
-        ObjectId typeId = ((AdTypeDaoImpl) adTypeDao).getTypeId(adTemplate.getType());
+        ObjectId typeId = ((MongoAdTypeDao) adTypeDao).getTypeId(adTemplate.getType());
         if (typeId == null) {
             newTemplate.put("type", adTypeDao.insertType(adTemplate.getType()));
         } else {
@@ -54,7 +54,7 @@ public class AdTemplateDaoImpl implements AdTemplateDao {
 
     AdTemplate templateFromJson(DBObject json) throws InvalidDatabaseStateException {
         // TODO remove cast
-        AdType type = ((AdTypeDaoImpl) adTypeDao).getTypeByID((ObjectId) json.get("type"));
+        AdType type = ((MongoAdTypeDao) adTypeDao).getTypeByID((ObjectId) json.get("type"));
         AdTemplate template = new AdTemplate(type);
         for (String adField : json.keySet()) {
             if (!adField.equals("_id") && !adField.equals("type")) {

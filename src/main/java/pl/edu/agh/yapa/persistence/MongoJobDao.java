@@ -2,7 +2,6 @@ package pl.edu.agh.yapa.persistence;
 
 import com.mongodb.*;
 import org.bson.types.ObjectId;
-import pl.edu.agh.yapa.model.AdTemplate;
 import pl.edu.agh.yapa.model.Job;
 import pl.edu.agh.yapa.model.MonitoringJob;
 
@@ -12,13 +11,13 @@ import java.util.List;
 /**
  * Created by piotrek on 08.01.15.
  */
-public class JobDaoImpl implements JobDao {
+public class MongoJobDao implements JobDao {
     private static final String JOBS_COLLECTION = "AdJobs";
 
     private final DB database;
     private final AdTemplateDao adTemplateDao;
 
-    public JobDaoImpl(DB database, AdTemplateDao adTemplateDao) {
+    public MongoJobDao(DB database, AdTemplateDao adTemplateDao) {
         this.database = database;
         this.adTemplateDao = adTemplateDao;
         database.createCollection(JOBS_COLLECTION, null);
@@ -58,7 +57,7 @@ public class JobDaoImpl implements JobDao {
         MonitoringJob job = new MonitoringJob();
         job.setName((String) json.get("name"));
         // TODO remove cast
-        job.setTemplate(((AdTemplateDaoImpl) adTemplateDao).getTemplateByID((ObjectId) json.get("template")));
+        job.setTemplate(((MongoAdTemplateDao) adTemplateDao).getTemplateByID((ObjectId) json.get("template")));
         job.setWebsite((String) json.get("website"));
         return job;
     }

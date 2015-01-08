@@ -22,20 +22,20 @@
 
     <bean id="jobExecutor" class="pl.edu.agh.yapa.extraction.JobExecutor" scope="prototype"/>
 
-    <bean id="adsDao" class="pl.edu.agh.yapa.persistence.AdDaoImpl">
+    <bean id="adsDao" class="pl.edu.agh.yapa.persistence.MongoAdDao">
         <constructor-arg index="0" ref="db" />
     </bean>
 
-    <bean id="adTypeDao" class="pl.edu.agh.yapa.persistence.AdTypeDaoImpl">
+    <bean id="adTypeDao" class="pl.edu.agh.yapa.persistence.MongoAdTypeDao">
         <constructor-arg index="0" ref="db" />
     </bean>
 
-    <bean id="adTemplateDao" class="pl.edu.agh.yapa.persistence.AdTemplateDaoImpl">
+    <bean id="adTemplateDao" class="pl.edu.agh.yapa.persistence.MongoAdTemplateDao">
         <constructor-arg index="0" ref="db" />
         <constructor-arg index="1" ref="adTypeDao" />
     </bean>
 
-    <bean id="jobDao" class="pl.edu.agh.yapa.persistence.JobDaoImpl">
+    <bean id="jobDao" class="pl.edu.agh.yapa.persistence.MongoJobDao">
         <constructor-arg index="0" ref="db" />
         <constructor-arg index="1" ref="adTemplateDao" />
     </bean>

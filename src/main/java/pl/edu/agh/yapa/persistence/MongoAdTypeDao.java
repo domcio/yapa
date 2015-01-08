@@ -10,12 +10,12 @@ import java.util.List;
 /**
  * Created by piotrek on 08.01.15.
  */
-public class AdTypeDaoImpl implements AdTypeDao {
+public class MongoAdTypeDao implements AdTypeDao {
     private static final String TYPES_COLLECTION = "AdTypes";
 
     private final DB database;
 
-    public AdTypeDaoImpl(DB database) {
+    public MongoAdTypeDao(DB database) {
         this.database = database;
         database.createCollection(TYPES_COLLECTION, null);
     }
