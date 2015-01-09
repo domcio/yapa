@@ -11,12 +11,19 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class SmartSearchController {
-
     private final SearchService searchService;
 
     @Autowired
     public SmartSearchController(SearchService searchService) {
         this.searchService = searchService;
+    }
+
+    @RequestMapping("/")
+    public ModelAndView index() throws Exception {
+        ModelAndView modelAndView = new ModelAndView("index");
+        modelAndView.addObject("message", "hiho");
+
+        return modelAndView;
     }
 
     @RequestMapping(value = "/smartSearch", method = RequestMethod.POST)
