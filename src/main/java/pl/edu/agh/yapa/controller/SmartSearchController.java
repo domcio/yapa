@@ -18,14 +18,6 @@ public class SmartSearchController {
         this.searchService = searchService;
     }
 
-    @RequestMapping("/")
-    public ModelAndView index() throws Exception {
-        ModelAndView modelAndView = new ModelAndView("index");
-        modelAndView.addObject("message", "hiho");
-
-        return modelAndView;
-    }
-
     @RequestMapping(value = "/smartSearch", method = RequestMethod.POST)
     public ModelAndView search(final String query, final HttpServletRequest req) throws Exception {
         ModelAndView modelAndView = new ModelAndView("SmartSearchResults");
